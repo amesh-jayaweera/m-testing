@@ -70,7 +70,7 @@ export function EmployeeRegistration() {
                 type: USER_REGISTRATION_DEFAULT
             });
         }
-    },[type, error, message, progress, dispatch])
+    },[processing,type, error, message, progress, dispatch])
 
     function onSubmit() {
 
@@ -96,6 +96,36 @@ export function EmployeeRegistration() {
             // create user account
             dispatch(registerEmployee(employee, passport, policeReport, "EMPLOYEE", () => {}));
         }
+    }
+
+    function onClear() {
+        setEmployee(prevState => ({
+            ...prevState,
+            firstName : "",
+            lastName : "",
+            address : "",
+            email : "",
+            contactNumber : "",
+            gender : "None",
+            birthday : new Date().toISOString().split('T')[0],
+            createdDateTime : new Date(),
+            position : "None"
+        }))
+
+        setValidation(prevState => ({
+            ...prevState,
+            firstNameReq : false,
+            lastNameReq : false,
+            emailReq : false,
+            emailFormatInvalid : false,
+            contactNoReq : false,
+            addressReq : false,
+            genderReq : false,
+            positionReq : false
+        }))
+
+        setPassport(null)
+        setPoliceReport(null)
     }
 
     return (
@@ -164,7 +194,7 @@ export function EmployeeRegistration() {
                                         }))
                                     }}
                             >
-                                <option value="None" selected>Select Gender</option>
+                                <option defaultValue="None">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -260,7 +290,7 @@ export function EmployeeRegistration() {
                                         }))
                                     }}
                             >
-                                <option value="None" selected>Select Position</option>
+                                <option defaultValue="None">Select Position</option>
                                 <option value="Business Developer">Business Developer</option>
                                 <option value="Area Supervisor">Area Supervisor</option>
                             </select>
@@ -310,7 +340,9 @@ export function EmployeeRegistration() {
                             </div>
                         </div>
                         <div className="d-flex justify-content-end">
-                            <button type="reset" className="btn btn-danger mr-3">Clear</button>
+                            <button type="reset" className="btn btn-danger mr-3"
+                                onClick={ () => onClear() }
+                            >Clear</button>
                             <button  className="btn btn-primary" disabled={processing}
                                      onClick={() => {
                                          onSubmit()
