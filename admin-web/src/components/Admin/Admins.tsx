@@ -2,45 +2,44 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/rootReducer";
 import {getAdmins} from "../../store/actions/tablesActions";
-import DataTable from "react-data-table-component";
+import MUIDataTable from "mui-datatables";
 
 const columns = [
     {
-        name: 'Email',
-        selector: 'email',
-        sortable: true,
+        label: 'Email',
+        name: 'email'
     },
     {
-        name: 'First Name',
-        selector: 'firstName',
-        sortable: true,
+        label: 'First Name',
+        name: 'firstName'
     },
     {
-        name: 'Last Name',
-        selector: 'lastName',
-        sortable: true,
+        label: 'Last Name',
+        name: 'lastName'
     },
     {
-        name: 'Gender',
-        selector: 'gender',
-        sortable: true,
+        label: 'Gender',
+        name: 'gender'
     },
     {
-        name: 'Birthday',
-        selector: 'birthday',
-        sortable: true,
+        label: 'Birthday',
+        name: 'birthday'
     },
     {
-        name: 'Address',
-        selector: 'address',
-        sortable: true,
+        label: 'Address',
+        name: 'address'
     },
     {
-        name: 'Contact Number',
-        selector: 'contactNumber',
-        sortable: true,
+        label: 'Contact Number',
+        name: 'contactNumber'
     },
 ];
+
+const options = {
+    searchPlaceholder : "search ...",
+    selectableRowsHeader : false,
+    selectableRowsHideCheckboxes : true
+}
 
 export function Admins() {
 
@@ -50,12 +49,12 @@ export function Admins() {
 
     return (
         <div className="card-box mb-30 ">
-                <DataTable
-                    title="Admin List"
-                    columns={columns}
-                    data={data}
-                    pagination={true}
-                />
+            <MUIDataTable
+                title={"Admins"}
+                data={data}
+                columns={columns}
+                options={options}
+            />
         </div>
     )
 }

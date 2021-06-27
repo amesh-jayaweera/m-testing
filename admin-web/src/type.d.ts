@@ -112,6 +112,3 @@ export interface IEmployeeValidation {
     genderReq : boolean;
     positionReq? : boolean;
 }
-
-export const ADMIN : string = "ADMIN";
-export const EMPLOYEE : string  = "EMPLOYEE";

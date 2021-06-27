@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect} from "react";
+import React, {useEffect} from "react";
 import {Header} from "../Common/Header/Header";
 import {SideBar} from "../Common/SideBar/SideBar";
 import {ContainerNavigation} from "../Common/ContainerNavigation/ContainerNavigation";
@@ -18,7 +18,7 @@ export function HomePage() {
 
     const location = useLocation();
 
-    const { user, success } = useSelector((state: RootState) => state.auth);
+    const { success } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {

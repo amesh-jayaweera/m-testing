@@ -1,6 +1,5 @@
 import {TableActions, AdminListTableState, EmployeeListTableState} from "../../type";
 import {ADMIN_TABLE_DATA, EMPLOYEE_TABLE_DATA} from "../actionTypes";
-import {EmployeeListTable} from "../table";
 
 const initAdminsState : AdminListTableState = {
     data : []
@@ -14,7 +13,6 @@ export const adminTableReducer = ( state: AdminListTableState = initAdminsState,
             }
         default: return state
     }
-    return state
 };
 
 const initEmployeesState : EmployeeListTableState = {
@@ -29,6 +27,5 @@ export const employeeTableReducer = ( state: EmployeeListTableState = initEmploy
             }
         default: return state
     }
-    return state
 };
 

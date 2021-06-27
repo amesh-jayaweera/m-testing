@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import {AuthAction, SignInData, LoggedUser, IEmployee} from '../../type';
+import {AuthAction, SignInData, IEmployee} from '../../type';
 import {SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, SET_SUCCESS} from '../actionTypes';
 import firebase from "firebase";
 import {RootState} from "../reducers/rootReducer";
@@ -36,14 +36,13 @@ export const setLoading = (value: boolean): ThunkAction<void, RootState, null, A
 export const signIn = (data: SignInData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
     return async dispatch => {
         try {
-            const user = await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+            await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
             dispatch({
                 type: SET_USER,
                 payload: data.email
             });
             // console.log(user);
         } catch (err) {
-            console.log('Error',err);
             onError();
             dispatch(setError(err.message));
         }

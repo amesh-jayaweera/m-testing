@@ -2,50 +2,49 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getEmployees} from "../../store/actions/tablesActions";
 import {RootState} from "../../store/reducers/rootReducer";
-import DataTable from "react-data-table-component";
+import MUIDataTable from "mui-datatables";
 
 const columns = [
     {
-        name: 'Email',
-        selector: 'email',
+        label: 'Email',
+        name: 'email'
+    },
+    {
+        label: 'First Name',
+        name: 'firstName'
+    },
+    {
+        label: 'Last Name',
+        name: 'lastName'
+    },
+    {
+        label: 'Gender',
+        name: 'gender'
+    },
+    {
+        label: 'Birthday',
+        name: 'birthday',
         sortable: true,
     },
     {
-        name: 'First Name',
-        selector: 'firstName',
-        sortable: true,
+        label: 'Address',
+        name: 'address'
     },
     {
-        name: 'Last Name',
-        selector: 'lastName',
-        sortable: true,
+        label: 'Position',
+        name: 'contactNumber'
     },
     {
-        name: 'Gender',
-        selector: 'gender',
-        sortable: true,
-    },
-    {
-        name: 'Birthday',
-        selector: 'birthday',
-        sortable: true,
-    },
-    {
-        name: 'Address',
-        selector: 'address',
-        sortable: true,
-    },
-    {
-        name: 'Position',
-        selector: 'contactNumber',
-        sortable: true,
-    },
-    {
-        name: 'Contact Number',
-        selector: 'contactNumber',
-        sortable: true,
+        label: 'Contact Number',
+        name: 'contactNumber'
     },
 ];
+
+const options = {
+    searchPlaceholder : "search ...",
+    selectableRowsHeader : false,
+    selectableRowsHideCheckboxes : true
+}
 
 export function Employees() {
     const dispatch = useDispatch();
@@ -54,11 +53,11 @@ export function Employees() {
 
     return (
         <div className="card-box mb-30 ">
-            <DataTable
-                title="Employees"
-                columns={columns}
+            <MUIDataTable
+                title={"Employees"}
                 data={data}
-                pagination={true}
+                columns={columns}
+                options={options}
             />
         </div>
     )

@@ -1,8 +1,8 @@
-import React, {Suspense, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {HomePage} from "./components/HomePage/HomePage";
 import {createBrowserHistory} from "history";
-import {Switch, Route, Router} from "react-router-dom";
+import {Switch, Router} from "react-router-dom";
 import {Login} from "./components/Login/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./store/reducers/rootReducer";
@@ -25,7 +25,7 @@ function App() {
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
             if(user) {
                 dispatch(setLoading(true));
-                await dispatch(getUserById(user.uid));
+                await dispatch(getUserById(user.email as string));
             }
             dispatch(setLoading(false));
         });
@@ -42,8 +42,8 @@ function App() {
     return (
           <Router history={history}>
               <Switch>
-                  <PublicRoute path="/" component={HomePage} exact />
-                  {/*<PublicRoute path="/login" component={Login} exact />*/}
+                  <PrivateRoute path="/" component={HomePage} exact />
+                  <PublicRoute path="/login" component={Login} exact />
               </Switch>
           </Router>
     );

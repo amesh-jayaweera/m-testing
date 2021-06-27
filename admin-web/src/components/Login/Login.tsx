@@ -70,7 +70,7 @@ export function Login() {
                                             </div>
 
                                             <div className="input-group text-center mt-4">
-                                                <a className="w-100" href={"#"}>Forgot Your Password?</a>
+                                                <a className="w-100" href="/#">Forgot Your Password?</a>
                                             </div>
 
                                             <div className="row mt-2">

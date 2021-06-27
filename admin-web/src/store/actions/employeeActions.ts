@@ -1,4 +1,4 @@
-import {ADMIN, EMPLOYEE, EmployeeRegisterAction, IEmployee} from "../../type";
+import {EmployeeRegisterAction, IEmployee} from "../../type";
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../reducers/rootReducer";
 import firebase from "firebase";

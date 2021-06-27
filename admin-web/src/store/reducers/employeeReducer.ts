@@ -85,5 +85,4 @@ export const employeeReducer = ( state: EmployeeRegistrationState = initState, a
             }
         default: return state
     }
-    return state
 };

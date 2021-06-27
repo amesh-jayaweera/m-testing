@@ -5,7 +5,7 @@ export function Notifications() {
     return (
         <div className="user-notification">
             <div className="dropdown">
-                <a className="dropdown-toggle no-arrow" role="button" data-toggle="dropdown">
+                <a className="dropdown-toggle no-arrow" href="/#" role="button" data-toggle="dropdown">
                     <i className="icon ion-ios-notifications notification-icon"></i>
                     <span className="badge notification-active"></span>
                 </a>
@@ -13,7 +13,7 @@ export function Notifications() {
                     <div className="notification-list mx-h-350 customscroll">
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="/#">
                                     <img src={profilePhotoNotification} alt=""/>
                                     <h3>John Doe</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
