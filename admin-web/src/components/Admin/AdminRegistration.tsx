@@ -314,11 +314,11 @@ export function AdminRegistration() {
                             <button type="reset" className="btn btn-danger mr-3"
                                 onClick={() => onClear()}
                             >Clear</button>
-                            <button  className="btn btn-primary" disabled={processing}
+                            <button className="btn btn-primary"
                                 onClick={() => {
                                     onSubmit()
                                 }}
-                            >Register</button>
+                            >Submit</button>
                         </div>
                     </div>
                 </div>

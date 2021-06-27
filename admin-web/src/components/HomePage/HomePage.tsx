@@ -31,35 +31,34 @@ export function HomePage() {
       <>
           <Header/>
           <SideBar/>
-
           <div className="mobile-menu-overlay"></div>
           <div className="main-container">
               {
-                  (location.hash === '#dashboard' || location.hash === '#' || location.hash === '') && <Dashboard/>
+                  (location.pathname === '#dashboard' || location.hash === '#' || location.hash === '') && <Dashboard/>
               }
               {
-                  location.hash === '#admin-registration' &&
+                  location.hash === '#admin/registration' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Admin Registration"} mainTitle={"Administrators"} mainNav={"admin"} />
                       <AdminRegistration/>
                   </div>
               }
               {
-                  location.hash === '#employee-registration' &&
+                  location.hash === '#employee/registration' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Employee Registration"} mainTitle={"Employees"} mainNav={"employee"} />
                       <EmployeeRegistration/>
                   </div>
               }
               {
-                  location.hash === '#admin-list' &&
+                  location.hash === '#admin' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Admins"} mainTitle={"Admins"} mainNav={"admin"} />
                       <Admins/>
                   </div>
               }
               {
-                  location.hash === '#employee-list' &&
+                  location.hash === '#employee' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Employees"} mainTitle={"Employees"} mainNav={"employee"} />
                       <Employees/>

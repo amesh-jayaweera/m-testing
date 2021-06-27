@@ -42,7 +42,7 @@ function App() {
     return (
           <Router history={history}>
               <Switch>
-                  <PrivateRoute path="/" component={HomePage} exact />
+                  <PrivateRoute path="/" component={HomePage} exact/>
                   <PublicRoute path="/login" component={Login} exact />
               </Switch>
           </Router>

@@ -51,9 +51,9 @@ export function SideBar() {
                             <div className="collapse" id="collapseEmployees">
                                 <ul>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#employee-list">- Employees</a></li>
+                                        className="li-submenu-color" href="#employee">- Employees</a></li>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#employee-registration">- Employee Registration</a>
+                                        className="li-submenu-color" href="#employee/registration">- Employee Registration</a>
                                     </li>
                                 </ul>
                             </div>
@@ -67,9 +67,9 @@ export function SideBar() {
                             <div className="collapse" id="collapseAdmins">
                                 <ul>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#admin-list">- Administrators</a></li>
+                                        className="li-submenu-color" href="#admin">- Administrators</a></li>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#admin-registration">- Admin Registration</a>
+                                        className="li-submenu-color" href="#admin/registration">- Admin Registration</a>
                                     </li>
                                 </ul>
                             </div>
