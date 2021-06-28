@@ -15,6 +15,7 @@ import {Admins} from "../Admin/Admins";
 import {Employees} from "../Employee/Employees";
 import {ScheduleJob} from "../Jobs/ScheduleJob";
 import {Location} from "../Jobs/Common/Popup/Location";
+import {Jobs} from "../Jobs/Jobs";
 
 export function HomePage() {
 
@@ -75,9 +76,13 @@ export function HomePage() {
                       <ScheduleJob/>
                   </div>
               }
-              {/*{*/}
-              {/*    location.hash === '#test' && <Location/>*/}
-              {/*}*/}
+              {
+                  location.hash === '#jobs' &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Scheduled Jobs"} mainTitle={"Scheduled Jobs"} mainNav={"jobs"} />
+                      <Jobs/>
+                  </div>
+              }
           </div>
           <ToastContainer/>
       </>
