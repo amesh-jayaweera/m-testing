@@ -3,6 +3,7 @@ import mapIcon from "../../resources/icons/map_icon.svg";
 import MultiSelect from "react-multi-select-component";
 import {Location} from "./Common/Popup/Location";
 import {useHistory, useLocation} from "react-router";
+import {AddDays} from "./Common/Popup/AddDays";
 
 export function ScheduleJob() {
 
@@ -10,16 +11,13 @@ export function ScheduleJob() {
     const history = useHistory();
 
     const options = [
-        { label: "Grapes", value: "grapes" },
-        { label: "Mango", value: "mango" },
+        { label: "ameshmbjyw97@gmail.com", value: "ameshmbjyw97@gmail.com" },
+        { label: "hiruni97@gmail.com", value: "hiruni97@gmail.com" },
     ];
 
     const [selected, setSelected] = useState([]);
+    const [recurrence, setRecurrence] = useState<string>();
 
-    useEffect(() => {
-        console.log('Hash === ', location.hash);
-    },[location.hash])
-    
     return (
         <div className="pd-20 card-box mb-30">
         <form className="needs-validation">
@@ -67,7 +65,12 @@ export function ScheduleJob() {
 
                             <div className="form-group col-6">
                                 <label>Job Status<sup>*</sup></label>
-                                <select className="custom-select">
+                                <select className="custom-select" onChange={(e) => {
+                                    setRecurrence(e.target.value)
+                                    if(e?.target?.value?.trim() === 'Custom') {
+                                        history.push('#jobs/schedule-new-job#add-recurrence-days')
+                                    }
+                                }}>
                                     <option defaultValue="None">Select Job Status</option>
                                     <option value="Daily">Daily</option>
                                     <option value="Week days">Week days</option>
@@ -142,6 +145,10 @@ export function ScheduleJob() {
             {
                 location.hash === "#jobs/schedule-new-job#add-location" &&
                 <Location/>
+            }
+            {
+                location.hash === "#jobs/schedule-new-job#add-recurrence-days" &&
+                <AddDays/>
             }
         </div>
     )
