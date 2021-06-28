@@ -1,3 +1,8 @@
+/*!
+Version: 3.0.0
+Author: Ankit Hingarajiya - DeskApp
+*/
+
 @charset "utf-8";
 body,
 html {
@@ -13,8 +18,8 @@ html {
 }
 
 *,
-:after,
-:before {
+ :after,
+ :before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin: 0;
@@ -98,6 +103,12 @@ p {
     padding-top: 30px;
 }
 
+.pd-t-20-l-30-r-30-b-0 {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+}
+
 .pd-t-0-l-30-r-30-b-30 {
     padding-left: 30px;
     padding-right: 30px;
@@ -110,6 +121,10 @@ p {
 
 .mb-30 {
     margin-bottom: 30px
+}
+
+.pb-15 {
+    padding-bottom: 15px;
 }
 
 .mt-20 {
@@ -612,7 +627,7 @@ p {
 }
 
 .details-cards {
-    height: calc(100vh - 365px);
+    height: calc(100vh - 325px);
     overflow-y: auto;
 }
 
@@ -789,6 +804,10 @@ textarea.form-control {
 .txt-area-section {
     padding-right: 30px;
     padding-left: 30px;
+}
+
+.form-dialog {
+    margin-bottom: 0rem;
 }
 
 .form-control,
@@ -984,13 +1003,16 @@ table tbody tr td:last-child {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(189, 189, 189);
+    background: #bdbdbd;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+
+/*# sourceMappingURL=style.css.map */
 
 
 /* Round profile image */
@@ -1057,6 +1079,233 @@ table tbody tr td:last-child {
 .minute-item h6 {
     font-size: 15px;
     align-self: flex-end !important;
+}
+
+.hours-item-running {
+    border-radius: 10px;
+}
+
+
+/* wvw-images */
+
+.eve-images {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+
+/* Dashboard */
+
+li p {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.list-job-details {
+    font-size: 18px;
+}
+
+.list-job-id {
+    font-size: 25px !important;
+    font-weight: bold;
+}
+
+.custom-badge {
+    font-size: 1rem !important;
+}
+
+.dash-list-img {
+    min-width: 90px !important;
+    height: 90px !important;
+    background-image: url("../icons/map_icon.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.list-item-dash {
+    transition: background-color 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.list-item-dash:hover {
+    background-color: rgb(243, 243, 243);
+}
+
+.running-jobs hr {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+.schedule-btn {
+    border-radius: 30px !important;
+}
+
+.custom-hr {
+    margin-bottom: 0rem !important;
+}
+
+
+/* Invoice */
+
+.pd-ltr-20 {
+    padding: 20px 20px 0;
+}
+
+.pb-20 {
+    padding-bottom: 20px;
+}
+
+.pb-30 {
+    padding-bottom: 30px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+
+.mb-5 {
+    margin-bottom: 5px !important;
+}
+
+.font-24 {
+    font-size: 24px;
+    line-height: 1.42em;
+}
+
+.font-20 {
+    font-size: 20px;
+    line-height: 1.5em;
+}
+
+.font-14 {
+    font-size: 14px;
+    line-height: 1.71em;
+}
+
+.weight-600 {
+    font-weight: 600;
+}
+
+.min-height-200px {
+    min-height: 200px;
+}
+
+.bootstrap-select .dropdown-toggle.btn-light:not(:disabled):not(.disabled):active {
+    background-color: transparent;
+    border-color: #d4d4d4;
+}
+
+.main-container {
+    padding: 80px 20px 0px 300px;
+}
+
+.invoice-wrap {
+    overflow: auto;
+}
+
+.invoice-box {
+    background: #ffffff;
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.invoice-header {
+    padding-bottom: 0px;
+}
+
+.invoice-desc .invoice-sub {
+    width: 40%;
+    float: left;
+    padding: 8px 15px;
+}
+
+.invoice-desc .invoice-rate {
+    width: 20%;
+    float: left;
+    padding: 8px 15px;
+}
+
+.invoice-desc .invoice-hours {
+    width: 20%;
+    float: left;
+    padding: 8px 15px;
+}
+
+.invoice-desc .invoice-subtotal {
+    width: 20%;
+    float: right;
+    padding: 8px 15px;
+}
+
+.invoice-desc .invoice-desc-head {
+    background: #eaeaea;
+    font-weight: 500;
+}
+
+.invoice-desc .invoice-desc-body {
+    padding-top: 15px;
+    min-height: 400px;
+}
+
+.invoice-desc .invoice-desc-footer .invoice-desc-body {
+    min-height: 50px;
+}
+
+.invoice-desc .invoice-desc-body ul li {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 5px;
+}
+
+.rate-input {
+    width: 40px;
+    border-radius: 5px;
+}
+
+
+/* Job schedule */
+
+.emp-id {
+    margin-left: 25px;
+    margin-right: 3px;
+    padding-bottom: 5px;
+    font-size: 1rem !important;
+    border: 1px solid rgb(189, 189, 189);
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.delete {
+    border: none;
+    background: none;
+}
+
+.emid {
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.select2-selection,
+.select2-selection__arrow {
+    height: 45px !important;
+}
+
+#select2-employeeid-container {
+    padding-top: 7px !important;
+}
+
+.select2-selection {
+    border-radius: 5px 0 0 5px !important;
+}
+
+.select2 {
+    width: calc(100% - 65px) !important;
 }
 
 @media (min-width:1301px) and (max-width:1400px) {

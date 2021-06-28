@@ -20,7 +20,7 @@ export function SideBar() {
                         <li>
                             <a href="#dashboard" className="dropdown-toggle no-arrow">
                                 <i className="icon ion-ios-home custom-icons"></i>
-                                <span className="/dashboard">Home</span>
+                                <span className="dashboard">Home</span>
                             </a>
                         </li>
 

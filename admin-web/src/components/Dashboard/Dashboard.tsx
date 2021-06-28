@@ -3,6 +3,8 @@ import jobIcon from "../../resources/icons/job_icon.svg";
 import employeeIcon from "../../resources/icons/employee_icon.svg";
 import runningIcon from "../../resources/icons/running_icon.svg";
 import doneIcon from "../../resources/icons/done_icon.svg";
+import {UpcomingJobs} from "../Jobs/OnGoing/UpcomingJobs";
+import {RunningJobs} from "../Jobs/OnGoing/RunningJobs";
 
 export function Dashboard() {
 
@@ -86,20 +88,13 @@ export function Dashboard() {
                     </div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-xl-6 mb-30">
-                    <div className="card-box height-100-p pd-20">
-                        <h2 className="h4">Activity</h2>
-                        <div className="job-details-cards">
-                        </div>
-                    </div>
+            <div className="row ">
+                <div className="col-xl-6 mb-30 ">
+                    <UpcomingJobs/>
                 </div>
 
                 <div className="col-xl-6 mb-30">
-                    <div className="card-box height-100-p pd-20">
-                        <h2 className="h4 ">Lead Target</h2>
-                        <div id="chart6"></div>
-                    </div>
+                    <RunningJobs/>
                 </div>
             </div>
         </div>

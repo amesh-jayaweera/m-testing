@@ -38,7 +38,8 @@ export function HomePage() {
           <div className="mobile-menu-overlay"></div>
           <div className="main-container">
               {
-                  (location.pathname === '#dashboard' || location.hash === '#' || location.hash === '') && <Dashboard/>
+                  (location.hash === '#dashboard' || location.hash === '#' || location.hash === '') &&
+                  <Dashboard/>
               }
               {
                   location.hash === '#admin/registration' &&

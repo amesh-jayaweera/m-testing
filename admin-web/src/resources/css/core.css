@@ -41,8 +41,8 @@
 }
 
 *,
-::after,
-::before {
+ ::after,
+ ::before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -2658,7 +2658,7 @@ textarea.form-control.is-valid {
 }
 
 .invalid-feedback {
-    /*display: none;*/
+    display: none;
     width: 100%;
     margin-top: .25rem;
     font-size: 80%;
@@ -11085,8 +11085,8 @@ a.text-dark:hover {
 
 @media print {
     *,
-    ::after,
-    ::before {
+     ::after,
+     ::before {
         text-shadow: none !important;
         -webkit-box-shadow: none !important;
         box-shadow: none !important;
@@ -11171,20 +11171,20 @@ Plugin URI: http://manos.malihu.gr/jquery-custom-content-scroller
 
 
 /*
-CONTENTS:
-	1. BASIC STYLE - Plugin's basic/essential CSS properties (normally, should not be edited).
-	2. VERTICAL SCROLLBAR - Positioning and dimensions of vertical scrollbar.
+CONTENTS: 
+	1. BASIC STYLE - Plugin's basic/essential CSS properties (normally, should not be edited). 
+	2. VERTICAL SCROLLBAR - Positioning and dimensions of vertical scrollbar. 
 	3. HORIZONTAL SCROLLBAR - Positioning and dimensions of horizontal scrollbar.
-	4. VERTICAL AND HORIZONTAL SCROLLBARS - Positioning and dimensions of 2-axis scrollbars.
-	5. TRANSITIONS - CSS3 transitions for hover events, auto-expanded and auto-hidden scrollbars.
-	6. SCROLLBAR COLORS, OPACITY AND BACKGROUNDS
+	4. VERTICAL AND HORIZONTAL SCROLLBARS - Positioning and dimensions of 2-axis scrollbars. 
+	5. TRANSITIONS - CSS3 transitions for hover events, auto-expanded and auto-hidden scrollbars. 
+	6. SCROLLBAR COLORS, OPACITY AND BACKGROUNDS 
 		6.1 THEMES - Scrollbar colors, opacity, dimensions, backgrounds etc. via ready-to-use themes.
 */
 
 
-/*
+/* 
 ------------------------------------------------------------------------------------------------------------------------
-1. BASIC STYLE
+1. BASIC STYLE  
 ------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -11218,9 +11218,9 @@ CONTENTS:
 }
 
 
-/*
+/* 
 ------------------------------------------------------------------------------------------------------------------------
-2. VERTICAL SCROLLBAR
+2. VERTICAL SCROLLBAR 
 y-axis
 ------------------------------------------------------------------------------------------------------------------------
 */
@@ -11349,9 +11349,9 @@ y-axis
 }
 
 
-/*
+/* 
 ------------------------------------------------------------------------------------------------------------------------
-3. HORIZONTAL SCROLLBAR
+3. HORIZONTAL SCROLLBAR 
 x-axis
 ------------------------------------------------------------------------------------------------------------------------
 */
@@ -11446,10 +11446,10 @@ x-axis
 }
 
 
-/*
+/* 
 ------------------------------------------------------------------------------------------------------------------------
-4. VERTICAL AND HORIZONTAL SCROLLBARS
-yx-axis
+4. VERTICAL AND HORIZONTAL SCROLLBARS 
+yx-axis 
 ------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -11538,9 +11538,9 @@ yx-axis
 }
 
 
-/*
+/* 
 ------------------------------------------------------------------------------------------------------------------------
-5. TRANSITIONS
+5. TRANSITIONS  
 ------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -11563,16 +11563,16 @@ yx-axis
 }
 
 
-/*
+/* 
 ------------------------------------------------------------------------------------------------------------------------
-6. SCROLLBAR COLORS, OPACITY AND BACKGROUNDS
+6. SCROLLBAR COLORS, OPACITY AND BACKGROUNDS  
 ------------------------------------------------------------------------------------------------------------------------
 */
 
 
-/*
+/* 
 	----------------------------------------
-	6.1 THEMES
+	6.1 THEMES 
 	----------------------------------------
 	*/
 
@@ -11636,6 +11636,8 @@ yx-axis
 .mCSB_scrollTools .mCSB_buttonDown,
 .mCSB_scrollTools .mCSB_buttonLeft,
 .mCSB_scrollTools .mCSB_buttonRight {
+    /*background-image: url(mCSB_buttons.png);*/
+    /* css sprites */
     background-repeat: no-repeat;
     opacity: 0.4;
     filter: "alpha(opacity=40)";
@@ -11644,8 +11646,8 @@ yx-axis
 
 .mCSB_scrollTools .mCSB_buttonUp {
     background-position: 0 0;
-    /*
-		sprites locations
+    /* 
+		sprites locations 
 		light: 0 0, -16px 0, -32px 0, -48px 0, 0 -72px, -16px -72px, -32px -72px
 		dark: -80px 0, -96px 0, -112px 0, -128px 0, -80px -72px, -96px -72px, -112px -72px
 		*/
@@ -11653,7 +11655,7 @@ yx-axis
 
 .mCSB_scrollTools .mCSB_buttonDown {
     background-position: 0 -20px;
-    /*
+    /* 
 		sprites locations
 		light: 0 -20px, -16px -20px, -32px -20px, -48px -20px, 0 -92px, -16px -92px, -32px -92px
 		dark: -80px -20px, -96px -20px, -112px -20px, -128px -20px, -80px -92px, -96px -92px, -112 -92px
@@ -11662,8 +11664,8 @@ yx-axis
 
 .mCSB_scrollTools .mCSB_buttonLeft {
     background-position: 0 -40px;
-    /*
-		sprites locations
+    /* 
+		sprites locations 
 		light: 0 -40px, -20px -40px, -40px -40px, -60px -40px, 0 -112px, -20px -112px, -40px -112px
 		dark: -80px -40px, -100px -40px, -120px -40px, -140px -40px, -80px -112px, -100px -112px, -120px -112px
 		*/
@@ -11671,8 +11673,8 @@ yx-axis
 
 .mCSB_scrollTools .mCSB_buttonRight {
     background-position: 0 -56px;
-    /*
-		sprites locations
+    /* 
+		sprites locations 
 		light: 0 -56px, -20px -56px, -40px -56px, -60px -56px, 0 -128px, -20px -128px, -40px -128px
 		dark: -80px -56px, -100px -56px, -120px -56px, -140px -56px, -80px -128px, -100px -128px, -120px -128px
 		*/
