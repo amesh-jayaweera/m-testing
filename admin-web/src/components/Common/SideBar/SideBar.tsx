@@ -20,7 +20,7 @@ export function SideBar() {
                         <li>
                             <a href="#dashboard" className="dropdown-toggle no-arrow">
                                 <i className="icon ion-ios-home custom-icons"></i>
-                                <span className="#dashboard">Home</span>
+                                <span className="/dashboard">Home</span>
                             </a>
                         </li>
 
@@ -34,10 +34,10 @@ export function SideBar() {
                                     <li className="li-submenu"><a
                                         className="li-submenu-color" href="#jobs">- Jobs</a></li>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#job-scheduling">- Job Scheduling</a>
+                                        className="li-submenu-color" href="#jobs/schedule-new-job">- Job Scheduling</a>
                                     </li>
                                     <li className="li-submenu">
-                                        <a className="li-submenu-color" href="#job-history">- Job History</a>
+                                        <a className="li-submenu-color" href="#jobs/job-history">- Job History</a>
                                     </li>
                                 </ul>
                             </div>

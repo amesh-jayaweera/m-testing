@@ -13,6 +13,8 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {Admins} from "../Admin/Admins";
 import {Employees} from "../Employee/Employees";
+import {ScheduleJob} from "../Jobs/ScheduleJob";
+import {Location} from "../Jobs/Common/Popup/Location";
 
 export function HomePage() {
 
@@ -64,6 +66,16 @@ export function HomePage() {
                       <Employees/>
                   </div>
               }
+              {
+                  (location.hash === '#jobs/schedule-new-job' || location.hash === '#jobs/schedule-new-job#add-location') &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Schedule Job"} mainTitle={"Jobs"} mainNav={"jobs"} />
+                      <ScheduleJob/>
+                  </div>
+              }
+              {/*{*/}
+              {/*    location.hash === '#test' && <Location/>*/}
+              {/*}*/}
           </div>
           <ToastContainer/>
       </>
