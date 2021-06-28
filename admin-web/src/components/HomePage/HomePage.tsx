@@ -14,9 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Admins} from "../Admin/Admins";
 import {Employees} from "../Employee/Employees";
 import {ScheduleJob} from "../Jobs/ScheduleJob";
-import {Location} from "../Jobs/Common/Popup/Location";
 import {Jobs} from "../Jobs/Jobs";
 import {JobHistory} from "../Jobs/JobHistory";
+import {Payments} from "../Payments/Payments";
 
 export function HomePage() {
 
@@ -89,6 +89,13 @@ export function HomePage() {
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Job History"} mainTitle={"Job History"} mainNav={"jobs"} />
                       <JobHistory/>
+                  </div>
+              }
+              {
+                  location.hash === '#payment' &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Payments"} mainTitle={"Payments"} mainNav={"payments"} />
+                      <Payments/>
                   </div>
               }
           </div>
