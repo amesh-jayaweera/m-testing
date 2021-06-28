@@ -16,6 +16,7 @@ import {Employees} from "../Employee/Employees";
 import {ScheduleJob} from "../Jobs/ScheduleJob";
 import {Location} from "../Jobs/Common/Popup/Location";
 import {Jobs} from "../Jobs/Jobs";
+import {JobHistory} from "../Jobs/JobHistory";
 
 export function HomePage() {
 
@@ -81,6 +82,13 @@ export function HomePage() {
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Scheduled Jobs"} mainTitle={"Scheduled Jobs"} mainNav={"jobs"} />
                       <Jobs/>
+                  </div>
+              }
+              {
+                  location.hash === '#jobs/history' &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Job History"} mainTitle={"Job History"} mainNav={"jobs"} />
+                      <JobHistory/>
                   </div>
               }
           </div>
