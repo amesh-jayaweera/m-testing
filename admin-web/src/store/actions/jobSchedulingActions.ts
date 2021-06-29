@@ -50,7 +50,7 @@ export const scheduleJob = (jobForm : IJobForm , user : LoggedUser , onError: ()
                 .then((docRef : any) => {
 
                     let _docRef = db.collection('jobs').doc((docRef.id));
-                    _docRef.set({
+                    const updated = _docRef.set({
                         id : docRef.id
                     }, { merge: true });
 

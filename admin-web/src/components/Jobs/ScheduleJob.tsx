@@ -122,6 +122,15 @@ export function ScheduleJob() {
             assignedEmployees : selectedEmployees
         }))
 
+        // set validations before submitting
+        setValidation(prevState => ({
+            ...prevState,
+            titleReq : !job.title,
+            categoryReq : !job.category,
+            descriptionReq : !job.description,
+            addressReq : !job.address
+        }))
+
         if(job.title && job.category && job.description && job.address && job.startingDate && recurrence !== "None" &&
             validateTime(job.shiftOn) && validateTime(job.shiftOff) && ValidateShifts(job.shiftOn, job.shiftOff)) {
             if(recurrence === "Custom" && job.days.length === 0) {
@@ -160,6 +169,8 @@ export function ScheduleJob() {
             assignedEmployees : []
         }))
 
+        setRecurrence("None");
+        setSelectedEmployees([]);
         setValidation(prevState => ({
             ...prevState,
             titleReq : false,
@@ -379,7 +390,7 @@ export function ScheduleJob() {
                 </div>
 
                 <div className="d-flex justify-content-end">
-                    <button className="btn btn-danger mr-3"
+                    <button type="reset" className="btn btn-danger mr-3"
                         onClick={() => onClear()}
                     >Clear</button>
                     <button type="button" className="btn btn-primary "

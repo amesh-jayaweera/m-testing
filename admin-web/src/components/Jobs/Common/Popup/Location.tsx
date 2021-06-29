@@ -158,7 +158,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                        lon4 : Number(e.target.value)
                                                    }))
                                                }}
-                                               value={location.lat4}
+                                               value={location.lon4}
                                         />
                                     {
                                         !ValidateLongitude(location.lon4) &&  <small className="invalid-feedback">Invalid</small>
