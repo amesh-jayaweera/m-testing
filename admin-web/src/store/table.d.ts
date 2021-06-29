@@ -1,3 +1,4 @@
+import {ILocation} from "../type";
 
 export interface AdminListTable {
     id : number;
@@ -20,5 +21,27 @@ export interface EmployeeListTable {
     contactNumber : string;
     address : string;
     position :  string;
+}
+
+export interface JobListTable {
+    id : number;
+    startedDate : string;
+    jobID : string;
+    title : string;
+    category : string;
+    address : string;
+    recurrence : string;
+    shiftOn : string;
+    shiftOff : string;
+    days : string;
+    location : ILocation;
+    status : string;
+    noOfWorkedEmployees : any;
+    assignedEmployees : any[];
+    active : boolean;
+    createdAdmin : string | "NOT_DEFINED";
+    createdDate : string;
+    updatedAdmin : string;
+    updatedDate : string;
 }
 

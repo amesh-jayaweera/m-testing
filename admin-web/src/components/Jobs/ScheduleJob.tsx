@@ -18,7 +18,6 @@ import {
     SCHEDULE_JOB_SUCCESS,
     SCHEDULE_JOB_TITLE_ALREADY_EXISTS
 } from "../../store/actionTypes";
-import {bool} from "prop-types";
 
 const defaultShiftOnTime : string = "08:00";
 const defaultShiftOffTime : string = "17:00";
@@ -72,10 +71,11 @@ export function ScheduleJob() {
 
     const { type, error , message } = useSelector((state: RootState) => state.scheduleJob);
     const { user } = useSelector((state: RootState) => state.auth);
-    const [processing, setProcessing] = useState<boolean>();
+    const [processing, setProcessing] = useState<boolean>(false);
 
     useEffect(() => {
         if(type === SCHEDULE_JOB_SUCCESS) {
+            setProcessing(false)
             Success(message as string)
             dispatch({
                 type : SCHEDULE_JOB_DEFAULT
@@ -138,6 +138,10 @@ export function ScheduleJob() {
             if(recurrence === "Custom" && job.days.length === 0) {
                 history.push('#jobs/schedule-new-job#add-recurrence-days')
             } else {
+                setProcessing(true)
+                dispatch({
+                    type : SCHEDULE_JOB_DEFAULT
+                })
                 dispatch(scheduleJob(job,user as LoggedUser,() => {
                     Failure("Failed to schedule the new job. Something went wrong!");
                 }));
@@ -397,6 +401,7 @@ export function ScheduleJob() {
                     >Clear</button>
                     <button type="button" className="btn btn-primary "
                         onClick={() => onSubmit()}
+                            disabled={processing}
                     >Schedule</button>
                 </div>
 

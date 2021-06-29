@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getEmployees} from "../../store/actions/tablesActions";
 import {RootState} from "../../store/reducers/rootReducer";
@@ -7,7 +7,11 @@ import MUIDataTable from "mui-datatables";
 const columns = [
     {
         label: 'Email',
-        name: 'email'
+        name: 'email',
+        options : {
+            display : true,
+            viewColumns : false
+        }
     },
     {
         label: 'First Name',
@@ -48,8 +52,11 @@ const options = {
 
 export function Employees() {
     const dispatch = useDispatch();
-    dispatch(getEmployees());
     const { data } = useSelector((state: RootState) => state.employeeTable);
+
+    useEffect(() => {
+        dispatch(getEmployees());
+    },[])
 
     return (
         <div className="card-box mb-30 ">

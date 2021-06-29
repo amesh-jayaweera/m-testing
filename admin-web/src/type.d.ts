@@ -105,6 +105,10 @@ export interface EmployeeEmailsState {
     emails : any[];
 }
 
+export interface ScheduledTableState {
+    data : any[];
+}
+
 export interface IEmployeeValidation {
     firstNameReq : boolean;
     lastNameReq : boolean;

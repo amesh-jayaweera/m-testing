@@ -1,30 +1,103 @@
-import React from "react";
+import React, {useEffect} from "react";
 import MUIDataTable from "mui-datatables";
+import {useDispatch, useSelector} from "react-redux";
+import {getScheduledJobs} from "../../store/actions/tablesActions";
+import {RootState} from "../../store/reducers/rootReducer";
 
 const columns = [
     {
+        label: 'Date',
+        name: 'startedDate',
+        options  : {
+            display : false
+        }
+    },
+    {
         label: 'Job Id',
-        name: 'jobID'
+        name: 'jobID',
+        options : {
+            display : false
+        }
     },
     {
         label: 'Title',
         name: 'title'
     },
     {
+        label : 'Category',
+        name : 'category'
+    },
+    {
         label: 'Address',
-        name: 'address'
+        name: 'address',
+        options : {
+            display : false
+        }
     },
     {
         label: 'Recurrence',
-        name: 'recurrence'
+        name: 'recurrence',
     },
     {
-        label: 'Shift',
-        name: 'shift'
+        label: 'Shift On',
+        name: 'shiftOn'
     },
     {
-        label: 'No. of Assigned Employees',
-        name: 'noOfAssignedEmployees'
+        label: 'Shift Off',
+        name: 'shiftOff'
+    },
+    {
+        label : 'Recurrence Days',
+        name : 'days',
+        options : {
+            display : false
+        }
+    },
+    {
+        label : 'Status',
+        name : 'status'
+    },
+    {
+        label: 'No. of Worked Employees',
+        name: 'noOfWorkedEmployees',
+        options : {
+            display : false
+        }
+    },
+    {
+        label : 'Active',
+        name : 'active',
+        options : {
+            display : false
+        }
+    },
+    {
+        label : 'Created By',
+        name : 'createdAdmin',
+        options : {
+            display : false
+        }
+    },
+    {
+        label : 'Created Date',
+        name : 'createdDate',
+        options : {
+            display : false
+        }
+    },
+    {
+        label : 'Updated By',
+        name : 'updatedAdmin',
+        options : {
+            display : false
+        }
+    },
+    {
+        label : 'Updated Date',
+        name : 'updatedDate',
+        options : {
+            display : false
+        }
     }
 ];
 
@@ -32,16 +105,16 @@ const options = {
     searchPlaceholder : "search ...",
     selectableRowsHeader : false,
     selectableRowsHideCheckboxes : true
-}
+};
 
 export function Jobs() {
 
-    const data = [
-        ['E1000', 'University of Moratuwa Cleaning Service', 'Katubedda, Moratuwa', 'Daily', '08:00 - 17:00',
-            <div className="badge badge-dyellow text-dark">30</div>],
-        ['E1001', 'University of Kelania Cleaning Service', 'Kelaniya', 'Weekly', '08:00 - 17:00',
-            <div className="badge badge-dyellow text-dark">70</div>]
-    ];
+    const dispatch = useDispatch();
+    const { data } = useSelector((state: RootState) => state.scheduleJobTable);
+
+    useEffect(() => {
+        dispatch(getScheduledJobs());
+    },[])
 
     return (
         <div className="card-box mb-30 ">

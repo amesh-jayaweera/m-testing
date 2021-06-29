@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/rootReducer";
 import {getAdmins} from "../../store/actions/tablesActions";
@@ -44,8 +44,11 @@ const options = {
 export function Admins() {
 
     const dispatch = useDispatch();
-    dispatch(getAdmins());
     const { data } = useSelector((state: RootState) => state.adminTable);
+
+    useEffect(() => {
+        dispatch(getAdmins());
+    },[])
 
     return (
         <div className="card-box mb-30 ">
