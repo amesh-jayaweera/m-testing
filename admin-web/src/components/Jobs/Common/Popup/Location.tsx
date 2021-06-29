@@ -46,6 +46,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                    lat1 : Number(e.target.value)
                                                }))
                                            }}
+                                           value={location.lat1}
                                     />
                                     {
                                         !ValidateLatitude(location.lat1) &&  <small className="invalid-feedback">Invalid</small>
@@ -58,6 +59,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                        lon1 : Number(e.target.value)
                                                    }))
                                                }}
+                                               value={location.lon1}
                                         />
                                     {
                                         !ValidateLongitude(location.lon1) &&  <small className="invalid-feedback">Invalid</small>
@@ -77,6 +79,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                    lat2 : Number(e.target.value)
                                                }))
                                            }}
+                                           value={location.lat2}
                                     />
                                     {
                                         !ValidateLatitude(location.lat2) &&  <small className="invalid-feedback">Invalid</small>
@@ -89,6 +92,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                        lon2 : Number(e.target.value)
                                                    }))
                                                }}
+                                               value={location.lon2}
                                         />
                                     {
                                         !ValidateLongitude(location.lon2) &&  <small className="invalid-feedback">Invalid</small>
@@ -108,6 +112,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                    lat3 : Number(e.target.value)
                                                }))
                                            }}
+                                           value={location.lat3}
                                     />
                                     {
                                         !ValidateLatitude(location.lat3) &&  <small className="invalid-feedback">Invalid</small>
@@ -120,6 +125,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                        lon3 : Number(e.target.value)
                                                    }))
                                                }}
+                                               value={location.lon3}
                                         />
                                     {
                                         !ValidateLongitude(location.lon3) &&  <small className="invalid-feedback">Invalid</small>
@@ -139,6 +145,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                    lat4 : Number(e.target.value)
                                                }))
                                            }}
+                                           value={location.lat4}
                                     />
                                     {
                                         !ValidateLatitude(location.lat4) &&  <small className="invalid-feedback">Invalid</small>
@@ -151,6 +158,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                        lon4 : Number(e.target.value)
                                                    }))
                                                }}
+                                               value={location.lat4}
                                         />
                                     {
                                         !ValidateLongitude(location.lon4) &&  <small className="invalid-feedback">Invalid</small>

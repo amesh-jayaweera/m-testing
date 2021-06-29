@@ -45,7 +45,7 @@ export const scheduleJob = (jobForm : IJobForm , user : LoggedUser , onError: ()
         const jobExists = await db.collection('jobs')
             .where("title","==",job.title.trim()).get();
 
-        if(!jobExists) {
+        if(jobExists) {
             db.collection("jobs").doc().set(job)
                 .then((docRef : any) => {
 

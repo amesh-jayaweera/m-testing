@@ -153,6 +153,18 @@ export function ScheduleJob() {
         }))
     }
 
+    function modifiedLocationString() {
+        let location : ILocation = job.locations;
+        return String(location.lat1) +
+            String(location.lon1) +
+            String(location.lat2) +
+            String(location.lon2) +
+            String(location.lat3) +
+            String(location.lon3) +
+            String(location.lat4) +
+            String(location.lon4)
+    }
+
     return (
         <div className="pd-20 card-box mb-30">
         <form className="needs-validation">
@@ -321,7 +333,7 @@ export function ScheduleJob() {
                     <div className="form-group">
                         <label>Locations<sup>*</sup></label>
                         <div className="input-group">
-                            <input type="text" className="form-control" readOnly={true}/>
+                            <input type="text" className="form-control" readOnly={true} value={modifiedLocationString()} />
                                 <div className="input-group-append">
                                         <span className="input-group-text btn bg-primary btn-primary " id="basic-addon2">
                                                 <span><img width="24px" height="24px" src={mapIcon}
