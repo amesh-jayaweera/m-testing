@@ -175,13 +175,13 @@ export function ScheduleJob() {
 
     function modifiedLocationString() {
         let location : ILocation = job.locations;
-        return String(location.lat1) +
-            String(location.lon1) +
-            String(location.lat2) +
-            String(location.lon2) +
-            String(location.lat3) +
-            String(location.lon3) +
-            String(location.lat4) +
+        return String(location.lat1) + ',' +
+            String(location.lon1) + ',' +
+            String(location.lat2) + ',' +
+            String(location.lon2) + ',' +
+            String(location.lat3) + ',' +
+            String(location.lon3) + ',' +
+            String(location.lat4) + ',' +
             String(location.lon4)
     }
 

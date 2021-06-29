@@ -117,14 +117,14 @@ export interface IEmployeeValidation {
 }
 
 export interface ILocation {
-    lat1 : number;
-    lon1 : number;
-    lat2 : number;
-    lon2 : number;
-    lat3 : number;
-    lon3 : number;
-    lat4 : number;
-    lon4 : number;
+    lat1 : number | 0.0;
+    lon1 : number | 0.0;
+    lat2 : number | 0.0;
+    lon2 : number | 0.0;
+    lat3 : number | 0.0;
+    lon3 : number | 0.0;
+    lat4 : number | 0.0;
+    lon4 : number | 0.0;
 }
 
 export interface IJobForm {
