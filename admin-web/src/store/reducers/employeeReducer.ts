@@ -1,5 +1,6 @@
-import { EmployeeRegisterAction, EmployeeRegistrationState} from "../../type";
+import {EmployeeEmailsAction, EmployeeEmailsState, EmployeeRegisterAction, EmployeeRegistrationState} from "../../type";
 import {
+    EMPLOYEE_EMAILS,
     PASSPORT_UPLOAD_FAILED,
     PASSPORT_UPLOAD_SUCCESS, POLICE_REPORT_UPLOAD_FAILED, POLICE_REPORT_UPLOAD_SUCCESS,
     USER_ALREADY_EXISTS, USER_REGISTRATION_COMPLETED, USER_REGISTRATION_DEFAULT,
@@ -86,3 +87,19 @@ export const employeeReducer = ( state: EmployeeRegistrationState = initState, a
         default: return state
     }
 };
+
+const initStateEmployeeEmailsState : EmployeeEmailsState = {
+    emails : []
+};
+
+export const employeeEmailsReducer = ( state: EmployeeEmailsState = initStateEmployeeEmailsState, action: EmployeeEmailsAction) => {
+    switch (action.type) {
+        case EMPLOYEE_EMAILS :
+            return {
+                ...state,
+                emails: action.emails
+            }
+        default:
+            return state
+    }
+}

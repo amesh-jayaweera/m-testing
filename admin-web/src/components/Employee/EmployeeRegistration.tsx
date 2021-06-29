@@ -194,7 +194,7 @@ export function EmployeeRegistration() {
                                         }))
                                     }}
                             >
-                                <option defaultValue="None">Select Gender</option>
+                                <option value="None">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -290,7 +290,7 @@ export function EmployeeRegistration() {
                                         }))
                                     }}
                             >
-                                <option defaultValue="None">Select Position</option>
+                                <option value="None">Select Position</option>
                                 <option value="Business Developer">Business Developer</option>
                                 <option value="Area Supervisor">Area Supervisor</option>
                             </select>

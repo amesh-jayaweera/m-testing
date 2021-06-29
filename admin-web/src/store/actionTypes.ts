@@ -21,6 +21,9 @@ export const SET_SUCCESS = 'SET_SUCCESS';
 export const ADMIN_TABLE_DATA = "ADMIN_TABLE_DATA";
 export const EMPLOYEE_TABLE_DATA = "EMPLOYEE_TABLE_DATA";
 
+// Job Scheduling
+export const EMPLOYEE_EMAILS = "EMPLOYEE_EMAILS";
+
 // Other
 export const TOGGLE = "SET_TOGGLE";
 export const ERROR = "ERROR";

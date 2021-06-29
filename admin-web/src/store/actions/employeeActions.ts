@@ -1,9 +1,10 @@
-import {EmployeeRegisterAction, IEmployee} from "../../type";
+import {EmployeeEmailsAction, EmployeeRegisterAction, IEmployee} from "../../type";
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../reducers/rootReducer";
 import firebase from "firebase";
 
 import {
+    EMPLOYEE_EMAILS,
     PASSPORT_UPLOAD_FAILED, PASSPORT_UPLOAD_SUCCESS, POLICE_REPORT_UPLOAD_FAILED, POLICE_REPORT_UPLOAD_SUCCESS,
     USER_ALREADY_EXISTS, USER_REGISTRATION_COMPLETED,
     USER_REGISTRATION_FAILED,
@@ -155,4 +156,26 @@ function getProgressStep(progress : number) {
     else
         progress = 100;
     return progress;
+}
+
+export const getAllEmployeeEmails = (): ThunkAction<void, RootState, null, EmployeeEmailsAction> => {
+
+    const db = firebase.firestore();
+
+    return async dispatch => {
+        db.collection("employees").get().then((querySnapshot) => {
+            let emails : any[] = [];
+            querySnapshot.forEach((doc) => {
+                let data = doc.id?.trim();
+                if(data != null) {
+                    emails.push({label : data, value : data});
+                }
+            });
+
+            dispatch({
+                type : EMPLOYEE_EMAILS,
+                emails : emails
+            })
+        });
+    }
 }

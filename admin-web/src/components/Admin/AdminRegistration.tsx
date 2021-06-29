@@ -190,7 +190,7 @@ export function AdminRegistration() {
                                         }))
                                     }}
                             >
-                                <option defaultValue="None">Select Gender</option>
+                                <option value="None">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>

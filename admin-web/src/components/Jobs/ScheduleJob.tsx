@@ -4,19 +4,136 @@ import MultiSelect from "react-multi-select-component";
 import {Location} from "./Common/Popup/Location";
 import {useHistory, useLocation} from "react-router";
 import {AddDays} from "./Common/Popup/AddDays";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/reducers/rootReducer";
+import {getAllEmployeeEmails} from "../../store/actions/employeeActions";
+import {IJob, IJobForm, IJobValidation, ILocation} from "../../type";
+import {validateTime} from "../../util/Regex";
+import {ValidateShifts} from "../../util/Validation";
+
+const defaultShiftOnTime : string = "08:00";
+const defaultShiftOffTime : string = "17:00"
+const days : string[] = ['Mon', 'Tue', 'Wed' ,'Thu', 'Fri', 'Sat' , 'Sun'];
 
 export function ScheduleJob() {
 
     const location = useLocation();
     const history = useHistory();
-
-    const options = [
-        { label: "ameshmbjyw97@gmail.com", value: "ameshmbjyw97@gmail.com" },
-        { label: "hiruni97@gmail.com", value: "hiruni97@gmail.com" },
-    ];
-
-    const [selected, setSelected] = useState([]);
+    const dispatch = useDispatch();
+    useEffect(()=> {
+        dispatch(getAllEmployeeEmails())
+    },[])
+    const { emails } = useSelector((state: RootState) => state.employeeEmails);
+    const [selectedEmployees, setSelectedEmployees] = useState([]);
     const [recurrence, setRecurrence] = useState<string>();
+    const [job, setJob] = useState<IJobForm>(
+        {
+            title : "",
+            category : "None",
+            description : "",
+            address : "",
+            startingDate : new Date().toISOString().split('T')[0],
+            recurrence : "None",
+            days : [],
+            shiftOn : defaultShiftOnTime,
+            shiftOff : defaultShiftOffTime,
+            locations : {
+                lat1 : 0.0,
+                lon1 : 0.0,
+                lat2 : 0.0,
+                lon2 : 0.0,
+                lat3 : 0.0,
+                lon3 : 0.0,
+                lat4 : 0.0,
+                lon4 : 0.0,
+            },
+            assignedEmployees : []
+        }
+    );
+    const [validation, setValidation] = useState<IJobValidation>({
+        titleReq : false,
+        categoryReq : false,
+        descriptionReq : false,
+        addressReq : false
+    });
+
+    // set recurrence days
+    useEffect(() => {
+        if(recurrence === 'None') {
+            setJob(prevState => ({
+                ...prevState,
+                days : []
+            }))
+        } else if(recurrence === 'Daily') {
+            setJob(prevState => ({
+                ...prevState,
+                days : days
+            }))
+        } else if(recurrence === 'Week days') {
+            setJob(prevState => ({
+                ...prevState,
+                days : [days[0],days[1],days[2],days[3],days[4]]
+            }))
+        } else if(recurrence === 'Weekend') {
+            setJob(prevState => ({
+                ...prevState,
+                days : [days[5] , days[6]]
+            }))
+        }
+    },[recurrence])
+
+
+    function onSubmit() {
+        setJob(prevState => ({
+            ...prevState,
+            recurrence : recurrence as string,
+            assignedEmployees : selectedEmployees
+        }))
+
+        if(job.title && job.category && job.description && job.address && job.startingDate && recurrence !== "None" &&
+            validateTime(job.shiftOn) && validateTime(job.shiftOff) && ValidateShifts(job.shiftOn, job.shiftOff)) {
+            if(recurrence === "Custom" && job.days.length === 0) {
+                history.push('#jobs/schedule-new-job#add-recurrence-days')
+            } else {
+                console.log(job)
+            }
+        }
+    }
+
+    function onClear() {
+
+        setJob(prevState => ({
+            ...prevState,
+            title : "",
+            category : "None",
+            description : "",
+            address : "",
+            startingDate : new Date().toISOString().split('T')[0],
+            recurrence : "None",
+            days : [],
+            shiftOn : defaultShiftOnTime,
+            shiftOff : defaultShiftOffTime,
+            locations : {
+                lat1 : 0.0,
+                lon1 : 0.0,
+                lat2 : 0.0,
+                lon2 : 0.0,
+                lat3 : 0.0,
+                lon3 : 0.0,
+                lat4 : 0.0,
+                lon4 : 0.0,
+            },
+            assignedEmployees : []
+        }))
+
+        setValidation(prevState => ({
+            ...prevState,
+            titleReq : false,
+            categoryReq : false,
+            descriptionReq : false,
+            addressReq : false
+        }))
+    }
 
     return (
         <div className="pd-20 card-box mb-30">
@@ -26,41 +143,80 @@ export function ScheduleJob() {
 
                     <div className="form-group">
                         <label>Job Title<sup>*</sup></label>
-                        <input className="form-control" type="text" placeholder="Job Title" required/>
-                        <small className="invalid-feedback">The job title is required.</small>
+                        <input className="form-control" type="text" placeholder="Job Title" required
+                               onChange={(e)=> {
+                                   setJob(prevState => ({
+                                       ...prevState,
+                                       title : e.target.value
+                                   }))
+                                   setValidation(prevState => ({
+                                       ...prevState,
+                                       titleReq : !e.target.value
+                                   }))
+                               }}
+                        />
+                        {
+                            validation.titleReq && <small className="invalid-feedback">The job title is required.</small>
+                        }
                     </div>
 
                     <div className="form-group">
                         <label>Job Category<sup>*</sup></label>
-                        <select className="custom-select">
-                            <option defaultValue="None">Select Job Category</option>
+                        <select className="custom-select" onChange={(e)=> {
+                            setJob(prevState => ({
+                                ...prevState,
+                                category : e.target.value
+                            }))
+                            setValidation(prevState => ({
+                                ...prevState,
+                                categoryReq : !e.target.value || e.target.value === "None"
+                            }))
+                        }}>
+                            <option value="None">Select Job Category</option>
                             <option value="Cleaning Service">Cleaning Service</option>
                             <option value="Facility Management">Facility Management</option>
                             <option value="Body Corporate Service">Body Corporate Service</option>
                             <option value="Security Service">Security Service</option>
                         </select>
-                        <small className="invalid-feedback">Please Select Job Category.</small>
+                        {
+                            validation.categoryReq && <small className="invalid-feedback">Please Select Job Category.</small>
+                        }
                     </div>
 
                     <div className="form-group">
-                        <label>
-                            Job Description
-                            <sup>*</sup>
-                        </label>
-                        <textarea className="form-control " required></textarea>
-                        <small className="invalid-feedback">The description is required</small>
+                        <label>Job Description<sup>*</sup></label>
+                        <textarea className="form-control " required onChange={(e)=> {
+                            setJob(prevState => ({
+                                ...prevState,
+                                description : e.target.value
+                            }))
+                            setValidation(prevState => ({
+                                ...prevState,
+                                descriptionReq : !e.target.value
+                            }))
+                        }}></textarea>
+                        {
+                            validation.descriptionReq && <small className="invalid-feedback">The description is required</small>
+                        }
                     </div>
 
                     <div className="form-group">
                         <div className="row">
 
                             <div className="form-group col-6">
-                                <label>
-                                    Starting Date
-                                    <sup>*</sup>
-                                </label>
-                                <input className="form-control  date-picker" placeholder="Starting Date" type="date" required/>
-                                <small className="invalid-feedback">The job starting date is required.</small>
+                                <label>Starting Date<sup>*</sup></label>
+                                <input className="form-control  date-picker" placeholder="Starting Date" type="date"
+                                      value={job.startingDate} data-date-format="DD MMMM YYYY" required
+                                       onChange={(e)=> {
+                                           setJob(prevState => ({
+                                               ...prevState,
+                                               startingDate : e.target.value
+                                           }))
+                                       }}
+                                />
+                                {
+                                    !job.startingDate && <small className="invalid-feedback">The job starting date is required.</small>
+                                }
                             </div>
 
                             <div className="form-group col-6">
@@ -77,7 +233,9 @@ export function ScheduleJob() {
                                     <option value="Weekend">Weekend</option>
                                     <option value="Custom">Custom</option>
                                 </select>
-                                <small className="invalid-feedback">Please select job status.</small>
+                                {
+                                    recurrence?.trim() === "None" && <small className="invalid-feedback">Please select job status.</small>
+                                }
                             </div>
 
                         </div>
@@ -87,14 +245,38 @@ export function ScheduleJob() {
                         <div className="row">
                             <div className="form-group col-6">
                                 <label>Shift On Time<sup>*</sup></label>
-                                <input className="form-control time-picker-default" type="time" placeholder="Shift On Time" required/>
-                                <small className="invalid-feedback">Please insert shift on time.</small>
+                                <input className="form-control time-picker-default" type="time" placeholder="Shift On Time"
+                                       onChange={(e)=> {
+                                           setJob(prevState => ({
+                                               ...prevState,
+                                               shiftOn : e.target.value
+                                           }))
+                                       }}
+                                       value={job.shiftOn}
+                                       required/>
+                                {
+                                    !validateTime(job.shiftOn) && <small className="invalid-feedback">Please insert valid shift on time.</small>
+                                }
                             </div>
 
                             <div className="form-group col-6">
                                 <label>Shift Off Time<sup>*</sup></label>
-                                <input className="form-control time-picker-default" type="time" placeholder="Shift Off Time" required/>
-                                <small className="invalid-feedback">Please insert shift off time.</small>
+                                <input className="form-control time-picker-default" type="time" placeholder="Shift Off Time"
+                                       onChange={(e)=> {
+                                           setJob(prevState => ({
+                                               ...prevState,
+                                               shiftOff : e.target.value
+                                           }))
+                                       }}
+                                       value={job.shiftOff}
+                                       required/>
+                                {
+                                    !validateTime(job.shiftOff) && <small className="invalid-feedback">Please insert valid shift off time.</small>
+                                }
+                                {
+                                    validateTime(job.shiftOn) && validateTime(job.shiftOff) &&
+                                    !ValidateShifts(job.shiftOn, job.shiftOff) && <small className="invalid-feedback">Invalid Shift</small>
+                                }
                             </div>
 
                         </div>
@@ -104,8 +286,19 @@ export function ScheduleJob() {
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Address<sup>*</sup></label>
-                        <textarea className="form-control "  required></textarea>
-                        <small className="invalid-feedback">The address is required.</small>
+                        <textarea className="form-control "  required onChange={(e)=> {
+                            setJob(prevState => ({
+                                ...prevState,
+                                address : e.target.value
+                            }))
+                            setValidation(prevState => ({
+                                ...prevState,
+                                addressReq : !e.target.value
+                            }))
+                        }}></textarea>
+                        {
+                            validation.addressReq && <small className="invalid-feedback">The address is required.</small>
+                        }
                     </div>
                     <div className="form-group">
                         <label>Locations<sup>*</sup></label>
@@ -126,9 +319,9 @@ export function ScheduleJob() {
                         <div className="mt-1 mx-2">
                             <label>Assigning employees</label>
                             <MultiSelect
-                                options={options}
-                                value={selected}
-                                onChange={setSelected}
+                                options={emails}
+                                value={selectedEmployees}
+                                onChange={setSelectedEmployees}
                                 labelledBy="Select"
                             />
                             <br/>
@@ -136,19 +329,38 @@ export function ScheduleJob() {
                 </div>
 
                 <div className="d-flex justify-content-end">
-                    <button className="btn btn-danger mr-3 ">Clear</button>
-                    <button type="submit" className="btn btn-primary ">Schedule</button>
+                    <button className="btn btn-danger mr-3"
+                        onClick={() => onClear()}
+                    >Clear</button>
+                    <button type="button" className="btn btn-primary "
+                        onClick={() => onSubmit()}
+                    >Schedule</button>
                 </div>
+
             </div>
         </div>
         </form>
             {
                 location.hash === "#jobs/schedule-new-job#add-location" &&
-                <Location/>
+                <Location onLocationChange={(val : ILocation) => {
+                    setJob(prevState => ({
+                        ...prevState,
+                        locations : val
+                    }))
+                }}
+                    initLocation={job.locations}
+                />
             }
             {
                 location.hash === "#jobs/schedule-new-job#add-recurrence-days" &&
-                <AddDays/>
+                <AddDays onDaysChange={(val : string[]) => {
+                    setRecurrence("Custom");
+                    setJob(prevState => ({
+                        ...prevState,
+                        days : val as string[]
+                    }))}}
+                         initDays={job.days || []}
+                />
             }
         </div>
     )

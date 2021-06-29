@@ -84,6 +84,11 @@ type TableActions = {
     data : any[];
 }
 
+type EmployeeEmailsAction = {
+    type : string;
+    emails : any[];
+}
+
 export interface EmployeeRegistrationState {
     processing : boolean;
     type : string;
@@ -100,6 +105,10 @@ export interface EmployeeListTableState  {
     data : any[];
 }
 
+export interface EmployeeEmailsState {
+    emails : any[];
+}
+
 // type DispatchType = (args : EmployeeAction) => EmployeeAction;
 
 export interface IEmployeeValidation {
@@ -111,4 +120,64 @@ export interface IEmployeeValidation {
     addressReq : boolean;
     genderReq : boolean;
     positionReq? : boolean;
+}
+
+export interface ILocation {
+    lat1 : number;
+    lon1 : number;
+    lat2 : number;
+    lon2 : number;
+    lat3 : number;
+    lon3 : number;
+    lat4 : number;
+    lon4 : number;
+}
+
+export interface IJobForm {
+    title : string;
+    category : string;
+    description : string;
+    address : string;
+    startingDate : string;
+    recurrence : string;
+    days : string[];
+    shiftOn : string;
+    shiftOff : string;
+    locations : ILocation;
+    assignedEmployees : string[];
+}
+
+export interface IJob {
+    title : string;
+    category : string;
+    description : string;
+    address : string;
+    startingDate : string;
+    recurrence : string;
+    days : string[];
+    shiftOn : string;
+    shiftOff : string;
+    locations : ILocation;
+    assignedEmployees : string[];
+    createdDate : Date;
+    updatedDate : Date;
+    createdBy : {
+        email : string;
+        firstName : string;
+        lastName : string;
+    };
+    updatedBy : {
+        email : string;
+        firstName : string;
+        lastName : string;
+    };
+    status : string;
+    active : boolean;
+}
+
+export interface IJobValidation {
+    titleReq : boolean;
+    categoryReq : boolean;
+    descriptionReq : boolean;
+    addressReq : boolean;
 }
