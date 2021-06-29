@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useHistory} from "react-router";
 import {ILocation} from "../../../../type";
-import {ValidateLatitude} from "../../../../util/Validation";
+import {ValidateLatitude, ValidateLongitude} from "../../../../util/Validation";
 
 export function Location ({onLocationChange , initLocation} : {onLocationChange : any , initLocation : ILocation}) {
 
@@ -11,7 +11,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
 
     function onSubmit() {
         if(ValidateLatitude(location.lat1) && ValidateLatitude(location.lat2) && ValidateLatitude(location.lat3) && ValidateLatitude(location.lat4)
-        && ValidateLatitude(location.lon1) && ValidateLatitude(location.lon2) && ValidateLatitude(location.lon3) && ValidateLatitude(location.lon4)) {
+        && ValidateLongitude(location.lon1) && ValidateLongitude(location.lon2) && ValidateLongitude(location.lon3) && ValidateLongitude(location.lon4)) {
             onLocationChange(location)
             setOpen(false)
             history.goBack()
@@ -60,7 +60,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                }}
                                         />
                                     {
-                                        !ValidateLatitude(location.lon1) &&  <small className="invalid-feedback">Invalid</small>
+                                        !ValidateLongitude(location.lon1) &&  <small className="invalid-feedback">Invalid</small>
                                     }
                                 </div>
                             </div>
@@ -91,7 +91,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                }}
                                         />
                                     {
-                                        !ValidateLatitude(location.lon2) &&  <small className="invalid-feedback">Invalid</small>
+                                        !ValidateLongitude(location.lon2) &&  <small className="invalid-feedback">Invalid</small>
                                     }
                                 </div>
                             </div>
@@ -122,7 +122,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                }}
                                         />
                                     {
-                                        !ValidateLatitude(location.lon3) &&  <small className="invalid-feedback">Invalid</small>
+                                        !ValidateLongitude(location.lon3) &&  <small className="invalid-feedback">Invalid</small>
                                     }
                                 </div>
                             </div>
@@ -153,7 +153,7 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                                                }}
                                         />
                                     {
-                                        !ValidateLatitude(location.lon4) &&  <small className="invalid-feedback">Invalid</small>
+                                        !ValidateLongitude(location.lon4) &&  <small className="invalid-feedback">Invalid</small>
                                     }
                                 </div>
                             </div>
