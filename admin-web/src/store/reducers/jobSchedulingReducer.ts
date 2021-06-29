@@ -1,5 +1,10 @@
 import {ScheduleJobAction, ScheduleJobState} from "../../type";
-import {SCHEDULE_JOB_FAILED, SCHEDULE_JOB_SUCCESS, SCHEDULE_JOB_TITLE_ALREADY_EXISTS} from "../actionTypes";
+import {
+    SCHEDULE_JOB_DEFAULT,
+    SCHEDULE_JOB_FAILED,
+    SCHEDULE_JOB_SUCCESS,
+    SCHEDULE_JOB_TITLE_ALREADY_EXISTS
+} from "../actionTypes";
 
 const initStateScheduleJob : ScheduleJobState = {
     type : ""
@@ -24,6 +29,12 @@ export const scheduleJobReducer = ( state: ScheduleJobState = initStateScheduleJ
                 ...state,
                 type : SCHEDULE_JOB_TITLE_ALREADY_EXISTS,
                 error : "Please check again,This job title already exists!"
+            }
+        case SCHEDULE_JOB_DEFAULT:
+            return {
+                type : SCHEDULE_JOB_DEFAULT,
+                message : "",
+                error : ""
             }
         default: return state;
     }

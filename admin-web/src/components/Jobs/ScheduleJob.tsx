@@ -12,7 +12,12 @@ import {validateTime} from "../../util/Regex";
 import {ValidateShifts} from "../../util/Validation";
 import {scheduleJob} from "../../store/actions/jobSchedulingActions";
 import {Failure, Success} from "../../util/Toasts";
-import {SCHEDULE_JOB_FAILED, SCHEDULE_JOB_SUCCESS, SCHEDULE_JOB_TITLE_ALREADY_EXISTS} from "../../store/actionTypes";
+import {
+    SCHEDULE_JOB_DEFAULT,
+    SCHEDULE_JOB_FAILED,
+    SCHEDULE_JOB_SUCCESS,
+    SCHEDULE_JOB_TITLE_ALREADY_EXISTS
+} from "../../store/actionTypes";
 
 const defaultShiftOnTime : string = "08:00";
 const defaultShiftOffTime : string = "17:00";
@@ -64,12 +69,23 @@ export function ScheduleJob() {
     const { type, error , message } = useSelector((state: RootState) => state.scheduleJob);
     const { user } = useSelector((state: RootState) => state.auth);
 
+    useEffect(() => {
+        dispatch({
+            type : SCHEDULE_JOB_DEFAULT
+        })
+    }, [])
 
     useEffect(() => {
         if(type === SCHEDULE_JOB_SUCCESS) {
             Success(message as string)
+            dispatch({
+                type : SCHEDULE_JOB_DEFAULT
+            })
         } else if(type === SCHEDULE_JOB_FAILED || type === SCHEDULE_JOB_TITLE_ALREADY_EXISTS) {
             Failure(error as string)
+            dispatch({
+                type : SCHEDULE_JOB_DEFAULT
+            })
         }
     },[type])
 
@@ -151,6 +167,10 @@ export function ScheduleJob() {
             descriptionReq : false,
             addressReq : false
         }))
+
+        dispatch({
+            type : SCHEDULE_JOB_DEFAULT
+        })
     }
 
     function modifiedLocationString() {

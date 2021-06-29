@@ -127,6 +127,10 @@ export function EmployeeRegistration() {
 
         setPassport(null)
         setPoliceReport(null)
+
+        dispatch({
+            type: USER_REGISTRATION_DEFAULT
+        });
     }
 
     return (

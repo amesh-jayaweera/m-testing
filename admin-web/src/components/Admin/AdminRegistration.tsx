@@ -123,6 +123,10 @@ export function AdminRegistration() {
 
         setPassport(null)
         setPoliceReport(null)
+
+        dispatch({
+            type: USER_REGISTRATION_DEFAULT
+        });
     }
 
     return (
