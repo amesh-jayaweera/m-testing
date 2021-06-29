@@ -18,6 +18,7 @@ import {
     SCHEDULE_JOB_SUCCESS,
     SCHEDULE_JOB_TITLE_ALREADY_EXISTS
 } from "../../store/actionTypes";
+import {bool} from "prop-types";
 
 const defaultShiftOnTime : string = "08:00";
 const defaultShiftOffTime : string = "17:00";
@@ -30,10 +31,13 @@ export function ScheduleJob() {
     const dispatch = useDispatch();
     useEffect(()=> {
         dispatch(getAllEmployeeEmails())
+        dispatch({
+            type : SCHEDULE_JOB_DEFAULT
+        })
     },[])
     const { emails } = useSelector((state: RootState) => state.employeeEmails);
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    const [recurrence, setRecurrence] = useState<string>();
+    const [recurrence, setRecurrence] = useState<string>("None");
     const [job, setJob] = useState<IJobForm>(
         {
             id : "",
@@ -68,12 +72,7 @@ export function ScheduleJob() {
 
     const { type, error , message } = useSelector((state: RootState) => state.scheduleJob);
     const { user } = useSelector((state: RootState) => state.auth);
-
-    useEffect(() => {
-        dispatch({
-            type : SCHEDULE_JOB_DEFAULT
-        })
-    }, [])
+    const [processing, setProcessing] = useState<boolean>();
 
     useEffect(() => {
         if(type === SCHEDULE_JOB_SUCCESS) {
@@ -87,7 +86,7 @@ export function ScheduleJob() {
                 type : SCHEDULE_JOB_DEFAULT
             })
         }
-    },[type])
+    },[type, error, message, dispatch])
 
     // set recurrence days
     useEffect(() => {
@@ -111,11 +110,14 @@ export function ScheduleJob() {
                 ...prevState,
                 days : [days[5] , days[6]]
             }))
+        } else if(recurrence === 'Custom') {
+
         }
     },[recurrence])
 
 
     function onSubmit() {
+
         setJob(prevState => ({
             ...prevState,
             recurrence : recurrence as string,
@@ -420,7 +422,7 @@ export function ScheduleJob() {
                         ...prevState,
                         days : val as string[]
                     }))}}
-                         initDays={job.days || []}
+                         initDays={job.days}
                 />
             }
         </div>

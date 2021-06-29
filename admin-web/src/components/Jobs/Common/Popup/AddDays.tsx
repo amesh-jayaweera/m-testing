@@ -46,11 +46,12 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                     <div className="modal-body">
                         {
                             !valid && <small className="invalid-feedback">Select at least one.</small>
-
                         }
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" value="Sun"
-                                   onChange={(e) =>{onHandler(e.target.checked,e.target.value)}}/>
+                                   onChange={(e) =>{onHandler(e.target.checked,e.target.value)}}
+                                    checked={days.includes("Sun")}
+                            />
                                 <label className="form-check-label">
                                     Sunday
                                 </label>
@@ -59,6 +60,7 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" value="Mon"
                                    onChange={(e) =>{onHandler(e.target.checked,e.target.value)}}
+                                   checked={days.includes("Mon")}
                             />
                                 <label className="form-check-label">
                                     Monday
@@ -68,6 +70,7 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" value="Tue"
                                    onChange={(e) =>{onHandler(e.target.checked,e.target.value)}}
+                                   checked={days.includes("Tue")}
                             />
                                 <label className="form-check-label">
                                     Tuesday
@@ -77,6 +80,7 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" value="Wed"
                                    onChange={(e) =>{onHandler(e.target.checked,e.target.value)}}
+                                   checked={days.includes("Wed")}
                             />
                                 <label className="form-check-label">
                                     Wednesday
@@ -86,6 +90,7 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" value="Thu"
                                    onChange={(e) =>{onHandler(e.target.checked,e.target.value)}}
+                                   checked={days.includes("Thu")}
                             />
                                 <label className="form-check-label">
                                     Thursday
@@ -94,6 +99,7 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" value="Fri"
                                    onChange={(e) =>{onHandler(e.target.checked,e.target.value)}}
+                                   checked={days.includes("Fri")}
                             />
                                 <label className="form-check-label">
                                     Friday
@@ -103,6 +109,7 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" value="Sat"
                                    onChange={(e) =>{onHandler(e.target.checked,e.target.value)}}
+                                   checked={days.includes("Sat")}
                             />
                                 <label className="form-check-label">
                                     Saturday

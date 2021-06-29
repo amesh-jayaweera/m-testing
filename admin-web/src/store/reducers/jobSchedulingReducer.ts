@@ -7,7 +7,7 @@ import {
 } from "../actionTypes";
 
 const initStateScheduleJob : ScheduleJobState = {
-    type : ""
+    type : SCHEDULE_JOB_DEFAULT
 };
 
 export const scheduleJobReducer = ( state: ScheduleJobState = initStateScheduleJob, action: ScheduleJobAction) => {
@@ -28,7 +28,7 @@ export const scheduleJobReducer = ( state: ScheduleJobState = initStateScheduleJ
             return {
                 ...state,
                 type : SCHEDULE_JOB_TITLE_ALREADY_EXISTS,
-                error : "Please check again,This job title already exists!"
+                error : action.error
             }
         case SCHEDULE_JOB_DEFAULT:
             return {
