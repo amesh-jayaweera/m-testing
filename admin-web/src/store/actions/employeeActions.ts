@@ -44,7 +44,6 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
                     return uploadPassport(passport, policeReport , employee.email, passportStoragePath, policeReportStoragePath , dispatch);
                 })
                 .catch((error) => {
-                    onError()
                     // something went wrong
                     dispatch({
                         type : USER_REGISTRATION_FAILED,
@@ -52,7 +51,6 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
                     })
                 });
         } else {
-            onError()
             // user exists
             dispatch({
                 type : USER_ALREADY_EXISTS
@@ -77,8 +75,7 @@ const uploadPassport = (passport : any, policeReport : any , email : string, pas
                         progress : getProgressStep(progress)
                     })
                 },
-                (error) => {
-                    console.log('Firebase Issue : ', error)
+                () => {
                     dispatch({
                         type : PASSPORT_UPLOAD_FAILED
                     })

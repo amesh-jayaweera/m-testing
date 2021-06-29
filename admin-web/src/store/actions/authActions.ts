@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import {AuthAction, SignInData, IEmployee} from '../../type';
+import {AuthAction, SignInData, LoggedUser} from '../../type';
 import {SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, SET_SUCCESS} from '../actionTypes';
 import firebase from "firebase";
 import {RootState} from "../reducers/rootReducer";
@@ -10,14 +10,14 @@ export const getUserById = (id: string): ThunkAction<void, RootState, null, Auth
         try {
             const user = await firebase.firestore().collection('admins').doc(id).get();
             if(user.exists) {
-                const userData = user.data() as IEmployee;
+                const userData = user.data() as LoggedUser;
                 dispatch({
                     type: SET_USER,
                     payload: userData
                 });
             }
         } catch (err) {
-            console.log(err);
+            dispatch(setError(err.message));
         }
     }
 }
@@ -37,11 +37,7 @@ export const signIn = (data: SignInData, onError: () => void): ThunkAction<void,
     return async dispatch => {
         try {
             await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
-            dispatch({
-                type: SET_USER,
-                payload: data.email
-            });
-            // console.log(user);
+            return getUserById(data.email);
         } catch (err) {
             onError();
             dispatch(setError(err.message));

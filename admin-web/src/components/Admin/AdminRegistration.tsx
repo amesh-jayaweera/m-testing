@@ -92,7 +92,8 @@ export function AdminRegistration() {
                 progress : 0
             });
             // create user account
-            dispatch(registerEmployee(employee, passport, policeReport, "ADMIN", () => {}));
+            dispatch(registerEmployee(employee, passport, policeReport, "ADMIN", () =>
+            {Failure("Failed to register the new admin. Something went wrong!")}));
         }
     }
 

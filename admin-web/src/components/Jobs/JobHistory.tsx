@@ -42,7 +42,7 @@ const options = {
     searchPlaceholder : "search ...",
     selectableRowsHeader : false,
     selectableRowsHideCheckboxes : true
-}
+};
 
 export function JobHistory() {
 

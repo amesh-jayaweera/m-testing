@@ -3,7 +3,15 @@ import { AuthAction, AuthState } from '../../type';
 import {SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, SET_SUCCESS} from '../actionTypes';
 
 const initialState: AuthState = {
-    user: null,
+    user : {
+        firstName : "",
+        lastName : "",
+        gender : "",
+        birthday : "",
+        email : "",
+        contactNumber : "",
+        address : ""
+    },
     authenticated: false,
     loading: false,
     error: '',
@@ -26,7 +34,15 @@ export const authReducer = (state = initialState, action: AuthAction) => {
         case SIGN_OUT:
             return {
                 ...state,
-                user: null,
+                user:  {
+                    firstName : "",
+                    lastName : "",
+                    gender : "",
+                    birthday : "",
+                    email : "",
+                    contactNumber : "",
+                    address : ""
+                },
                 authenticated: false,
                 loading: false
             }

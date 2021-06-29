@@ -1,8 +1,14 @@
 // Auth
+import {SET_ERROR, SET_LOADING, SET_SUCCESS, SET_USER, SIGN_OUT} from "./store/actionTypes";
+
 export interface LoggedUser {
     firstName : string;
     lastName : string;
-    email: string;
+    gender : string;
+    birthday : string;
+    email : string;
+    contactNumber : string;
+    address : string;
 }
 
 export interface AuthState {
@@ -46,7 +52,6 @@ interface SetSuccessAction {
 
 export type AuthAction = SetUserAction | SetLoadingAction | SignOutAction | SetErrorAction | SetSuccessAction;
 
-
 // Employee or Admin
 export interface IEmployee {
     uid? : string;
@@ -63,15 +68,6 @@ export interface IEmployee {
     policeReport? : string;
     createdDateTime : Date;
 }
-
-type EmployeeState = {
-    employees : IEmployee[];
-};
-
-type EmployeeAction = {
-    type : string;
-    employee : IEmployee;
-};
 
 type EmployeeRegisterAction = {
     type : string;
@@ -109,8 +105,6 @@ export interface EmployeeEmailsState {
     emails : any[];
 }
 
-// type DispatchType = (args : EmployeeAction) => EmployeeAction;
-
 export interface IEmployeeValidation {
     firstNameReq : boolean;
     lastNameReq : boolean;
@@ -134,6 +128,7 @@ export interface ILocation {
 }
 
 export interface IJobForm {
+    id : string;
     title : string;
     category : string;
     description : string;
@@ -162,14 +157,14 @@ export interface IJob {
     createdDate : Date;
     updatedDate : Date;
     createdBy : {
-        email : string;
-        firstName : string;
-        lastName : string;
+        email : string | undefined;
+        firstName : string | undefined;
+        lastName : string | undefined;
     };
     updatedBy : {
-        email : string;
-        firstName : string;
-        lastName : string;
+        email : string | undefined;
+        firstName : string | undefined;
+        lastName : string | undefined;
     };
     status : string;
     active : boolean;
@@ -180,4 +175,16 @@ export interface IJobValidation {
     categoryReq : boolean;
     descriptionReq : boolean;
     addressReq : boolean;
+}
+
+type ScheduleJobAction  = {
+    type : string;
+    message? : string;
+    error? : string;
+}
+
+type ScheduleJobState  = {
+    type : string;
+    message? : string;
+    error? : string;
 }

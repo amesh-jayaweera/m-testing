@@ -94,7 +94,8 @@ export function EmployeeRegistration() {
                 progress : 0
             });
             // create user account
-            dispatch(registerEmployee(employee, passport, policeReport, "EMPLOYEE", () => {}));
+            dispatch(registerEmployee(employee, passport, policeReport, "EMPLOYEE",
+                () => {Failure("Failed to register the new employee. Something went wrong!")}));
         }
     }
 

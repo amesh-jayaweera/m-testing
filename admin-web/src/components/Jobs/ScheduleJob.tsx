@@ -7,12 +7,15 @@ import {AddDays} from "./Common/Popup/AddDays";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/rootReducer";
 import {getAllEmployeeEmails} from "../../store/actions/employeeActions";
-import {IJob, IJobForm, IJobValidation, ILocation} from "../../type";
+import {IJobForm, IJobValidation, ILocation, LoggedUser} from "../../type";
 import {validateTime} from "../../util/Regex";
 import {ValidateShifts} from "../../util/Validation";
+import {scheduleJob} from "../../store/actions/jobSchedulingActions";
+import {Failure, Success} from "../../util/Toasts";
+import {SCHEDULE_JOB_FAILED, SCHEDULE_JOB_SUCCESS, SCHEDULE_JOB_TITLE_ALREADY_EXISTS} from "../../store/actionTypes";
 
 const defaultShiftOnTime : string = "08:00";
-const defaultShiftOffTime : string = "17:00"
+const defaultShiftOffTime : string = "17:00";
 const days : string[] = ['Mon', 'Tue', 'Wed' ,'Thu', 'Fri', 'Sat' , 'Sun'];
 
 export function ScheduleJob() {
@@ -28,6 +31,7 @@ export function ScheduleJob() {
     const [recurrence, setRecurrence] = useState<string>();
     const [job, setJob] = useState<IJobForm>(
         {
+            id : "",
             title : "",
             category : "None",
             description : "",
@@ -56,6 +60,18 @@ export function ScheduleJob() {
         descriptionReq : false,
         addressReq : false
     });
+
+    const { type, error , message } = useSelector((state: RootState) => state.scheduleJob);
+    const { user } = useSelector((state: RootState) => state.auth);
+
+
+    useEffect(() => {
+        if(type === SCHEDULE_JOB_SUCCESS) {
+            Success(message as string)
+        } else if(type === SCHEDULE_JOB_FAILED || type === SCHEDULE_JOB_TITLE_ALREADY_EXISTS) {
+            Failure(error as string)
+        }
+    },[type])
 
     // set recurrence days
     useEffect(() => {
@@ -95,7 +111,9 @@ export function ScheduleJob() {
             if(recurrence === "Custom" && job.days.length === 0) {
                 history.push('#jobs/schedule-new-job#add-recurrence-days')
             } else {
-                console.log(job)
+                dispatch(scheduleJob(job,user as LoggedUser,() => {
+                    Failure("Failed to schedule the new job. Something went wrong!");
+                }));
             }
         }
     }
