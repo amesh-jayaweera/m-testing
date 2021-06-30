@@ -94,6 +94,7 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                         let job : IJob  = doc.data() as IJob;
                         const assignedEmployees = job.assignedEmployees;
                         setSelectedEmployees(assignedEmployees);
+                        setRecurrence(job.recurrence);
                         setEditedJob(job);
                     } else {
                        // not found
@@ -140,7 +141,6 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
     useEffect(() => {
         if (type === SCHEDULE_JOB_SUCCESS || type === SCHEDULED_JOB_UPDATED_SUCCESS) {
             setProcessing(false);
-            Success(message as string);
             dispatch({
                 type: SCHEDULE_JOB_DEFAULT
             });
@@ -153,12 +153,13 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                         label: 'Yes',
                         onClick: () => {
                             history.push("#jobs");
+                            Success(message as string);
                         }
                     },
                     {
                         label: 'No',
                         onClick: () => {
-
+                            Success(message as string);
                         }
                     }
                 ]
