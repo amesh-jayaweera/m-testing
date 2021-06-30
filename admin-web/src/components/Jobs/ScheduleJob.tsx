@@ -218,10 +218,8 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
             recurrenceReq : !recurrence || recurrence.trim() === "None"
         }));
 
-        console.log(" Test ");
         if(job.title && job.category && job.description && job.address && job.startingDate && job.recurrence !== "None" &&
             validateTime(job.shiftOn) && validateTime(job.shiftOff) && ValidateShifts(job.shiftOn, job.shiftOff)) {
-            console.log(" === >");
             if (recurrence === "Custom" && job.days.length === 0) {
                 if (isEdit && editedJob) {
                     history.push(`#jobs/schedule-job/edit?id=${jobID}#add-recurrence-day`);
@@ -229,7 +227,6 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                     history.push('#jobs/schedule-job#add-recurrence-days');
                 }
             } else {
-                console.log(" ===== SUCCESS");
                 setProcessing(true);
                 dispatch({
                     type: SCHEDULE_JOB_DEFAULT
