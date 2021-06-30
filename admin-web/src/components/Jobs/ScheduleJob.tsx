@@ -33,6 +33,7 @@ export function ScheduleJob() {
         dispatch({
             type : SCHEDULE_JOB_DEFAULT
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     const { emails } = useSelector((state: RootState) => state.employeeEmails);
     const [selectedEmployees, setSelectedEmployees] = useState([]);
@@ -86,6 +87,7 @@ export function ScheduleJob() {
                 type : SCHEDULE_JOB_DEFAULT
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[type, error, message, dispatch])
 
     // set recurrence days

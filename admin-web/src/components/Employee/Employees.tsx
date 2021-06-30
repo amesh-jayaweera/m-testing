@@ -71,6 +71,7 @@ export function Employees() {
 
     useEffect(() => {
         dispatch(getEmployees());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return (

@@ -5,7 +5,6 @@ import {IJob, TableActions} from "../../type";
 import {AdminListTable, EmployeeListTable, JobListTable} from "../table";
 import {ADMIN_TABLE_DATA, EMPLOYEE_TABLE_DATA, SCHEDULED_JOB_TABLE_DATA} from "../actionTypes";
 import React from "react";
-import {useHistory} from "react-router";
 
 export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> => {
 

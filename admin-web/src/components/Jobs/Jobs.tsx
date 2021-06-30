@@ -133,6 +133,7 @@ export function Jobs() {
 
     useEffect(() => {
         dispatch(getScheduledJobs());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return (

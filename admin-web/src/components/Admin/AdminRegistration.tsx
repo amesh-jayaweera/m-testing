@@ -47,6 +47,7 @@ export function AdminRegistration() {
         dispatch({
             type: USER_REGISTRATION_DEFAULT
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     useEffect(() => {
@@ -69,6 +70,7 @@ export function AdminRegistration() {
                 type: USER_REGISTRATION_DEFAULT
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[processing,type, error, message, progress, dispatch])
 
     function onSubmit() {
