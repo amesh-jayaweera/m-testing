@@ -144,6 +144,8 @@ export interface IJobForm {
     shiftOff : string;
     locations : ILocation;
     assignedEmployees : string[];
+    active? : boolean;
+    status? : string;
 }
 
 export interface IJob {
@@ -158,9 +160,9 @@ export interface IJob {
     shiftOff : string;
     locations : ILocation;
     assignedEmployees : string[];
-    createdDate : Date;
+    createdDate? : Date;
     updatedDate : Date;
-    createdBy : {
+    createdBy? : {
         email : string | undefined;
         firstName : string | undefined;
         lastName : string | undefined;

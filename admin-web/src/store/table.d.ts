@@ -33,7 +33,7 @@ export interface JobListTable {
     recurrence : string;
     shiftOn : string;
     shiftOff : string;
-    days : string;
+    days : string[];
     location : ILocation;
     status : string;
     noOfWorkedEmployees : any;
@@ -44,5 +44,6 @@ export interface JobListTable {
     updatedAdmin : string;
     updatedDate : string;
     action  : any;
+    description : string;
 }
 

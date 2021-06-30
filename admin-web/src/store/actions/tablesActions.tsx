@@ -67,10 +67,10 @@ const RenderEditAction = (id : string) => {
     return (
         <div className="row">
             <div className="col-6">
-                <a  href={`#jobs/view?id=${id}`}><div className="badge badge-dgreen text-white">View</div></a>
+                <a  href={`#jobs/schedule-job/view?id=${id}`}><div className="badge badge-dgreen text-white">View</div></a>
             </div>
             <div className="col-6">
-                <a href={`#jobs/edit?id=${id}`}><div className="badge badge-dyellow text-dark">Edit</div></a>
+                <a href={`#jobs/schedule-job/edit?id=${id}`}><div className="badge badge-dyellow text-dark">Edit</div></a>
             </div>
         </div>
     )
@@ -93,9 +93,9 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
                 _job.id = count;
                 _job.jobID = doc.id;
                 _job.noOfWorkedEmployees = RenderNoOfWorkedEmployees(job.assignedEmployees.length);
-                _job.createdAdmin = (job.createdBy.firstName && job.createdBy.lastName) ?
-                    (job.createdBy?.firstName + " " + job.createdBy?.lastName) : job.createdBy.email
-                    ? job.createdBy.email : "NOT_DEFINED";
+                _job.createdAdmin = (job?.createdBy?.firstName && job.createdBy.lastName) ?
+                    (job.createdBy?.firstName + " " + job.createdBy?.lastName) : job?.createdBy?.email
+                    ? job?.createdBy?.email : "NOT_DEFINED";
                 _job.updatedAdmin = (job.updatedBy.firstName && job.updatedBy.lastName) ?
                     (job.updatedBy?.firstName + " " + job.updatedBy?.lastName) : job.updatedBy.email
                         ? job.updatedBy.email : "NOT_DEFINED";
@@ -112,3 +112,4 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
         });
     }
 };
+
