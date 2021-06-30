@@ -181,6 +181,7 @@ export interface IJobValidation {
     categoryReq : boolean;
     descriptionReq : boolean;
     addressReq : boolean;
+    recurrenceReq : boolean;
 }
 
 type ScheduleJobAction  = {
