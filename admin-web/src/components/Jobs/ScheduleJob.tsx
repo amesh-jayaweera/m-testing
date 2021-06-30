@@ -142,9 +142,7 @@ export function ScheduleJob() {
                 dispatch({
                     type : SCHEDULE_JOB_DEFAULT
                 });
-                dispatch(scheduleJob(job,user as LoggedUser,() => {
-                    Failure("Failed to schedule the new job. Something went wrong!");
-                }));
+                dispatch(scheduleJob(job,user as LoggedUser))
             }
         }
     }
