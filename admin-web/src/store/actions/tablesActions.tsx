@@ -112,4 +112,3 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
         });
     }
 };
-

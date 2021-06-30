@@ -70,15 +70,6 @@ export function HomePage() {
                   </div>
               }
               {
-                  (location.hash === '#jobs/schedule-job' || location.hash === '#jobs/schedule-job#add-location'
-                    || location.hash === '#jobs/schedule-job#add-recurrence-days'
-                  ) &&
-                  <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Schedule Job"} mainTitle={"Jobs"} mainNav={"jobs"} />
-                      <ScheduleJob isEdit={false}/>
-                  </div>
-              }
-              {
                   location.hash === '#jobs' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Scheduled Jobs"} mainTitle={"Scheduled Jobs"} mainNav={"jobs"} />
@@ -97,6 +88,22 @@ export function HomePage() {
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Payments"} mainTitle={"Payments"} mainNav={"payments"} />
                       <Payments/>
+                  </div>
+              }
+              {
+                  (location.hash === '#jobs/schedule-job' || location.hash === '#jobs/schedule-job#add-location'
+                      || location.hash === '#jobs/schedule-job#add-recurrence-days'
+                  ) &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Schedule Job"} mainTitle={"Jobs"} mainNav={"jobs"} />
+                      <ScheduleJob isEdit={false}/>
+                  </div>
+              }
+              {
+                  (location.hash.startsWith('#jobs/schedule-job/edit?id=')) &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Update Job"} mainTitle={"Update Job"} mainNav={"jobs"} />
+                      <ScheduleJob isEdit={true}/>
                   </div>
               }
           </div>

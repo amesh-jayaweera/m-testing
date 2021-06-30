@@ -7,7 +7,7 @@ import {AddDays} from "./Common/Popup/AddDays";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/rootReducer";
 import {getAllEmployeeEmails} from "../../store/actions/employeeActions";
-import {IJobForm, IJobValidation, ILocation, LoggedUser} from "../../type";
+import {IJob, IJobForm, IJobValidation, ILocation, LoggedUser} from "../../type";
 import {validateTime} from "../../util/Regex";
 import {ValidateShifts} from "../../util/Validation";
 import {scheduleJob} from "../../store/actions/jobSchedulingActions";
@@ -21,17 +21,26 @@ import {
     SCHEDULED_JOB_UPDATED_FAILED,
     SCHEDULED_JOB_UPDATED_SUCCESS
 } from "../../store/actionTypes";
-import {JobListTable} from "../../store/table";
+import firebase from "firebase";
 
 const defaultShiftOnTime : string = "08:00";
 const defaultShiftOffTime : string = "17:00";
 const days : string[] = ['Mon', 'Tue', 'Wed' ,'Thu', 'Fri', 'Sat' , 'Sun'];
 
-export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? : JobListTable}) {
+export function ScheduleJob({isEdit} : {isEdit : boolean}) {
 
     const location = useLocation();
     const history = useHistory();
     const dispatch = useDispatch();
+    const [editedJob, setEditedJob] = useState<IJob|null>();
+    const [jobID, setJobID] = useState<string|null>();
+    const { emails } = useSelector((state: RootState) => state.employeeEmails);
+    const [selectedEmployees, setSelectedEmployees] = useState<any[]>([]);
+    const [recurrence, setRecurrence] = useState<string>("None");
+    const { type, error , message } = useSelector((state: RootState) => state.scheduleJob);
+    const { user } = useSelector((state: RootState) => state.auth);
+    const [processing, setProcessing] = useState<boolean>(false);
+
     useEffect(()=> {
         dispatch(getAllEmployeeEmails());
         dispatch({
@@ -39,67 +48,59 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
-    const { emails } = useSelector((state: RootState) => state.employeeEmails);
-    const [selectedEmployees, setSelectedEmployees] = useState((isEdit && editedJob) ? editedJob.assignedEmployees : []);
-    const [recurrence, setRecurrence] = useState<string>((isEdit && editedJob) ? editedJob.recurrence : "None");
-    const [job, setJob] = useState<IJobForm>(
-        (isEdit && editedJob) ?
-        {
-            id : editedJob.jobID,
-            title : editedJob.title,
-            category : editedJob.category,
-            description : editedJob.description,
-            address : editedJob.address,
-            startingDate : editedJob.startedDate,
-            recurrence : editedJob.recurrence,
-            days : editedJob.days,
-            shiftOn : editedJob.shiftOn,
-            shiftOff : editedJob.shiftOff,
-            locations : {
-                lat1 : editedJob.location.lat1,
-                lon1 : editedJob.location.lon1,
-                lat2 : editedJob.location.lat2,
-                lon2 : editedJob.location.lon2,
-                lat3 : editedJob.location.lat3,
-                lon3 : editedJob.location.lon3,
-                lat4 : editedJob.location.lat4,
-                lon4 : editedJob.location.lon4,
-            },
-            assignedEmployees : editedJob.assignedEmployees
-        } : {
-                id : "",
-                title : "",
-                category : "None",
-                description : "",
-                address : "",
-                startingDate : new Date().toISOString().split('T')[0],
-                recurrence : "None",
-                days : [],
-                shiftOn : defaultShiftOnTime,
-                shiftOff : defaultShiftOffTime,
-                locations : {
-                    lat1 : 0.0,
-                    lon1 : 0.0,
-                    lat2 : 0.0,
-                    lon2 : 0.0,
-                    lat3 : 0.0,
-                    lon3 : 0.0,
-                    lat4 : 0.0,
-                    lon4 : 0.0,
-                },
-                assignedEmployees : []
-            }
-    );
-    const [validation, setValidation] = useState<IJobValidation>({
-        titleReq : false,
-        categoryReq : false,
-        descriptionReq : false,
-        addressReq : false
-    });
 
-    const { type, error , message } = useSelector((state: RootState) => state.scheduleJob);
-    const { user } = useSelector((state: RootState) => state.auth);
-    const [processing, setProcessing] = useState<boolean>(false);
+    useEffect(() => {
+        if(isEdit) {
+            const db = firebase.firestore();
+            const path = location.hash;
+            const docID = path.split('#jobs/schedule-job/edit?id=');
+            if(docID.length >= 2) {
+                setJobID(docID[1].trim());
+                db.collection("jobs").doc(docID[1].trim()).get().then((doc) => {
+                    if(doc.exists) {
+                        let job : IJob  = doc.data() as IJob;
+                        const assignedEmployees = job.assignedEmployees;
+                        setSelectedEmployees(assignedEmployees);
+                        setEditedJob(job);
+                    } else {
+                       // not found
+                    }
+                });
+            } else {
+                // not found
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
+
+    useEffect(() => {
+        if(isEdit && editedJob && jobID) {
+            setJob(prevState => ({
+                ...prevState,
+                id : jobID || "",
+                title : editedJob.title,
+                category : editedJob.category,
+                description : editedJob.description,
+                address : editedJob.address,
+                startingDate : editedJob.startingDate,
+                recurrence : editedJob.recurrence,
+                days : editedJob.days,
+                shiftOn : editedJob.shiftOn,
+                shiftOff : editedJob.shiftOff,
+                locations : {
+                    lat1 : editedJob.locations.lat1,
+                    lon1 : editedJob.locations.lon1,
+                    lat2 : editedJob.locations.lat2,
+                    lon2 : editedJob.locations.lon2,
+                    lat3 : editedJob.locations.lat3,
+                    lon3 : editedJob.locations.lon3,
+                    lat4 : editedJob.locations.lat4,
+                    lon4 : editedJob.locations.lon4,
+                },
+                assignedEmployees : editedJob.assignedEmployees
+            }));
+        }
+    },[isEdit, editedJob, jobID]);
 
     useEffect(() => {
         if (type === SCHEDULE_JOB_SUCCESS || type === SCHEDULED_JOB_UPDATED_SUCCESS) {
@@ -144,6 +145,60 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
         }
     },[recurrence]);
 
+    const [job, setJob] = useState<IJobForm>(
+        (isEdit && editedJob && jobID) ?
+        {
+            id : jobID,
+            title : editedJob.title,
+            category : editedJob.category,
+            description : editedJob.description,
+            address : editedJob.address,
+            startingDate : editedJob.startingDate,
+            recurrence : editedJob.recurrence,
+            days : editedJob.days,
+            shiftOn : editedJob.shiftOn,
+            shiftOff : editedJob.shiftOff,
+            locations : {
+                lat1 : editedJob.locations.lat1,
+                lon1 : editedJob.locations.lon1,
+                lat2 : editedJob.locations.lat2,
+                lon2 : editedJob.locations.lon2,
+                lat3 : editedJob.locations.lat3,
+                lon3 : editedJob.locations.lon3,
+                lat4 : editedJob.locations.lat4,
+                lon4 : editedJob.locations.lon4,
+            },
+            assignedEmployees : editedJob.assignedEmployees
+        } : {
+                id : "",
+                title : "",
+                category : "None",
+                description : "",
+                address : "",
+                startingDate : new Date().toISOString().split('T')[0],
+                recurrence : "None",
+                days : [],
+                shiftOn : defaultShiftOnTime,
+                shiftOff : defaultShiftOffTime,
+                locations : {
+                    lat1 : 0.0,
+                    lon1 : 0.0,
+                    lat2 : 0.0,
+                    lon2 : 0.0,
+                    lat3 : 0.0,
+                    lon3 : 0.0,
+                    lat4 : 0.0,
+                    lon4 : 0.0,
+                },
+                assignedEmployees : []
+            }
+    );
+    const [validation, setValidation] = useState<IJobValidation>({
+        titleReq : false,
+        categoryReq : false,
+        descriptionReq : false,
+        addressReq : false
+    });
 
     function onSubmit() {
 
@@ -166,7 +221,7 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
             validateTime(job.shiftOn) && validateTime(job.shiftOff) && ValidateShifts(job.shiftOn, job.shiftOff)) {
             if (recurrence === "Custom" && job.days.length === 0) {
                 if (isEdit && editedJob) {
-                    history.push(`#jobs/schedule-job/edit?id=${editedJob.jobID}#add-recurrence-day`);
+                    history.push(`#jobs/schedule-job/edit?id=${jobID}#add-recurrence-day`);
                 } else {
                     history.push('#jobs/schedule-job#add-recurrence-days');
                 }
@@ -176,10 +231,10 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                     type: SCHEDULE_JOB_DEFAULT
                 });
 
-                if(isEdit && editedJob) {
+                if(isEdit && editedJob && jobID) {
                     setJob(prevState => ({
                         ...prevState,
-                        id : editedJob.jobID,
+                        id : jobID,
                         active : editedJob.active,
                         status : editedJob.status
                     }));
@@ -251,6 +306,7 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                     <div className="form-group">
                         <label>Job Title<sup>*</sup></label>
                         <input className="form-control" type="text" placeholder="Job Title" required readOnly={isEdit}
+                               value={isEdit ? job.title : ""}
                                onChange={(e)=> {
                                    setJob(prevState => ({
                                        ...prevState,
@@ -278,7 +334,7 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                                 ...prevState,
                                 categoryReq : !e.target.value || e.target.value === "None"
                             }));
-                        }} disabled={isEdit}>
+                        }} disabled={isEdit} value={isEdit ? job.category : "None"}>
                             <option value="None">Select Job Category</option>
                             <option value="Cleaning Service">Cleaning Service</option>
                             <option value="Facility Management">Facility Management</option>
@@ -292,7 +348,9 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
 
                     <div className="form-group">
                         <label>Job Description<sup>*</sup></label>
-                        <textarea className="form-control " required onChange={(e)=> {
+                        <textarea className="form-control " required
+                                  value={isEdit ? job.description : ""}
+                                  onChange={(e)=> {
                             setJob(prevState => ({
                                 ...prevState,
                                 description : e.target.value
@@ -329,19 +387,20 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
 
                             <div className="form-group col-6">
                                 <label>Job Status<sup>*</sup></label>
-                                <select className="custom-select" onChange={(e) => {
+                                <select className="custom-select"
+                                        onChange={(e) => {
                                     setRecurrence(e.target.value);
                                     if(e?.target?.value?.trim() === 'Custom') {
                                         (isEdit && editedJob) ?
-                                            history.push(`#jobs/schedule-job/edit?id=${editedJob.jobID}#add-recurrence-day`) :
+                                            history.push(`#jobs/schedule-job/edit?id=${jobID}#add-recurrence-day`) :
                                         history.push('#jobs/schedule-job#add-recurrence-days');
                                     }
                                 }}>
-                                    <option defaultValue="None">Select Job Status</option>
-                                    <option value="Daily">Daily</option>
-                                    <option value="Week days">Week days</option>
-                                    <option value="Weekend">Weekend</option>
-                                    <option value="Custom">Custom</option>
+                                    <option value="None" defaultChecked={isEdit && job.recurrence === "None"}>Select Job Status</option>
+                                    <option value="Daily" defaultChecked={isEdit && job.recurrence === "Daily"}>Daily</option>
+                                    <option value="Week days" defaultChecked={isEdit && job.recurrence === "Week days"}>Week days</option>
+                                    <option value="Weekend" defaultChecked={isEdit && job.recurrence === "Weekend"}>Weekend</option>
+                                    <option value="Custom" defaultChecked={isEdit && job.recurrence === "Custom"}>Custom</option>
                                 </select>
                                 {
                                     recurrence?.trim() === "None" && <small className="invalid-feedback">Please select job status.</small>
@@ -362,7 +421,7 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                                                shiftOn : e.target.value
                                            }));
                                        }}
-                                       value={job.shiftOn}
+                                       value={isEdit ? job.shiftOn : defaultShiftOnTime}
                                        required/>
                                 {
                                     !validateTime(job.shiftOn) && <small className="invalid-feedback">Please insert valid shift on time.</small>
@@ -378,7 +437,7 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                                                shiftOff : e.target.value
                                            }));
                                        }}
-                                       value={job.shiftOff}
+                                       value={isEdit ? job.shiftOff : defaultShiftOffTime}
                                        required/>
                                 {
                                     !validateTime(job.shiftOff) && <small className="invalid-feedback">Please insert valid shift off time.</small>
@@ -396,7 +455,9 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Address<sup>*</sup></label>
-                        <textarea className="form-control "  required onChange={(e)=> {
+                        <textarea className="form-control "  required
+                                  value={isEdit ? job.address : ""}
+                                  onChange={(e)=> {
                             setJob(prevState => ({
                                 ...prevState,
                                 address : e.target.value
@@ -420,7 +481,7 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                                                            alt="map icon for location popup"
                                                     onClick={() => {
                                                         (isEdit && editedJob) ?
-                                                            history.push(`#jobs/schedule-job/edit?id=${editedJob.jobID}#add-location`) :
+                                                            history.push(`#jobs/schedule-job/edit?id=${jobID}#add-location`) :
                                                             history.push('#jobs/schedule-job#add-location');
                                                     }}
                                                 /></span>
@@ -448,17 +509,17 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                                            onClick={() => onClear()}
                         >Clear</button>
                     }
-                    <button type="button" className="btn btn-primary "
+                    <button type="button" className="btn btn-primary"
                         onClick={() => {onSubmit()}}
                             disabled={processing}
-                    >Schedule</button>
+                    >{isEdit ? "Update" : "Schedule"}</button>
                 </div>
 
             </div>
         </div>
         </form>
             {
-                ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${editedJob.jobID}#add-location`)
+                ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#add-location`)
                 || (location.hash === "#jobs/schedule-job#add-location")) &&
                 <Location onLocationChange={(val : ILocation) => {
                     setJob(prevState => ({
@@ -470,7 +531,7 @@ export function ScheduleJob({isEdit, editedJob} : {isEdit : boolean, editedJob? 
                 />
             }
             {
-                ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${editedJob.jobID}#add-recurrence-day`)
+                ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#add-recurrence-day`)
                     || (location.hash === "#jobs/schedule-job#add-recurrence-days")) &&
                 <AddDays onDaysChange={(val : string[]) => {
                     setRecurrence("Custom");
