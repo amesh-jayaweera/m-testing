@@ -23,7 +23,8 @@ import {
 } from "../../store/actionTypes";
 import firebase from "firebase";
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import Skeleton from "react-loading-skeleton"; // Import css
 
 export const defaultShiftOnTime : string = "08:00";
 export const defaultShiftOffTime : string = "17:00";
@@ -31,6 +32,7 @@ const days : string[] = ['Mon', 'Tue', 'Wed' ,'Thu', 'Fri', 'Sat' , 'Sun'];
 
 export function ScheduleJob({isEdit} : {isEdit : boolean}) {
 
+    const [loading, setLoading] = useState<boolean>(true);
     const location = useLocation();
     const history = useHistory();
     const dispatch = useDispatch();
@@ -96,13 +98,18 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                         setSelectedEmployees(assignedEmployees);
                         setRecurrence(job.recurrence);
                         setEditedJob(job);
+                        setLoading(false);
                     } else {
                        // not found
+                        setLoading(false);
                     }
                 });
             } else {
                 // not found
+                setLoading(false);
             }
+        } else {
+            setLoading(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
@@ -294,6 +301,11 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
     }
 
     return (
+        <>
+            {loading &&
+                <Skeleton count={20} duration={20}/>
+            }
+            {!loading &&
         <div className="pd-20 card-box mb-30">
         <form className="needs-validation">
             <div className="row">
@@ -544,6 +556,7 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                          initDays={job.days}
                 />
             }
-        </div>
+        </div>}
+        </>
     )
 }
