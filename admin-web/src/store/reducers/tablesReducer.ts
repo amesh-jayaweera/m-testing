@@ -10,7 +10,7 @@ export const adminTableReducer = ( state: AdminListTableState = initAdminsState,
         case ADMIN_TABLE_DATA :
             return  {
                 data : action.data
-            }
+            };
         default: return state
     }
 };
@@ -24,21 +24,21 @@ export const employeeTableReducer = ( state: EmployeeListTableState = initEmploy
         case EMPLOYEE_TABLE_DATA :
             return  {
                 data : action.data
-            }
+            };
         default: return state
     }
 };
 
 const initJobState : ScheduledTableState = {
     data : []
-}
+};
 
 export const scheduledTableReducer = ( state: ScheduledTableState = initJobState, action: TableActions) => {
     switch (action.type) {
         case SCHEDULED_JOB_TABLE_DATA :
             return  {
                 data : action.data
-            }
+            };
         default: return state
     }
 };

@@ -32,12 +32,12 @@ export function Login() {
                 dispatch(setError(''));
             }
         }
-    },[error,dispatch])
+    },[error,dispatch]);
 
     const submitHandler = () => {
         setLoading(true);
         dispatch(signIn({ email, password }, () => setLoading(false)));
-    }
+    };
 
     return (
         <>

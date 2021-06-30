@@ -48,20 +48,20 @@ export function AdminRegistration() {
             type: USER_REGISTRATION_DEFAULT
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[]);
 
     useEffect(() => {
         if(processing && type === USER_REGISTRATION_SUCCESS) {
             Success(message as string);
         } else if(processing && (type === PASSPORT_UPLOAD_SUCCESS ||
             type === POLICE_REPORT_UPLOAD_SUCCESS)) {
-            Success(message as string)
+            Success(message as string);
         } else if(processing && (type === PASSPORT_UPLOAD_FAILED ||
             type === POLICE_REPORT_UPLOAD_FAILED)) {
-            Failure(error as string)
+            Failure(error as string);
         }
         else if(!processing && (type === USER_ALREADY_EXISTS || type === USER_REGISTRATION_FAILED)) {
-            Failure(error as string)
+            Failure(error as string);
             dispatch({
                 type: USER_REGISTRATION_DEFAULT
             });
@@ -71,7 +71,7 @@ export function AdminRegistration() {
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[processing,type, error, message, progress, dispatch])
+    },[processing,type, error, message, progress, dispatch]);
 
     function onSubmit() {
 
@@ -84,7 +84,7 @@ export function AdminRegistration() {
             emailFormatInvalid : !validateEmail(employee.email),
             contactNoReq : !employee.contactNumber,
             genderReq : employee.gender === "None",
-        }))
+        }));
 
         // validation
         if(employee.firstName && employee.lastName && employee.address && employee.contactNumber && employee.gender !== "None"
@@ -94,8 +94,7 @@ export function AdminRegistration() {
                 progress : 0
             });
             // create user account
-            dispatch(registerEmployee(employee, passport, policeReport, "ADMIN", () =>
-            {Failure("Failed to register the new admin. Something went wrong!")}));
+            dispatch(registerEmployee(employee, passport, policeReport, "ADMIN"));
         }
     }
 
@@ -121,10 +120,10 @@ export function AdminRegistration() {
             contactNoReq : false,
             addressReq : false,
             genderReq : false
-        }))
+        }));
 
-        setPassport(null)
-        setPoliceReport(null)
+        setPassport(null);
+        setPoliceReport(null);
 
         dispatch({
             type: USER_REGISTRATION_DEFAULT
@@ -152,11 +151,11 @@ export function AdminRegistration() {
                                        setEmployee(prevState => ({
                                            ...prevState,
                                            firstName : e.target.value
-                                       }))
+                                       }));
                                        setValidation(prevState => ({
                                            ...prevState,
                                            firstNameReq : !e.target.value
-                                       }))
+                                       }));
                                    }}
                             />
                             {
@@ -171,11 +170,11 @@ export function AdminRegistration() {
                                        setEmployee(prevState => ({
                                            ...prevState,
                                            lastName : e.target.value
-                                       }))
+                                       }));
                                        setValidation(prevState => ({
                                            ...prevState,
                                            lastNameReq : !e.target.value
-                                       }))
+                                       }));
                                    }}
                             />
                             {
@@ -190,11 +189,11 @@ export function AdminRegistration() {
                                         setEmployee(prevState => ({
                                             ...prevState,
                                             gender : e.target.value
-                                        }))
+                                        }));
                                         setValidation(prevState => ({
                                             ...prevState,
                                             genderReq : !e.target.value || e.target.value === 'None'
-                                        }))
+                                        }));
                                     }}
                             >
                                 <option value="None">Select Gender</option>
@@ -213,7 +212,7 @@ export function AdminRegistration() {
                                        setEmployee(prevState => ({
                                            ...prevState,
                                            birthday : e.target.value
-                                       }))
+                                       }));
                                    }}
                                    data-date-format="DD MMMM YYYY" value={employee.birthday}/>
                         </div>
@@ -224,12 +223,12 @@ export function AdminRegistration() {
                                        setEmployee(prevState => ({
                                            ...prevState,
                                            email : e.target.value
-                                       }))
+                                       }));
                                        setValidation(prevState => ({
                                            ...prevState,
                                            emailReq : !e.target.value,
                                            emailFormatValid : validateEmail(e.target.value || "")
-                                       }))
+                                       }));
                                    }}
                             />
                             {
@@ -245,11 +244,11 @@ export function AdminRegistration() {
                                        setEmployee(prevState => ({
                                            ...prevState,
                                            contactNumber : e.target.value
-                                       }))
+                                       }));
                                        setValidation(prevState => ({
                                            ...prevState,
                                            contactNoReq : !e.target.value,
-                                       }))
+                                       }));
                                    }}
                             />
                             {
@@ -266,13 +265,13 @@ export function AdminRegistration() {
                                           setEmployee(prevState => ({
                                               ...prevState,
                                               address : e.target.value
-                                          }))
+                                          }));
                                           setValidation(prevState => ({
                                               ...prevState,
                                               addressReq : !e.target.value,
-                                          }))
+                                          }));
                                       }}
-                            ></textarea>
+                            />
                             {
                                 validation.addressReq &&
                                 <small className="invalid-feedback">The address is required.</small>
@@ -285,9 +284,9 @@ export function AdminRegistration() {
                                           setEmployee(prevState => ({
                                               ...prevState,
                                               otherDetails : e.target.value
-                                          }))
+                                          }));
                                       }}
-                            ></textarea>
+                            />
                         </div>
                         <div className="form-group">
                             <div className="row">
@@ -296,7 +295,7 @@ export function AdminRegistration() {
                                     <div className="custom-file">
                                         <input type="file" className="custom-file-input"
                                             onChange={(e) => {
-                                                setPassport(e.target.files?.item(0))
+                                                setPassport(e.target.files?.item(0));
                                             }}
                                         />
                                         <label className="custom-file-label">{!passport ? "Choose file" : passport.name}</label>
@@ -309,7 +308,7 @@ export function AdminRegistration() {
                                     <div className="custom-file">
                                         <input type="file" className="custom-file-input"
                                                onChange={(e) => {
-                                                   setPoliceReport(e.target.files?.item(0))
+                                                   setPoliceReport(e.target.files?.item(0));
                                                }}
                                         />
                                         <label className="custom-file-label">{!policeReport ? "Choose file" : policeReport.name}</label>
@@ -323,7 +322,7 @@ export function AdminRegistration() {
                             >Clear</button>
                             <button className="btn btn-primary"
                                 onClick={() => {
-                                    onSubmit()
+                                    onSubmit();
                                 }}
                             >Submit</button>
                         </div>

@@ -10,7 +10,7 @@ export function SideBar() {
                     <img className="img-fluid" src={logo} alt="logo"/>
                 </a>
                 <div className="close-sidebar" data-toggle="left-sidebar-close">
-                    <i className="icon ion-ios-close close-icon"></i>
+                    <i className="icon ion-ios-close close-icon"/>
                 </div>
             </div>
 
@@ -18,66 +18,66 @@ export function SideBar() {
                 <div className="sidebar-menu">
                     <ul id="accordion-menu">
                         <li>
-                            <a href="#dashboard" className="dropdown-toggle no-arrow">
-                                <i className="icon ion-ios-home custom-icons"></i>
+                            <a href={"#dashboard"} className="dropdown-toggle no-arrow">
+                                <i className="icon ion-ios-home custom-icons"/>
                                 <span className="dashboard">Home</span>
                             </a>
                         </li>
 
                         <li className="dropdown">
-                            <a href="#collapseJobs" className="dropdown-toggle btn" data-toggle="collapse">
-                                <i className="icon ion-ios-briefcase custom-icons"></i>
+                            <a href={"#collapseJobs"} className="dropdown-toggle btn" data-toggle="collapse">
+                                <i className="icon ion-ios-briefcase custom-icons"/>
                                 <span className="accordion-menu">Jobs</span>
                             </a>
                             <div className="collapse" id="collapseJobs">
                                 <ul>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#jobs">- Jobs</a></li>
+                                        className="li-submenu-color" href={"#jobs"}>- Jobs</a></li>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#jobs/schedule-new-job">- Job Scheduling</a>
+                                        className="li-submenu-color" href={"#jobs/schedule-new-job"}>- Job Scheduling</a>
                                     </li>
                                     <li className="li-submenu">
-                                        <a className="li-submenu-color" href="#jobs/history">- Job History</a>
+                                        <a className="li-submenu-color" href={"#jobs/history"}>- Job History</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
 
                         <li className="dropdown">
-                            <a href="#collapseEmployees" className="dropdown-toggle btn" data-toggle="collapse">
-                                <i className="icon ion-ios-contacts custom-icons"></i>
+                            <a href={"#collapseEmployees"} className="dropdown-toggle btn" data-toggle="collapse">
+                                <i className="icon ion-ios-contacts custom-icons"/>
                                 <span className="accordion-menu">Employees</span>
                             </a>
                             <div className="collapse" id="collapseEmployees">
                                 <ul>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#employee">- Employees</a></li>
+                                        className="li-submenu-color" href={"#employee"}>- Employees</a></li>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#employee/registration">- Employee Registration</a>
+                                        className="li-submenu-color" href={"#employee/registration"}>- Employee Registration</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
 
                         <li className="dropdown">
-                            <a href="#collapseAdmins" className="dropdown-toggle btn" data-toggle="collapse">
-                                <i className="icon ion-ios-contact custom-icons"></i>
+                            <a href={"#collapseAdmins"} className="dropdown-toggle btn" data-toggle="collapse">
+                                <i className="icon ion-ios-contact custom-icons"/>
                                 <span className="accordion-menu">Administration Area</span>
                             </a>
                             <div className="collapse" id="collapseAdmins">
                                 <ul>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#admin">- Administrators</a></li>
+                                        className="li-submenu-color" href={"#admin"}>- Administrators</a></li>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href="#admin/registration">- Admin Registration</a>
+                                        className="li-submenu-color" href={"#admin/registration"}>- Admin Registration</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
 
                         <li>
-                            <a href="#payment" className="dropdown-toggle no-arrow">
-                                <i className="icon ion-ios-cash custom-icons"></i>
+                            <a href={"#payment"} className="dropdown-toggle no-arrow">
+                                <i className="icon ion-ios-cash custom-icons"/>
                                 <span className="">Payments</span>
                             </a>
                         </li>

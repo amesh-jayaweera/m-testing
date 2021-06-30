@@ -7,7 +7,7 @@ import {
     SCHEDULE_JOB_SUCCESS, SCHEDULE_JOB_TITLE_ALREADY_EXISTS
 } from "../actionTypes";
 
-export const scheduleJob = (jobForm : IJobForm , user : LoggedUser , onError: () => void) : ThunkAction<void, RootState
+export const scheduleJob = (jobForm : IJobForm , user : LoggedUser) : ThunkAction<void, RootState
     , null, ScheduleJobAction> => {
 
     const today = new Date();
@@ -70,4 +70,4 @@ export const scheduleJob = (jobForm : IJobForm , user : LoggedUser , onError: ()
                 }
             });
         }
-    }
+    };

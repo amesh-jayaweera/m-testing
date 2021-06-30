@@ -12,7 +12,7 @@ import {
     USER_REGISTRATION_SUCCESS
 } from "../actionTypes";
 
-export const registerEmployee = (employee : IEmployee, passport : any, policeReport : any, userType : string,onError: () => void):
+export const registerEmployee = (employee : IEmployee, passport : any, policeReport : any, userType : string):
     ThunkAction<void, RootState, null, EmployeeRegisterAction> => {
 
     let collectionPath = "";
@@ -40,7 +40,7 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
                     dispatch({
                         type : USER_REGISTRATION_SUCCESS,
                         progress : 20
-                    })
+                    });
                     return uploadPassport(passport, policeReport , employee.email, passportStoragePath, policeReportStoragePath , dispatch);
                 })
                 .catch((error) => {
@@ -48,7 +48,7 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
                     dispatch({
                         type : USER_REGISTRATION_FAILED,
                         error : error
-                    })
+                    });
                 });
         } else {
             // user exists
@@ -57,7 +57,7 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
             })
         }
     }
-}
+};
 
 const uploadPassport = (passport : any, policeReport : any , email : string, passportStoragePath : string,
                         policeReportStoragePath : string , dispatch : any) => {
@@ -73,25 +73,25 @@ const uploadPassport = (passport : any, policeReport : any , email : string, pas
                     dispatch({
                         type : USER_REGISTRATION_PROGRESS,
                         progress : getProgressStep(progress)
-                    })
+                    });
                 },
                 () => {
                     dispatch({
                         type : PASSPORT_UPLOAD_FAILED
-                    })
+                    });
                     return uploadPoliceReport(policeReport, email, policeReportStoragePath ,dispatch);
                 },
                 () => {
                     dispatch({
                         type : PASSPORT_UPLOAD_SUCCESS
-                    })
+                    });
                     return uploadPoliceReport(policeReport, email, policeReportStoragePath , dispatch);
                 }
             );
         } else {
             return uploadPoliceReport(policeReport, email, policeReportStoragePath ,dispatch);
         }
-}
+};
 
 const uploadPoliceReport = (policeReport : any, email : string, policeReportStoragePath : string ,dispatch : any) => {
     const storage = firebase.storage();
@@ -105,31 +105,31 @@ const uploadPoliceReport = (policeReport : any, email : string, policeReportStor
                     dispatch({
                         type : USER_REGISTRATION_PROGRESS,
                         progress : getProgressStep(progress)
-                    })
+                    });
                 },
-                (error) => {
+                () => {
                     dispatch({
                         type : POLICE_REPORT_UPLOAD_FAILED
-                    })
+                    });
                     dispatch({
                         type : USER_REGISTRATION_COMPLETED
-                    })
+                    });
                 },
                 () => {
                     dispatch({
                         type : POLICE_REPORT_UPLOAD_SUCCESS
-                    })
+                    });
                     dispatch({
                         type : USER_REGISTRATION_COMPLETED
-                    })
+                    });
                 }
             );
         } else {
             dispatch({
                 type : USER_REGISTRATION_COMPLETED
-            })
+            });
         }
-}
+};
 
 function getProgressStep(progress : number) {
     if(progress <= 10)
@@ -175,4 +175,4 @@ export const getAllEmployeeEmails = (): ThunkAction<void, RootState, null, Emplo
             })
         });
     }
-}
+};

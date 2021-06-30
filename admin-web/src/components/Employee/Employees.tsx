@@ -8,7 +8,7 @@ const options = {
     searchPlaceholder : "search ...",
     selectableRowsHeader : false,
     selectableRowsHideCheckboxes : true
-}
+};
 
 export function Employees() {
 
@@ -72,7 +72,7 @@ export function Employees() {
     useEffect(() => {
         dispatch(getEmployees());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[]);
 
     return (
         <div className="card-box mb-30 ">

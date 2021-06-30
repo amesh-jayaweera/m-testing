@@ -16,7 +16,7 @@ const initialState: AuthState = {
     loading: false,
     error: '',
     success: ''
-}
+};
 
 export const authReducer = (state = initialState, action: AuthAction) => {
     switch(action.type) {
@@ -25,12 +25,12 @@ export const authReducer = (state = initialState, action: AuthAction) => {
                 ...state,
                 user: action.payload,
                 authenticated: true
-            }
+            };
         case SET_LOADING:
             return {
                 ...state,
                 loading: action.payload
-            }
+            };
         case SIGN_OUT:
             return {
                 ...state,
@@ -45,18 +45,18 @@ export const authReducer = (state = initialState, action: AuthAction) => {
                 },
                 authenticated: false,
                 loading: false
-            }
+            };
         case SET_ERROR:
             return {
                 ...state,
                 error: action.payload
-            }
+            };
         case SET_SUCCESS:
             return {
                 ...state,
                 success: action.payload
-            }
+            };
         default:
             return state;
     }
-}
+};

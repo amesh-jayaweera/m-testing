@@ -35,7 +35,7 @@ export function HomePage() {
       <>
           <Header/>
           <SideBar/>
-          <div className="mobile-menu-overlay"></div>
+          <div className="mobile-menu-overlay"/>
           <div className="main-container">
               {
                   (location.hash === '#dashboard' || location.hash === '#' || location.hash === '') &&

@@ -6,8 +6,8 @@ export function Notifications() {
         <div className="user-notification">
             <div className="dropdown">
                 <a className="dropdown-toggle no-arrow" href="/#" role="button" data-toggle="dropdown">
-                    <i className="icon ion-ios-notifications notification-icon"></i>
-                    <span className="badge notification-active"></span>
+                    <i className="icon ion-ios-notifications notification-icon"/>
+                    <span className="badge notification-active"/>
                 </a>
                 <div className="dropdown-menu dropdown-menu-right">
                     <div className="notification-list mx-h-350 customscroll">

@@ -29,7 +29,7 @@ export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> =
             })
         });
     }
-}
+};
 
 export const getEmployees = () : ThunkAction<void, RootState, null, TableActions> => {
 
@@ -54,7 +54,7 @@ export const getEmployees = () : ThunkAction<void, RootState, null, TableActions
             })
         });
     }
-}
+};
 
 const RenderNoOfWorkedEmployees = (num : number) => {
     return (
@@ -108,7 +108,7 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
             dispatch({
                 type : SCHEDULED_JOB_TABLE_DATA,
                 data : jobs
-            })
+            });
         });
     }
-}
+};

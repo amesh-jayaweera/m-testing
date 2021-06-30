@@ -10,7 +10,7 @@ export function ContainerNavigation({title,mainTitle,mainNav} : {title : string,
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol className="breadcrumb">
-                            <li className="breadcrumb-item"><a href="#dashboard">Home</a></li>
+                            <li className="breadcrumb-item"><a href={"#dashboard"}>Home</a></li>
                             <li className="breadcrumb-item"><a href={`#${mainNav}`}>{mainTitle}</a></li>
                             <li className="breadcrumb-item active" aria-current="page">{title}</li>
                         </ol>

@@ -21,11 +21,10 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
     }
 
     function onSubmit() {
-        console.log(days)
         if(valid) {
-            onDaysChange(days)
-            setOpen(false)
-            history.goBack()
+            onDaysChange(days);
+            setOpen(false);
+            history.goBack();
         }
     }
 
@@ -37,8 +36,10 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">Customized Days</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close"
-                            onClick={() => {setOpen(false)
-                                history.goBack()}}
+                            onClick={() => {
+                                setOpen(false);
+                                history.goBack();
+                            }}
                         >
                             <span aria-hidden="true">&times;</span>
                         </button>

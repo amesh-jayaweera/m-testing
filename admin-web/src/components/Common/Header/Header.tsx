@@ -12,12 +12,12 @@ export function Header() {
 
     const logoutClickHandler = () => {
         dispatch(signOut());
-    }
+    };
 
     return (
         <div className="header">
             <div className="header-left">
-                <div className="menu-icon icon ion-ios-menu" onClick={() => {setToggle(!toggle)}}></div>
+                <div className="menu-icon icon ion-ios-menu" onClick={() => {setToggle(!toggle)}}/>
             </div>
             <div className="header-right">
 
@@ -32,8 +32,8 @@ export function Header() {
                             <span className="user-name">Ross C. Lopez</span>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <a className="dropdown-item" href="/#"><i className="icon ion-md-contact"></i> Profile</a>
-                            <a className="dropdown-item" href="/#" onClick={logoutClickHandler}><i className="icon ion-md-undo "></i> Log Out</a>
+                            <a className="dropdown-item" href="/#"><i className="icon ion-md-contact"/>Profile</a>
+                            <a className="dropdown-item" href="/#" onClick={logoutClickHandler}><i className="icon ion-md-undo "/>Log Out</a>
                         </div>
                     </div>
                 </div>

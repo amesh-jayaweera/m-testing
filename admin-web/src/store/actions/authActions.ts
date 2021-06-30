@@ -20,7 +20,7 @@ export const getUserById = (id: string): ThunkAction<void, RootState, null, Auth
             dispatch(setError(err.message));
         }
     }
-}
+};
 
 // Set loading
 export const setLoading = (value: boolean): ThunkAction<void, RootState, null, AuthAction> => {
@@ -30,7 +30,7 @@ export const setLoading = (value: boolean): ThunkAction<void, RootState, null, A
             payload: value
         });
     }
-}
+};
 
 // Log In
 export const signIn = (data: SignInData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
@@ -43,7 +43,7 @@ export const signIn = (data: SignInData, onError: () => void): ThunkAction<void,
             dispatch(setError(err.message));
         }
     }
-}
+};
 
 // Log out
 export const signOut = (): ThunkAction<void, RootState, null, AuthAction> => {
@@ -59,7 +59,7 @@ export const signOut = (): ThunkAction<void, RootState, null, AuthAction> => {
             dispatch(setLoading(false));
         }
     }
-}
+};
 
 // Set error
 export const setError = (msg: string): ThunkAction<void, RootState, null, AuthAction> => {
@@ -69,7 +69,7 @@ export const setError = (msg: string): ThunkAction<void, RootState, null, AuthAc
             payload: msg
         });
     }
-}
+};
 
 // Set success
 export const setSuccess = (msg: string): ThunkAction<void, RootState, null, AuthAction> => {
@@ -79,4 +79,4 @@ export const setSuccess = (msg: string): ThunkAction<void, RootState, null, Auth
             payload: msg
         });
     }
-}
+};

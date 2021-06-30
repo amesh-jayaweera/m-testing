@@ -29,12 +29,12 @@ export function ScheduleJob() {
     const history = useHistory();
     const dispatch = useDispatch();
     useEffect(()=> {
-        dispatch(getAllEmployeeEmails())
+        dispatch(getAllEmployeeEmails());
         dispatch({
             type : SCHEDULE_JOB_DEFAULT
-        })
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[]);
     const { emails } = useSelector((state: RootState) => state.employeeEmails);
     const [selectedEmployees, setSelectedEmployees] = useState([]);
     const [recurrence, setRecurrence] = useState<string>("None");
@@ -76,19 +76,19 @@ export function ScheduleJob() {
 
     useEffect(() => {
         if(type === SCHEDULE_JOB_SUCCESS) {
-            setProcessing(false)
-            Success(message as string)
+            setProcessing(false);
+            Success(message as string);
             dispatch({
                 type : SCHEDULE_JOB_DEFAULT
-            })
+            });
         } else if(type === SCHEDULE_JOB_FAILED || type === SCHEDULE_JOB_TITLE_ALREADY_EXISTS) {
-            Failure(error as string)
+            Failure(error as string);
             dispatch({
                 type : SCHEDULE_JOB_DEFAULT
-            })
+            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[type, error, message, dispatch])
+    },[type, error, message, dispatch]);
 
     // set recurrence days
     useEffect(() => {
@@ -96,26 +96,24 @@ export function ScheduleJob() {
             setJob(prevState => ({
                 ...prevState,
                 days : []
-            }))
+            }));
         } else if(recurrence === 'Daily') {
             setJob(prevState => ({
                 ...prevState,
                 days : days
-            }))
+            }));
         } else if(recurrence === 'Week days') {
             setJob(prevState => ({
                 ...prevState,
                 days : [days[0],days[1],days[2],days[3],days[4]]
-            }))
+            }));
         } else if(recurrence === 'Weekend') {
             setJob(prevState => ({
                 ...prevState,
                 days : [days[5] , days[6]]
-            }))
-        } else if(recurrence === 'Custom') {
-
+            }));
         }
-    },[recurrence])
+    },[recurrence]);
 
 
     function onSubmit() {
@@ -124,7 +122,7 @@ export function ScheduleJob() {
             ...prevState,
             recurrence : recurrence as string,
             assignedEmployees : selectedEmployees
-        }))
+        }));
 
         // set validations before submitting
         setValidation(prevState => ({
@@ -133,17 +131,17 @@ export function ScheduleJob() {
             categoryReq : !job.category,
             descriptionReq : !job.description,
             addressReq : !job.address
-        }))
+        }));
 
         if(job.title && job.category && job.description && job.address && job.startingDate && recurrence !== "None" &&
             validateTime(job.shiftOn) && validateTime(job.shiftOff) && ValidateShifts(job.shiftOn, job.shiftOff)) {
             if(recurrence === "Custom" && job.days.length === 0) {
-                history.push('#jobs/schedule-new-job#add-recurrence-days')
+                history.push('#jobs/schedule-new-job#add-recurrence-days');
             } else {
-                setProcessing(true)
+                setProcessing(true);
                 dispatch({
                     type : SCHEDULE_JOB_DEFAULT
-                })
+                });
                 dispatch(scheduleJob(job,user as LoggedUser,() => {
                     Failure("Failed to schedule the new job. Something went wrong!");
                 }));
@@ -175,7 +173,7 @@ export function ScheduleJob() {
                 lon4 : 0.0,
             },
             assignedEmployees : []
-        }))
+        }));
 
         setRecurrence("None");
         setSelectedEmployees([]);
@@ -185,11 +183,11 @@ export function ScheduleJob() {
             categoryReq : false,
             descriptionReq : false,
             addressReq : false
-        }))
+        }));
 
         dispatch({
             type : SCHEDULE_JOB_DEFAULT
-        })
+        });
     }
 
     function modifiedLocationString() {
@@ -201,7 +199,7 @@ export function ScheduleJob() {
             String(location.lat3) + ',' +
             String(location.lon3) + ',' +
             String(location.lat4) + ',' +
-            String(location.lon4)
+            String(location.lon4);
     }
 
     return (
@@ -217,11 +215,11 @@ export function ScheduleJob() {
                                    setJob(prevState => ({
                                        ...prevState,
                                        title : e.target.value
-                                   }))
+                                   }));
                                    setValidation(prevState => ({
                                        ...prevState,
                                        titleReq : !e.target.value
-                                   }))
+                                   }));
                                }}
                         />
                         {
@@ -235,11 +233,11 @@ export function ScheduleJob() {
                             setJob(prevState => ({
                                 ...prevState,
                                 category : e.target.value
-                            }))
+                            }));
                             setValidation(prevState => ({
                                 ...prevState,
                                 categoryReq : !e.target.value || e.target.value === "None"
-                            }))
+                            }));
                         }}>
                             <option value="None">Select Job Category</option>
                             <option value="Cleaning Service">Cleaning Service</option>
@@ -258,12 +256,12 @@ export function ScheduleJob() {
                             setJob(prevState => ({
                                 ...prevState,
                                 description : e.target.value
-                            }))
+                            }));
                             setValidation(prevState => ({
                                 ...prevState,
                                 descriptionReq : !e.target.value
-                            }))
-                        }}></textarea>
+                            }));
+                        }}/>
                         {
                             validation.descriptionReq && <small className="invalid-feedback">The description is required</small>
                         }
@@ -280,7 +278,7 @@ export function ScheduleJob() {
                                            setJob(prevState => ({
                                                ...prevState,
                                                startingDate : e.target.value
-                                           }))
+                                           }));
                                        }}
                                 />
                                 {
@@ -291,9 +289,9 @@ export function ScheduleJob() {
                             <div className="form-group col-6">
                                 <label>Job Status<sup>*</sup></label>
                                 <select className="custom-select" onChange={(e) => {
-                                    setRecurrence(e.target.value)
+                                    setRecurrence(e.target.value);
                                     if(e?.target?.value?.trim() === 'Custom') {
-                                        history.push('#jobs/schedule-new-job#add-recurrence-days')
+                                        history.push('#jobs/schedule-new-job#add-recurrence-days');
                                     }
                                 }}>
                                     <option defaultValue="None">Select Job Status</option>
@@ -319,7 +317,7 @@ export function ScheduleJob() {
                                            setJob(prevState => ({
                                                ...prevState,
                                                shiftOn : e.target.value
-                                           }))
+                                           }));
                                        }}
                                        value={job.shiftOn}
                                        required/>
@@ -335,7 +333,7 @@ export function ScheduleJob() {
                                            setJob(prevState => ({
                                                ...prevState,
                                                shiftOff : e.target.value
-                                           }))
+                                           }));
                                        }}
                                        value={job.shiftOff}
                                        required/>
@@ -359,12 +357,12 @@ export function ScheduleJob() {
                             setJob(prevState => ({
                                 ...prevState,
                                 address : e.target.value
-                            }))
+                            }));
                             setValidation(prevState => ({
                                 ...prevState,
                                 addressReq : !e.target.value
-                            }))
-                        }}></textarea>
+                            }));
+                        }}/>
                         {
                             validation.addressReq && <small className="invalid-feedback">The address is required.</small>
                         }
@@ -377,7 +375,7 @@ export function ScheduleJob() {
                                         <span className="input-group-text btn bg-primary btn-primary " id="basic-addon2">
                                                 <span><img width="24px" height="24px" src={mapIcon}
                                                            alt="map icon for location popup"
-                                                    onClick={() => {history.push('#jobs/schedule-new-job#add-location')}}
+                                                    onClick={() => {history.push('#jobs/schedule-new-job#add-location');}}
                                                 /></span>
                                         </span>
                                 </div>
@@ -416,7 +414,7 @@ export function ScheduleJob() {
                     setJob(prevState => ({
                         ...prevState,
                         locations : val
-                    }))
+                    }));
                 }}
                     initLocation={job.locations}
                 />

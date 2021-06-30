@@ -67,7 +67,7 @@ export function Admins() {
     useEffect(() => {
         dispatch(getAdmins());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[]);
 
     return (
         <div className="card-box mb-30 ">

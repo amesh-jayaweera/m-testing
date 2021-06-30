@@ -11,7 +11,7 @@ export function Loader() {
                          alt=""/>
                 </div>
                 <div className='loader-progress bg-dgreen' id="progress_div">
-                    <div className='bar bar-custom' id='bar1'></div>
+                    <div className='bar bar-custom' id='bar1'/>
                 </div>
                 <div className="loading-text">
                     Loading...

@@ -17,25 +17,25 @@ export const scheduleJobReducer = ( state: ScheduleJobState = initStateScheduleJ
                 ...state,
                 type : SCHEDULE_JOB_SUCCESS,
                 message : action.message
-            }
+            };
         case SCHEDULE_JOB_FAILED:
             return {
                 ...state,
                 type : SCHEDULE_JOB_FAILED,
                 error : action.error
-            }
+            };
         case SCHEDULE_JOB_TITLE_ALREADY_EXISTS:
             return {
                 ...state,
                 type : SCHEDULE_JOB_TITLE_ALREADY_EXISTS,
                 error : action.error
-            }
+            };
         case SCHEDULE_JOB_DEFAULT:
             return {
                 type : SCHEDULE_JOB_DEFAULT,
                 message : "",
                 error : ""
-            }
+            };
         default: return state;
     }
-}
+};

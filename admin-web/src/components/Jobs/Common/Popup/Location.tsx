@@ -12,9 +12,9 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
     function onSubmit() {
         if(ValidateLatitude(location.lat1) && ValidateLatitude(location.lat2) && ValidateLatitude(location.lat3) && ValidateLatitude(location.lat4)
         && ValidateLongitude(location.lon1) && ValidateLongitude(location.lon2) && ValidateLongitude(location.lon3) && ValidateLongitude(location.lon4)) {
-            onLocationChange(location)
-            setOpen(false)
-            history.goBack()
+            onLocationChange(location);
+            setOpen(false);
+            history.goBack();
         }
     }
 
@@ -26,8 +26,10 @@ export function Location ({onLocationChange , initLocation} : {onLocationChange 
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">Adding Locations</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close"
-                            onClick={() => {setOpen(false)
-                                history.goBack()}}
+                            onClick={() => {
+                                setOpen(false);
+                                history.goBack();
+                            }}
                         >
                             <span aria-hidden="true">&times;</span>
                         </button>

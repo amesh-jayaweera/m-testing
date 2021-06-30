@@ -14,6 +14,6 @@ const PublicRoute: FC<Props> = ({ component: Component, ...rest }) => {
     return(
         <Route {...rest} render={props => !authenticated ? <Component {...props} /> : <Redirect to="/" />} />
     );
-}
+};
 
 export default PublicRoute;
