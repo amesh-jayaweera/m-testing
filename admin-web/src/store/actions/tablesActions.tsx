@@ -4,6 +4,8 @@ import firebase from "firebase";
 import {IJob, TableActions} from "../../type";
 import {AdminListTable, EmployeeListTable, JobListTable} from "../table";
 import {ADMIN_TABLE_DATA, EMPLOYEE_TABLE_DATA, SCHEDULED_JOB_TABLE_DATA} from "../actionTypes";
+import React from "react";
+import {useHistory} from "react-router";
 
 export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> => {
 
@@ -55,6 +57,26 @@ export const getEmployees = () : ThunkAction<void, RootState, null, TableActions
     }
 }
 
+const RenderNoOfWorkedEmployees = (num : number) => {
+    return (
+        <div className="badge badge-dyellow text-dark">{num}</div>
+    )
+};
+
+const RenderEditAction = (id : string) => {
+
+    return (
+        <div className="row">
+            <div className="col-6">
+                <a  href={`#jobs/view?id=${id}`}><div className="badge badge-dgreen text-white">View</div></a>
+            </div>
+            <div className="col-6">
+                <a href={`#jobs/edit?id=${id}`}><div className="badge badge-dyellow text-dark">Edit</div></a>
+            </div>
+        </div>
+    )
+};
+
 export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableActions> => {
 
     const db = firebase.firestore();
@@ -71,8 +93,7 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
                 count += 1;
                 _job.id = count;
                 _job.jobID = doc.id;
-                _job.noOfWorkedEmployees = '<div className="badge badge-dyellow text-dark">' +
-                    String(job.assignedEmployees.length) + '</div>';
+                _job.noOfWorkedEmployees = RenderNoOfWorkedEmployees(job.assignedEmployees.length);
                 _job.createdAdmin = (job.createdBy.firstName && job.createdBy.lastName) ?
                     (job.createdBy?.firstName + " " + job.createdBy?.lastName) : job.createdBy.email
                     ? job.createdBy.email : "NOT_DEFINED";
@@ -81,6 +102,7 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
                         ? job.updatedBy.email : "NOT_DEFINED";
                 _job.createdDate = (job.createdDate as any).toDate().toISOString();
                 _job.updatedDate = (job.updatedDate as any).toDate().toISOString();
+                _job.action = RenderEditAction(doc.id);
                 jobs.push(_job);
             });
 
@@ -91,4 +113,3 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
         });
     }
 }
-

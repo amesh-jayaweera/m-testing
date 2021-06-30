@@ -4,46 +4,6 @@ import {getEmployees} from "../../store/actions/tablesActions";
 import {RootState} from "../../store/reducers/rootReducer";
 import MUIDataTable from "mui-datatables";
 
-const columns = [
-    {
-        label: 'Email',
-        name: 'email',
-        options : {
-            display : true,
-            viewColumns : false
-        }
-    },
-    {
-        label: 'First Name',
-        name: 'firstName'
-    },
-    {
-        label: 'Last Name',
-        name: 'lastName'
-    },
-    {
-        label: 'Gender',
-        name: 'gender'
-    },
-    {
-        label: 'Birthday',
-        name: 'birthday',
-        sortable: true,
-    },
-    {
-        label: 'Address',
-        name: 'address'
-    },
-    {
-        label: 'Position',
-        name: 'contactNumber'
-    },
-    {
-        label: 'Contact Number',
-        name: 'contactNumber'
-    },
-];
-
 const options = {
     searchPlaceholder : "search ...",
     selectableRowsHeader : false,
@@ -51,6 +11,61 @@ const options = {
 }
 
 export function Employees() {
+
+    const columns = [
+        {
+            label: 'Email',
+            name: 'email',
+            options : {
+                display : true,
+                filter : false
+            }
+        },
+        {
+            label: 'First Name',
+            name: 'firstName',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'Last Name',
+            name: 'lastName',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'Gender',
+            name: 'gender'
+        },
+        {
+            label: 'Birthday',
+            name: 'birthday',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'Address',
+            name: 'address',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'Position',
+            name: 'position'
+        },
+        {
+            label: 'Contact Number',
+            name: 'contactNumber',
+            options : {
+                filter : false
+            }
+        },
+    ];
+
     const dispatch = useDispatch();
     const { data } = useSelector((state: RootState) => state.employeeTable);
 

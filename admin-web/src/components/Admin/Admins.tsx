@@ -4,44 +4,62 @@ import {RootState} from "../../store/reducers/rootReducer";
 import {getAdmins} from "../../store/actions/tablesActions";
 import MUIDataTable from "mui-datatables";
 
-const columns = [
-    {
-        label: 'Email',
-        name: 'email'
-    },
-    {
-        label: 'First Name',
-        name: 'firstName'
-    },
-    {
-        label: 'Last Name',
-        name: 'lastName'
-    },
-    {
-        label: 'Gender',
-        name: 'gender'
-    },
-    {
-        label: 'Birthday',
-        name: 'birthday'
-    },
-    {
-        label: 'Address',
-        name: 'address'
-    },
-    {
-        label: 'Contact Number',
-        name: 'contactNumber'
-    },
-];
-
 const options = {
     searchPlaceholder : "search ...",
     selectableRowsHeader : false,
     selectableRowsHideCheckboxes : true
-}
+};
 
 export function Admins() {
+
+    const columns = [
+        {
+            label: 'Email',
+            name: 'email',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'First Name',
+            name: 'firstName',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'Last Name',
+            name: 'lastName',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'Gender',
+            name: 'gender'
+        },
+        {
+            label: 'Birthday',
+            name: 'birthday',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'Address',
+            name: 'address',
+            options : {
+                filter : false
+            }
+        },
+        {
+            label: 'Contact Number',
+            name: 'contactNumber',
+            options : {
+                filter : false
+            }
+        },
+    ];
 
     const dispatch = useDispatch();
     const { data } = useSelector((state: RootState) => state.adminTable);

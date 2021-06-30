@@ -43,5 +43,6 @@ export interface JobListTable {
     createdDate : string;
     updatedAdmin : string;
     updatedDate : string;
+    action  : any;
 }
 
