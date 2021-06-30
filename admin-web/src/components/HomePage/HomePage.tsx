@@ -70,8 +70,8 @@ export function HomePage() {
                   </div>
               }
               {
-                  (location.hash === '#jobs/schedule-new-job' || location.hash === '#jobs/schedule-new-job#add-location'
-                    || location.hash === '#jobs/schedule-new-job#add-recurrence-days'
+                  (location.hash === '#jobs/schedule-job' || location.hash === '#jobs/schedule-job#add-location'
+                    || location.hash === '#jobs/schedule-job#add-recurrence-days'
                   ) &&
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Schedule Job"} mainTitle={"Jobs"} mainNav={"jobs"} />

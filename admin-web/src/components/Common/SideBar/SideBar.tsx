@@ -34,7 +34,7 @@ export function SideBar() {
                                     <li className="li-submenu"><a
                                         className="li-submenu-color" href={"#jobs"}>- Jobs</a></li>
                                     <li className="li-submenu"><a
-                                        className="li-submenu-color" href={"#jobs/schedule-new-job"}>- Job Scheduling</a>
+                                        className="li-submenu-color" href={"#jobs/schedule-job"}>- Job Scheduling</a>
                                     </li>
                                     <li className="li-submenu">
                                         <a className="li-submenu-color" href={"#jobs/history"}>- Job History</a>
