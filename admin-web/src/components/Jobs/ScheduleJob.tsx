@@ -518,18 +518,18 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
             </div>
         </div>
         </form>
-            {
-                ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#add-location`)
-                || (location.hash === "#jobs/schedule-job#add-location")) &&
-                <Location onLocationChange={(val : ILocation) => {
-                    setJob(prevState => ({
-                        ...prevState,
-                        locations : val
-                    }));
-                }}
-                    initLocation={job.locations}
-                />
-            }
+
+            <Location onLocationChange={(val : ILocation) =>
+                    {
+                        setJob(prevState => ({
+                            ...prevState,
+                            locations : val
+                        }));
+                    }}
+                      initLocation={job.locations}
+                      isOpen={((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#add-location`)
+                          || (location.hash === "#jobs/schedule-job#add-location"))}
+            />
             {
                 ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#add-recurrence-day`)
                     || (location.hash === "#jobs/schedule-job#add-recurrence-days")) &&

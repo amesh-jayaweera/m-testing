@@ -64,3 +64,11 @@ sup {
     width: 100%;
 }
 
+.display {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
