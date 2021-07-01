@@ -64,6 +64,10 @@ export function Employees() {
                 filter : false
             }
         },
+        {
+            label: 'Actions',
+            name : 'action'
+        }
     ];
 
     const dispatch = useDispatch();

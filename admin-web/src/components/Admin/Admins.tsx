@@ -59,6 +59,10 @@ export function Admins() {
                 filter : false
             }
         },
+        {
+            label: 'Actions',
+            name : 'action'
+        }
     ];
 
     const dispatch = useDispatch();

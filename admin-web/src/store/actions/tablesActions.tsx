@@ -6,6 +6,13 @@ import {AdminListTable, EmployeeListTable, JobListTable} from "../table";
 import {ADMIN_TABLE_DATA, EMPLOYEE_TABLE_DATA, SCHEDULED_JOB_TABLE_DATA} from "../actionTypes";
 import React from "react";
 
+const RenderViewAction = (url : string) => {
+
+    return (
+        <a  href={url}><div className="badge badge-dgreen text-white">View</div></a>
+    )
+};
+
 export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> => {
 
     const db = firebase.firestore();
@@ -20,6 +27,7 @@ export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> =
                 let admin : AdminListTable  = doc.data() as AdminListTable;
                 count += 1;
                 admin.id = count;
+                admin.action = RenderViewAction(`#admin/view?id=${doc.id}`);
                 admins.push(admin);
             });
 
@@ -45,6 +53,7 @@ export const getEmployees = () : ThunkAction<void, RootState, null, TableActions
                 let employee : EmployeeListTable  = doc.data() as EmployeeListTable;
                 count += 1;
                 employee.id = count;
+                employee.action = RenderViewAction(`#employee/view?id=${doc.id}`);
                 employees.push(employee);
             });
 

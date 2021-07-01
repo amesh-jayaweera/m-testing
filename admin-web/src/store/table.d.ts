@@ -9,6 +9,7 @@ export interface AdminListTable {
     birthday : string;
     contactNumber : string;
     address : string;
+    action : any;
 }
 
 export interface EmployeeListTable {
@@ -21,6 +22,7 @@ export interface EmployeeListTable {
     contactNumber : string;
     address : string;
     position :  string;
+    action : any;
 }
 
 export interface JobListTable {
