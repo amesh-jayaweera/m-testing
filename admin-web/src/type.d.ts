@@ -178,6 +178,40 @@ export interface IJob {
     active : boolean;
 }
 
+export interface IJobRecurrence {
+    jobId : string;
+    title : string;
+    category : string;
+    address : string;
+    day : string;
+    shiftOn : string;
+    shiftOff : string;
+    locations : ILocation;
+    employees : string[];
+    date : string;
+    datetime : any;
+    employeeCount : number;
+}
+
+export interface IJobRunning {
+    jobId : string;
+    title : string;
+    category : string;
+    address : string;
+    day : string;
+    shiftOn : string;
+    shiftOff : string;
+    locations : ILocation;
+    employee : {
+        email : string;
+        firstName : string;
+        lastName : string;
+        position : string;
+    };
+    date : string;
+    datetime : any;
+}
+
 export interface IJobValidation {
     titleReq : boolean;
     categoryReq : boolean;
@@ -218,3 +252,7 @@ export interface IUpdatedAdmin {
     otherDetails? : string;
     contactNumber : string;
 }
+
+export interface JobState  {
+     data : IJobRecurrence[] | IJobRunning[];
+};

@@ -1,5 +1,11 @@
-import {TableActions, AdminListTableState, EmployeeListTableState, ScheduledTableState} from "../../type";
-import {ADMIN_TABLE_DATA, EMPLOYEE_TABLE_DATA, SCHEDULED_JOB_TABLE_DATA} from "../actionTypes";
+import {TableActions, AdminListTableState, EmployeeListTableState, ScheduledTableState, JobState} from "../../type";
+import {
+    ADMIN_TABLE_DATA,
+    EMPLOYEE_TABLE_DATA,
+    RECURRENCE_JOBS,
+    RUNNING_JOBS,
+    SCHEDULED_JOB_TABLE_DATA
+} from "../actionTypes";
 
 const initAdminsState : AdminListTableState = {
     data : []
@@ -36,6 +42,34 @@ const initJobState : ScheduledTableState = {
 export const scheduledTableReducer = ( state: ScheduledTableState = initJobState, action: TableActions) => {
     switch (action.type) {
         case SCHEDULED_JOB_TABLE_DATA :
+            return  {
+                data : action.data
+            };
+        default: return state
+    }
+};
+
+const initRecurrenceJobState : JobState = {
+    data : []
+};
+
+export const recurrenceJobReducer = (state: JobState = initRecurrenceJobState, action: TableActions) => {
+    switch (action.type) {
+        case RECURRENCE_JOBS:
+            return  {
+                data : action.data
+            };
+        default: return state
+    }
+};
+
+const initRunningJobState : JobState = {
+    data : []
+};
+
+export const runningJobReducer = (state: JobState = initRunningJobState, action: TableActions) => {
+    switch (action.type) {
+        case RUNNING_JOBS:
             return  {
                 data : action.data
             };

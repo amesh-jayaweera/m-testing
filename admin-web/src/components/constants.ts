@@ -12,7 +12,8 @@ export const locations : string[] = [
     '#jobs/schedule-job#add-recurrence-days',
     '#dashbord/not-found',
     '#jobs/schedule-job#map-view',
-    '#admin/profile'
+    '#admin/profile',
+    ''
 ];
 
 export const locationsStartWith : string[] = [

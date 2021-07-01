@@ -1,9 +1,15 @@
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../reducers/rootReducer";
 import firebase from "firebase";
-import {IJob, TableActions} from "../../type";
+import {IJob, IJobRecurrence, IJobRunning, TableActions} from "../../type";
 import {AdminListTable, EmployeeListTable, JobListTable} from "../table";
-import {ADMIN_TABLE_DATA, EMPLOYEE_TABLE_DATA, SCHEDULED_JOB_TABLE_DATA} from "../actionTypes";
+import {
+    ADMIN_TABLE_DATA,
+    EMPLOYEE_TABLE_DATA,
+    RECURRENCE_JOBS,
+    RUNNING_JOBS,
+    SCHEDULED_JOB_TABLE_DATA
+} from "../actionTypes";
 import React from "react";
 
 const RenderViewAction = (url : string) => {
@@ -119,5 +125,56 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
                 data : jobs
             });
         });
+    }
+};
+
+export const getTodayJobs = () : ThunkAction<void, RootState, null, TableActions> => {
+
+    const db = firebase.firestore();
+    const today = new Date();
+    const month = today.getMonth()+1;
+    const date  = today.getDate();
+    const todayStr : string = `${today.getFullYear()}-${(month/10) < 1 ? "0" : ""}${month}-${(date/10) < 1 ? "0" : ""}${today.getDate()}`;
+
+    return async dispatch => {
+        db.collection("today_jobs")
+            .where("date","==",todayStr)
+            .onSnapshot((querySnapshot) => {
+                let jobs : IJobRecurrence[] = [];
+                querySnapshot.forEach((doc) => {
+                    const job : IJobRecurrence = doc.data() as IJobRecurrence;
+                    jobs.push(job);
+                });
+                console.log("Jobs ====> ", jobs);
+                dispatch({
+                    type : RECURRENCE_JOBS,
+                    data : jobs
+                });
+            });
+    }
+};
+
+export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActions> => {
+
+    const db = firebase.firestore();
+    const today = new Date();
+    const month = today.getMonth()+1;
+    const date  = today.getDate();
+    const todayStr : string = `${today.getFullYear()}-${(month/10) < 1 ? "0" : ""}${month}-${(date/10) < 1 ? "0" : ""}${today.getDate()}`;
+
+    return async dispatch => {
+        db.collection("running_jobs")
+            .where("date","==",todayStr)
+            .onSnapshot((querySnapshot) => {
+                let jobs : IJobRunning[] = [];
+                querySnapshot.forEach((doc) => {
+                    const job : IJobRunning = doc.data() as IJobRunning;
+                    jobs.push(job);
+                });
+                dispatch({
+                    type : RUNNING_JOBS,
+                    data : jobs
+                });
+            });
     }
 };
