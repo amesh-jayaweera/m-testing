@@ -24,7 +24,8 @@ import {
 import firebase from "firebase";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import Skeleton from "react-loading-skeleton"; // Import css
+import Skeleton from "react-loading-skeleton";
+import {MapView} from "../Common/MapViewModal/MapView"; // Import css
 
 export const defaultShiftOnTime : string = "08:00";
 export const defaultShiftOffTime : string = "17:00";
@@ -490,15 +491,21 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                     <div className="form-group">
                         <label>Locations<sup>*</sup></label>
                         <div className="input-group">
-                            <input type="text" className="form-control" readOnly={true} value={modifiedLocationString()} />
+                            <input type="text" className="form-control" readOnly={true} value={modifiedLocationString()}
+                                   onClick={()=> {
+                                       (isEdit && editedJob) ?
+                                           history.push(`#jobs/schedule-job/edit?id=${jobID}#add-location`) :
+                                           history.push('#jobs/schedule-job#add-location');
+                                   }}
+                            />
                                 <div className="input-group-append">
                                         <span className="input-group-text btn bg-primary btn-primary " id="basic-addon2">
                                                 <span><img width="24px" height="24px" src={mapIcon}
                                                            alt="map icon for location popup"
                                                     onClick={() => {
                                                         (isEdit && editedJob) ?
-                                                            history.push(`#jobs/schedule-job/edit?id=${jobID}#add-location`) :
-                                                            history.push('#jobs/schedule-job#add-location');
+                                                            history.push(`#jobs/schedule-job/edit?id=${jobID}#map-view`) :
+                                                            history.push('#jobs/schedule-job#map-view');
                                                     }}
                                                 /></span>
                                         </span>
@@ -557,6 +564,11 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                     }))}}
                          initDays={job.days}
                 />
+            }
+            {
+                ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#map-view`)
+                    || (location.hash === "#jobs/schedule-job#map-view")) &&
+                <MapView lat={job?.locations?.lat4 || 0} lon={job?.locations?.lon4 || 0}/>
             }
         </div>}
         </>

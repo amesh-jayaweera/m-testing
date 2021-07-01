@@ -35,8 +35,8 @@ export function HomePage() {
     }, [success, dispatch]);
 
     const startWith = () => {
-        for(let i=0;locationsStartWith.length;i++){
-            if(locationsStartWith[i].includes(location.hash)) return true;
+        for(let i=0;i<locationsStartWith.length;i++){
+            if(location.hash.startsWith(locationsStartWith[i])) return true;
         }
         return false;
     };
@@ -109,7 +109,7 @@ export function HomePage() {
               }
               {
                   (location.hash === '#jobs/schedule-job' || location.hash === '#jobs/schedule-job#add-location'
-                      || location.hash === '#jobs/schedule-job#add-recurrence-days'
+                      || location.hash === '#jobs/schedule-job#add-recurrence-days' || location.hash === '#jobs/schedule-job#map-view'
                   ) &&
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Schedule Job"} mainTitle={"Jobs"} mainNav={"jobs"}

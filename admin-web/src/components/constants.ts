@@ -4,13 +4,14 @@ export const locations : string[] = [
     '#employee/registration',
     '#admin',
     '#employee',
-    '#job',
+    '#jobs',
     '#jobs/history',
     '#jobs/schedule-job',
     '#payment',
     '#jobs/schedule-job#add-location',
     '#jobs/schedule-job#add-recurrence-days',
-    '#dashbord/not-found'
+    '#dashbord/not-found',
+    '#jobs/schedule-job#map-view'
 ];
 
 export const locationsStartWith : string[] = [

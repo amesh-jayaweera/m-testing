@@ -72,3 +72,7 @@ sup {
     display: none;
 }
 
+.iframe-map {
+    border:0!important;
+}
+
