@@ -213,7 +213,7 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
             recurrence : recurrence,
             assignedEmployees : selectedEmployees
         }));
-    },[recurrence,selectedEmployees])
+    },[recurrence,selectedEmployees]);
 
     function onSubmit() {
         // set validations before submitting
