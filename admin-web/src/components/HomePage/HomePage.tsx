@@ -19,6 +19,7 @@ import {JobHistory} from "../Jobs/JobHistory";
 import {Payments} from "../Payments/Payments";
 import {EmployeeView, PROFILE_ADMIN, PROFILE_EMPLOYEE} from "../Profile/EmployeeView";
 import {NotFoundDashboard} from "../Error/NotFound/NotFoundDashboard";
+import {locations, locationsStartWith} from "../constants";
 
 export function HomePage() {
 
@@ -32,6 +33,13 @@ export function HomePage() {
             dispatch(setSuccess(''));
         }
     }, [success, dispatch]);
+
+    const startWith = () => {
+        for(let i=0;locationsStartWith.length;i++){
+            if(locationsStartWith[i].includes(location.hash)) return true;
+        }
+        return false;
+    };
 
     return (
       <>
@@ -136,6 +144,10 @@ export function HomePage() {
               {
                   location.hash === '#dashbord/not-found' &&
                       <NotFoundDashboard/>
+              }
+              {
+                  (!locations.includes(location.hash) && !startWith()) &&
+                  <NotFoundDashboard/>
               }
           </div>
           <ToastContainer/>
