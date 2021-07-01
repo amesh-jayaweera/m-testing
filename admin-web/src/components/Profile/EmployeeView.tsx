@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import defaultProfile from "../../resources/images/profile-placeholder.svg";
-import firebase from "firebase";
 import {IEmployee, IUpdatedAdmin} from "../../type";
 import {useHistory, useLocation} from "react-router";
 import Skeleton from "react-loading-skeleton";
@@ -13,10 +12,12 @@ import {
     ADMIN_PROFILE_UPDATE_SUCCESS
 } from "../../store/actionTypes";
 import {Failure, Success} from "../../util/Toasts";
+import firebase from "firebase";
 
 export const PROFILE_ADMIN = "PROFILE_ADMIN";
 export const PROFILE_EMPLOYEE = "PROFILE_EMPLOYEE";
 export const MY_PROFILE = "MY_PROFILE";
+
 
 export function EmployeeView({actionType, myProfile} : {actionType : string, myProfile : boolean}) {
 
@@ -38,6 +39,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
        addressReq : false,
        contactNumberReq : false
     });
+    const [suspend,setSuspend] = useState<boolean>(false);
 
     // load employee data
     useEffect(() => {
@@ -66,6 +68,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                         if(doc.exists) {
                             let emp : IEmployee  = doc.data() as IEmployee;
                             setEmployee(emp);
+                            setSuspend(emp?.suspend || false);
                             setLoading(false);
                         } else {
                             // not found
@@ -83,6 +86,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                     if(doc.exists) {
                         let emp : IEmployee  = doc.data() as IEmployee;
                         setEmployee(emp);
+                        setSuspend(emp?.suspend || false);
                         setLoading(false);
                     } else {
                         // not found
@@ -134,6 +138,78 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                 type : ADMIN_PROFILE_UPDATE_DEFAULT
             });
             dispatch(updateAdmin(updatedAdmin));
+        }
+    }
+
+    function onSuspend() {
+        if(user?.email.trim() !== employee.email) {
+            setProcessing(true);
+            let userPath : string = "";
+            if(actionType === PROFILE_EMPLOYEE) {
+                userPath = "employees";
+            } else if(actionType === PROFILE_ADMIN) {
+                userPath = "admins";
+            } else {
+                // not found
+                history.push('#dashbord/not-found');
+            }
+
+            const db = firebase.firestore();
+
+            if(actionType === PROFILE_ADMIN || actionType === PROFILE_EMPLOYEE) {
+                db.collection(userPath).doc(employee.email).set({
+                    suspend : true
+                },{ merge: true })
+                    .then(() => {
+                        setSuspend(true);
+                        setEmployee(prevState => ({
+                            ...prevState,
+                            suspend : true
+                        }));
+                        Success("Employee has been suspended!");
+                        setProcessing(false);
+                    })
+                    .catch(() => {
+                        Failure("Something went wrong!");
+                        setProcessing(false);
+                    });
+            }
+        }
+    }
+
+    function onUnblock() {
+        if(user?.email.trim() !== employee.email) {
+            setProcessing(true);
+            let userPath : string = "";
+            if(actionType === PROFILE_EMPLOYEE) {
+                userPath = "employees";
+            } else if(actionType === PROFILE_ADMIN) {
+                userPath = "admins";
+            } else {
+                // not found
+                history.push('#dashbord/not-found');
+            }
+
+            const db = firebase.firestore();
+
+            if(actionType === PROFILE_ADMIN || actionType === PROFILE_EMPLOYEE) {
+                db.collection(userPath).doc(employee.email).set({
+                    suspend : false
+                },{ merge: true })
+                    .then(() => {
+                        setSuspend(false);
+                        setEmployee(prevState => ({
+                            ...prevState,
+                            suspend : false
+                        }));
+                        Success("Employee has been unblocked!");
+                        setProcessing(false);
+                    })
+                    .catch(() => {
+                        Failure("Something went wrong!");
+                        setProcessing(false);
+                    });
+            }
         }
     }
 
@@ -272,6 +348,13 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                             myProfile &&
                             <div className="d-flex justify-content-end pd-t-0-l-30-r-30-b-30 pt-2">
                                 <button className="btn btn-primary" onClick={()=> {onSubmit();}} disabled={processing}>Update</button>
+                            </div>
+                        }
+                        {
+                            !myProfile && user?.email.trim() !== employee.email.trim() &&
+                            <div className="d-flex justify-content-end pd-t-0-l-30-r-30-b-30 pt-2">
+                                <button className="btn btn-danger mt-3 mt-sm-0" onClick={()=> {suspend ? onUnblock() : onSuspend();
+                                }} disabled={processing}>{suspend ? "Unblock" : "Suspend"}</button>
                             </div>
                         }
                     </div>

@@ -186,8 +186,6 @@ export const updateAdmin = (admin : IUpdatedAdmin): ThunkAction<void, RootState,
 
     return async dispatch => {
 
-        console.log(admin);
-
         db.collection("admins").doc(admin.email).set({
             address : admin.address,
             otherDetails : admin.otherDetails || "",
