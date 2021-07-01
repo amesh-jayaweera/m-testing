@@ -76,7 +76,7 @@ export function Login() {
                                             <div className="row mt-2">
                                                 <div className="col-md-12">
                                                     <button type="button" className="btn btn-primary btn-block"
-                                                          onClick={submitHandler}  disabled={loading}>Sign in
+                                                          onClick={submitHandler}  disabled={loading}>Sign In
                                                     </button>
                                                 </div>
                                             </div>

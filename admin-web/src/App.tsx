@@ -11,6 +11,7 @@ import firebase from "firebase";
 import {Loader} from "./components/Common/Loader/Loader";
 import PublicRoute from "./components/Auth/PublicRoute";
 import PrivateRoute from "./components/Auth/PrivateRoute";
+import {NotFound} from "./components/Error/NotFound/NotFound";
 
 const history = createBrowserHistory();
 
@@ -44,6 +45,7 @@ function App() {
               <Switch>
                   <PrivateRoute path="/" component={HomePage} exact/>
                   <PublicRoute path="/login" component={Login} exact />
+                  <PublicRoute path="*" component={NotFound} exact/>
               </Switch>
           </Router>
     );
