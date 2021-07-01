@@ -17,6 +17,7 @@ import {ScheduleJob} from "../Jobs/ScheduleJob";
 import {Jobs} from "../Jobs/Jobs";
 import {JobHistory} from "../Jobs/JobHistory";
 import {Payments} from "../Payments/Payments";
+import {EmployeeView, PROFILE_ADMIN, PROFILE_EMPLOYEE} from "../Profile/EmployeeView";
 
 export function HomePage() {
 
@@ -44,49 +45,56 @@ export function HomePage() {
               {
                   location.hash === '#admin/registration' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Admin Registration"} mainTitle={"Administrators"} mainNav={"admin"} />
+                      <ContainerNavigation title={"Admin Registration"} mainTitle={"Administrators"} mainNav={"admin"}
+                      suspendBtnEnabled={false} />
                       <AdminRegistration/>
                   </div>
               }
               {
                   location.hash === '#employee/registration' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Employee Registration"} mainTitle={"Employees"} mainNav={"employee"} />
+                      <ContainerNavigation title={"Employee Registration"} mainTitle={"Employees"} mainNav={"employee"}
+                                           suspendBtnEnabled={false}/>
                       <EmployeeRegistration/>
                   </div>
               }
               {
                   location.hash === '#admin' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Admins"} mainTitle={"Admins"} mainNav={"admin"} />
+                      <ContainerNavigation title={"Admins"} mainTitle={"Admins"} mainNav={"admin"}
+                                           suspendBtnEnabled={false}/>
                       <Admins/>
                   </div>
               }
               {
                   location.hash === '#employee' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Employees"} mainTitle={"Employees"} mainNav={"employee"} />
+                      <ContainerNavigation title={"Employees"} mainTitle={"Employees"} mainNav={"employee"}
+                                           suspendBtnEnabled={false}/>
                       <Employees/>
                   </div>
               }
               {
                   location.hash === '#jobs' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Scheduled Jobs"} mainTitle={"Scheduled Jobs"} mainNav={"jobs"} />
+                      <ContainerNavigation title={"Scheduled Jobs"} mainTitle={"Scheduled Jobs"} mainNav={"jobs"}
+                                           suspendBtnEnabled={false}/>
                       <Jobs/>
                   </div>
               }
               {
                   location.hash === '#jobs/history' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Job History"} mainTitle={"Job History"} mainNav={"jobs"} />
+                      <ContainerNavigation title={"Job History"} mainTitle={"Job History"} mainNav={"jobs"}
+                                           suspendBtnEnabled={false}/>
                       <JobHistory/>
                   </div>
               }
               {
                   location.hash === '#payment' &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Payments"} mainTitle={"Payments"} mainNav={"payments"} />
+                      <ContainerNavigation title={"Payments"} mainTitle={"Payments"} mainNav={"payments"}
+                                           suspendBtnEnabled={false}/>
                       <Payments/>
                   </div>
               }
@@ -95,15 +103,33 @@ export function HomePage() {
                       || location.hash === '#jobs/schedule-job#add-recurrence-days'
                   ) &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Schedule Job"} mainTitle={"Jobs"} mainNav={"jobs"} />
+                      <ContainerNavigation title={"Schedule Job"} mainTitle={"Jobs"} mainNav={"jobs"}
+                                           suspendBtnEnabled={false}/>
                       <ScheduleJob isEdit={false}/>
                   </div>
               }
               {
                   (location.hash.startsWith('#jobs/schedule-job/edit?id=')) &&
                   <div className="pd-ltr-20 xs-pd-20-10">
-                      <ContainerNavigation title={"Update Job"} mainTitle={"Update Job"} mainNav={"jobs"} />
+                      <ContainerNavigation title={"Update Job"} mainTitle={"Update Job"} mainNav={"jobs"}
+                                           suspendBtnEnabled={false}/>
                       <ScheduleJob isEdit={true}/>
+                  </div>
+              }
+              {
+                  (location.hash.startsWith('#admin/view?id=')) &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Admins"} mainTitle={"Profile"} mainNav={"admin"}
+                                           suspendBtnEnabled={true}/>
+                      <EmployeeView actionType={PROFILE_ADMIN} myProfile={false}/>
+                  </div>
+              }
+              {
+                  (location.hash.startsWith('#employee/view?id=')) &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Employees"} mainTitle={"Profile"} mainNav={"employee"}
+                                           suspendBtnEnabled={true}/>
+                      <EmployeeView actionType={PROFILE_EMPLOYEE} myProfile={false}/>
                   </div>
               }
           </div>

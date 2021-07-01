@@ -1,6 +1,7 @@
 import React from "react";
 
-export function ContainerNavigation({title,mainTitle,mainNav} : {title : string, mainTitle : string, mainNav : string}) {
+export function ContainerNavigation({title,mainTitle,mainNav,suspendBtnEnabled} : {title : string, mainTitle : string, mainNav : string
+    , suspendBtnEnabled : boolean}) {
     return (
         <div className="page-header">
             <div className="row">
@@ -16,6 +17,12 @@ export function ContainerNavigation({title,mainTitle,mainNav} : {title : string,
                         </ol>
                     </nav>
                 </div>
+                {
+                    suspendBtnEnabled &&
+                    <div className="col-sm-6 d-flex justify-content-start justify-content-sm-end">
+                        <button className="btn btn-danger mt-3 mt-sm-0">Suspend</button>
+                    </div>
+                }
             </div>
         </div>
     )
