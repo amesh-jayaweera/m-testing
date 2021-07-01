@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import defaultProfile from "../../resources/images/profile-placeholder.svg";
 import firebase from "firebase";
 import {IEmployee} from "../../type";
-import {useLocation} from "react-router";
+import {useHistory, useLocation} from "react-router";
 import Skeleton from "react-loading-skeleton";
 
 export const PROFILE_ADMIN = "PROFILE_ADMIN";
@@ -11,6 +11,7 @@ export const MY_PROFILE = "MY_PROFILE";
 
 export function EmployeeView({actionType, myProfile} : {actionType : string, myProfile : boolean}) {
 
+    const history = useHistory();
     const location = useLocation();
     const [loading, setLoading] = useState<boolean>(false);
     const [docID, setDocID] = useState<string>();
@@ -45,11 +46,13 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                     } else {
                         // not found
                         setLoading(false);
+                        history.push('#dashbord/not-found');
                     }
                 });
             } else {
                 // not found
                 setLoading(false);
+                history.push('#dashbord/not-found');
             }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);

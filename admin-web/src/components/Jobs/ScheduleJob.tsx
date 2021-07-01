@@ -102,11 +102,13 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                     } else {
                        // not found
                         setLoading(false);
+                        history.push('#dashbord/not-found');
                     }
                 });
             } else {
                 // not found
                 setLoading(false);
+                history.push('#dashbord/not-found');
             }
         } else {
             setLoading(false);

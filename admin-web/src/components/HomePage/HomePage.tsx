@@ -18,6 +18,7 @@ import {Jobs} from "../Jobs/Jobs";
 import {JobHistory} from "../Jobs/JobHistory";
 import {Payments} from "../Payments/Payments";
 import {EmployeeView, PROFILE_ADMIN, PROFILE_EMPLOYEE} from "../Profile/EmployeeView";
+import {NotFoundDashboard} from "../Error/NotFound/NotFoundDashboard";
 
 export function HomePage() {
 
@@ -131,6 +132,10 @@ export function HomePage() {
                                            suspendBtnEnabled={true}/>
                       <EmployeeView actionType={PROFILE_EMPLOYEE} myProfile={false}/>
                   </div>
+              }
+              {
+                  location.hash === '#dashbord/not-found' &&
+                      <NotFoundDashboard/>
               }
           </div>
           <ToastContainer/>
