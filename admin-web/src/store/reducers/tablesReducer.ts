@@ -3,7 +3,7 @@ import {
     ADMIN_TABLE_DATA,
     EMPLOYEE_TABLE_DATA,
     RECURRENCE_JOBS,
-    RUNNING_JOBS,
+    RUNNING_JOBS, RUNNING_JOBS_HISTORY,
     SCHEDULED_JOB_TABLE_DATA
 } from "../actionTypes";
 
@@ -77,3 +77,16 @@ export const runningJobReducer = (state: JobState = initRunningJobState, action:
     }
 };
 
+const initRunningJobHistoryState : JobState = {
+  data : []
+};
+
+export const runningJobHistoryReducer = (state : JobState = initRunningJobHistoryState, action : TableActions) => {
+    switch (action.type) {
+        case RUNNING_JOBS_HISTORY:
+            return {
+                data : action.data
+            };
+        default: return state;
+    }
+};

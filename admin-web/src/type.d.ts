@@ -210,6 +210,7 @@ export interface IJobRunning {
     };
     date : string;
     datetime : any;
+    employeeDetails? : string;
 }
 
 export interface IJobValidation {

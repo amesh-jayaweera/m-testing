@@ -4,7 +4,7 @@ import {authReducer} from "./authReducer";
 import {
     adminTableReducer,
     employeeTableReducer,
-    recurrenceJobReducer,
+    recurrenceJobReducer, runningJobHistoryReducer,
     runningJobReducer,
     scheduledTableReducer
 } from "./tablesReducer";
@@ -20,7 +20,8 @@ export const rootReducer = combineReducers({
     scheduleJobTable : scheduledTableReducer,
     adminProfileUpdate : adminProfileUpdateReducer,
     recurrenceJobs : recurrenceJobReducer,
-    runningJobs : runningJobReducer
+    runningJobs : runningJobReducer,
+    jobHistory : runningJobHistoryReducer
 });
 
 // Root State

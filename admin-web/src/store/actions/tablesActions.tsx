@@ -7,7 +7,7 @@ import {
     ADMIN_TABLE_DATA,
     EMPLOYEE_TABLE_DATA,
     RECURRENCE_JOBS,
-    RUNNING_JOBS,
+    RUNNING_JOBS, RUNNING_JOBS_HISTORY,
     SCHEDULED_JOB_TABLE_DATA
 } from "../actionTypes";
 import React from "react";
@@ -173,6 +173,34 @@ export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActio
                 });
                 dispatch({
                     type : RUNNING_JOBS,
+                    data : jobs
+                });
+            });
+    }
+};
+
+export const getRunningJobHistory = () : ThunkAction<void, RootState, null, TableActions> => {
+
+    const db = firebase.firestore();
+    const today = new Date();
+    const month = today.getMonth()+1;
+    const date  = today.getDate();
+    const todayStr : string = `${today.getFullYear()}-${(month/10) < 1 ? "0" : ""}${month}-${(date/10) < 1 ? "0" : ""}${today.getDate()}`;
+
+    return async dispatch => {
+        db.collection("running_jobs")
+            .where("date","!=",todayStr)
+            .get()
+            .then((querySnapshot) => {
+                let jobs : IJobRunning[] = [];
+                querySnapshot.forEach((doc) => {
+                    let job : IJobRunning = doc.data() as IJobRunning;
+                    const employee : any = job.employee;
+                    job.employeeDetails = `${employee.email}\n${employee.firstName} ${employee.lastName}\n${employee.position}`;
+                    jobs.push(job);
+                });
+                dispatch({
+                    type : RUNNING_JOBS_HISTORY,
                     data : jobs
                 });
             });
