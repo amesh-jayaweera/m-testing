@@ -34,6 +34,7 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
     return async dispatch => {
         const user = await db.collection(collectionPath).doc(employee.email.trim()).get();
         if(!user.exists) {
+            employee.suspend = false; // set suspend false initially
             db.collection(collectionPath).doc(employee.email).set(employee)
                 .then(() => {
                     // successfully added

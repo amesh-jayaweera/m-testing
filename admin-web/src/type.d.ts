@@ -67,6 +67,7 @@ export interface IEmployee {
     passportCopy? : string;
     policeReport? : string;
     createdDateTime : Date;
+    suspend? : boolean;
 }
 
 type EmployeeRegisterAction = {
