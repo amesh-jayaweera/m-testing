@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {employeeEmailsReducer, employeeReducer} from "./employeeReducer";
+import {adminProfileUpdateReducer, employeeEmailsReducer, employeeReducer} from "./employeeReducer";
 import {authReducer} from "./authReducer";
 import {adminTableReducer, employeeTableReducer, scheduledTableReducer} from "./tablesReducer";
 import {scheduleJobReducer} from "./jobSchedulingReducer";
@@ -11,7 +11,8 @@ export const rootReducer = combineReducers({
     employeeTable : employeeTableReducer,
     employeeEmails : employeeEmailsReducer,
     scheduleJob : scheduleJobReducer,
-    scheduleJobTable : scheduledTableReducer
+    scheduleJobTable : scheduledTableReducer,
+    adminProfileUpdate : adminProfileUpdateReducer
 });
 
 // Root State

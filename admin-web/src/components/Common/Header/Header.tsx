@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import profilePhoto from "../../../resources/images/photo1.jpg";
 import {Notifications} from "../Notifications/Notifications";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {signOut} from "../../../store/actions/authActions";
+import {RootState} from "../../../store/reducers/rootReducer";
 
 export function Header() {
 
     const dispatch = useDispatch();
-    // const { authenticated } = useSelector((state: RootState) => state.auth);
+    const { user } = useSelector((state: RootState) => state.auth);
     const [toggle,setToggle] = useState(false);
 
     const logoutClickHandler = () => {
@@ -29,10 +30,10 @@ export function Header() {
                         <span className="user-icon">
                             <img src={profilePhoto} alt="User Profile Identity"/>
                         </span>
-                            <span className="user-name">Ross C. Lopez</span>
+                            <span className="user-name">{`${user?.firstName} ${user?.lastName}`}</span>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <a className="dropdown-item" href="/#"><i className="icon ion-md-contact"/>Profile</a>
+                            <a className="dropdown-item" href="#admin/profile"><i className="icon ion-md-contact"/>Profile</a>
                             <a className="dropdown-item" href="/#" onClick={logoutClickHandler}><i className="icon ion-md-undo "/>Log Out</a>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 // Auth
 import {SET_ERROR, SET_LOADING, SET_SUCCESS, SET_USER, SIGN_OUT} from "./store/actionTypes";
+import {string} from "prop-types";
 
 export interface LoggedUser {
     firstName : string;
@@ -66,7 +67,7 @@ export interface IEmployee {
     otherDetails? : string;
     passportCopy? : string;
     policeReport? : string;
-    createdDateTime : Date;
+    createdDateTime? : Date;
     suspend? : boolean;
 }
 
@@ -191,8 +192,29 @@ type ScheduleJobAction  = {
     error? : string;
 }
 
-type ScheduleJobState  = {
+export interface ScheduleJobState  {
     type : string;
     message? : string;
     error? : string;
+}
+
+// change type to interface
+
+type AdminUpdateAction = {
+    type : string;
+    message? : string;
+    error? : string;
+}
+
+export interface AdminUpdateState  {
+    type : string;
+    message? : string;
+    error? : string;
+}
+
+export interface IUpdatedAdmin {
+    email : string;
+    address : string;
+    otherDetails? : string;
+    contactNumber : string;
 }

@@ -1,9 +1,11 @@
-import {EmployeeEmailsAction, EmployeeRegisterAction, IEmployee} from "../../type";
+import {AdminUpdateAction, EmployeeEmailsAction, EmployeeRegisterAction, IEmployee, IUpdatedAdmin} from "../../type";
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../reducers/rootReducer";
 import firebase from "firebase";
 
 import {
+    ADMIN_PROFILE_UPDATE_FAILED,
+    ADMIN_PROFILE_UPDATE_SUCCESS,
     EMPLOYEE_EMAILS,
     PASSPORT_UPLOAD_FAILED, PASSPORT_UPLOAD_SUCCESS, POLICE_REPORT_UPLOAD_FAILED, POLICE_REPORT_UPLOAD_SUCCESS,
     USER_ALREADY_EXISTS, USER_REGISTRATION_COMPLETED,
@@ -175,5 +177,33 @@ export const getAllEmployeeEmails = (): ThunkAction<void, RootState, null, Emplo
                 emails : emails
             })
         });
+    }
+};
+
+export const updateAdmin = (admin : IUpdatedAdmin): ThunkAction<void, RootState, null, AdminUpdateAction> => {
+
+    const db = firebase.firestore();
+
+    return async dispatch => {
+
+        console.log(admin);
+
+        db.collection("admins").doc(admin.email).set({
+            address : admin.address,
+            otherDetails : admin.otherDetails || "",
+            contactNumber : admin.contactNumber
+        },{ merge: true })
+            .then(() => {
+                dispatch({
+                    type : ADMIN_PROFILE_UPDATE_SUCCESS,
+                    message : "Successfully updated your profile"
+                })
+            })
+            .catch(() => {
+                dispatch({
+                    type : ADMIN_PROFILE_UPDATE_FAILED,
+                    message : "Something went wrong!.Failed to updated your profile. Try again!"
+                })
+            });
     }
 };

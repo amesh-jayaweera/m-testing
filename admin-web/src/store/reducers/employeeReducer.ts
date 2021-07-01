@@ -1,5 +1,13 @@
-import {EmployeeEmailsAction, EmployeeEmailsState, EmployeeRegisterAction, EmployeeRegistrationState} from "../../type";
 import {
+    AdminUpdateAction,
+    AdminUpdateState,
+    EmployeeEmailsAction,
+    EmployeeEmailsState,
+    EmployeeRegisterAction,
+    EmployeeRegistrationState
+} from "../../type";
+import {
+    ADMIN_PROFILE_UPDATE_DEFAULT, ADMIN_PROFILE_UPDATE_FAILED, ADMIN_PROFILE_UPDATE_SUCCESS,
     EMPLOYEE_EMAILS,
     PASSPORT_UPLOAD_FAILED,
     PASSPORT_UPLOAD_SUCCESS, POLICE_REPORT_UPLOAD_FAILED, POLICE_REPORT_UPLOAD_SUCCESS,
@@ -103,3 +111,33 @@ export const employeeEmailsReducer = ( state: EmployeeEmailsState = initStateEmp
             return state
     }
 };
+
+const initStateAdminProfileUpdate : AdminUpdateState = {
+    type: ADMIN_PROFILE_UPDATE_DEFAULT
+};
+
+export const adminProfileUpdateReducer = (state : AdminUpdateState = initStateAdminProfileUpdate, action : AdminUpdateAction) => {
+    switch (action.type) {
+        case ADMIN_PROFILE_UPDATE_DEFAULT:
+            return {
+                ...state,
+                type : ADMIN_PROFILE_UPDATE_DEFAULT,
+                message : "",
+                error : ""
+            };
+        case ADMIN_PROFILE_UPDATE_SUCCESS:
+            return {
+                ...state,
+                type : ADMIN_PROFILE_UPDATE_SUCCESS,
+                message : action.message
+            };
+        case ADMIN_PROFILE_UPDATE_FAILED:
+            return {
+                ...state,
+                type : ADMIN_PROFILE_UPDATE_FAILED,
+                error : action.error
+            };
+        default: return state;
+    }
+};
+

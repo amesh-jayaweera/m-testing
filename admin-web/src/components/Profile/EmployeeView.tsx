@@ -1,9 +1,18 @@
 import React, {useEffect, useState} from "react";
 import defaultProfile from "../../resources/images/profile-placeholder.svg";
 import firebase from "firebase";
-import {IEmployee} from "../../type";
+import {IEmployee, IUpdatedAdmin} from "../../type";
 import {useHistory, useLocation} from "react-router";
 import Skeleton from "react-loading-skeleton";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/reducers/rootReducer";
+import {updateAdmin} from "../../store/actions/employeeActions";
+import {
+    ADMIN_PROFILE_UPDATE_DEFAULT,
+    ADMIN_PROFILE_UPDATE_FAILED,
+    ADMIN_PROFILE_UPDATE_SUCCESS
+} from "../../store/actionTypes";
+import {Failure, Success} from "../../util/Toasts";
 
 export const PROFILE_ADMIN = "PROFILE_ADMIN";
 export const PROFILE_EMPLOYEE = "PROFILE_EMPLOYEE";
@@ -13,9 +22,22 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
 
     const history = useHistory();
     const location = useLocation();
+    const { user } = useSelector((state: RootState) => state.auth);
     const [loading, setLoading] = useState<boolean>(false);
-    const [docID, setDocID] = useState<string>();
-    const [employee, setEmployee] = useState<IEmployee>();
+    const [processing, setProcessing] = useState<boolean>(false);
+    const [employee, setEmployee] = useState<IEmployee>({
+        firstName : "",
+        lastName : "",
+        address : "",
+        email : "",
+        contactNumber : "",
+        gender : "None",
+        birthday : new Date().toISOString().split('T')[0],
+    });
+    const [validation, setValidation] = useState({
+       addressReq : false,
+       contactNumberReq : false
+    });
 
     // load employee data
     useEffect(() => {
@@ -32,13 +54,32 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                 id = path.split('#employee/view?id=');
             } else if(actionType === MY_PROFILE) {
                 dbRef = "admins";
-                id = path.split('#admin/my-profile?id=');
+                id = user?.email.trim();
             } else {
                 // not found
+                history.push('#dashbord/not-found');
             }
-            if(dbRef && id.length >= 2) {
-                setDocID(id[1].trim());
-                db.collection(dbRef).doc(id[1].trim()).get().then((doc) => {
+
+            if(!myProfile) {
+                if(dbRef && id.length >= 2) {
+                    db.collection(dbRef).doc(id[1].trim()).get().then((doc) => {
+                        if(doc.exists) {
+                            let emp : IEmployee  = doc.data() as IEmployee;
+                            setEmployee(emp);
+                            setLoading(false);
+                        } else {
+                            // not found
+                            setLoading(false);
+                            history.push('#dashbord/not-found');
+                        }
+                    });
+                } else {
+                    // not found
+                    setLoading(false);
+                    history.push('#dashbord/not-found');
+                }
+            } else {
+                db.collection(dbRef).doc(id).get().then((doc) => {
                     if(doc.exists) {
                         let emp : IEmployee  = doc.data() as IEmployee;
                         setEmployee(emp);
@@ -49,13 +90,52 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                         history.push('#dashbord/not-found');
                     }
                 });
-            } else {
-                // not found
-                setLoading(false);
-                history.push('#dashbord/not-found');
             }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    const dispatch = useDispatch();
+    const { type, message, error } = useSelector((state: RootState) => state.adminProfileUpdate);
+    useEffect(() => {
+        if(processing && type === ADMIN_PROFILE_UPDATE_SUCCESS) {
+            Success(message as string);
+            dispatch({
+                type : ADMIN_PROFILE_UPDATE_DEFAULT
+            });
+            setProcessing(false);
+        } else if(processing && type === ADMIN_PROFILE_UPDATE_FAILED) {
+            Failure(error as string);
+            dispatch({
+                type : ADMIN_PROFILE_UPDATE_DEFAULT
+            });
+            setProcessing(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[type, message, error]);
+
+    function onSubmit() {
+
+        setValidation(prevState => ({
+            ...prevState,
+            addressReq : !employee.address,
+            contactNumberReq : !employee.contactNumber
+        }));
+
+        if(employee.address && employee.contactNumber) {
+            setProcessing(true);
+            // update admin profile
+            let updatedAdmin : IUpdatedAdmin = {
+                email : employee.email,
+                address : employee.address,
+                contactNumber : employee.contactNumber,
+                otherDetails : employee.otherDetails
+            };
+            dispatch({
+                type : ADMIN_PROFILE_UPDATE_DEFAULT
+            });
+            dispatch(updateAdmin(updatedAdmin));
+        }
+    }
 
     if(loading) {
         return (
@@ -82,28 +162,29 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                                     <label htmlFor="">First Name </label>
                                     <input className="form-control" type="text" placeholder="First Name"
                                            value={employee?.firstName}
-                                           readOnly={!myProfile}/>
+                                           readOnly={true}
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label>Last Name </label>
                                     <input className="form-control " type="text" placeholder="Last Name"
                                            value={employee?.lastName}
-                                           readOnly={!myProfile}/>
+                                           readOnly={true}
+                                    />
                                 </div>
                                 <div className="form-group" id='datetimepicker'>
                                     <label>Birthday </label>
                                     <input id="visit" className="form-control  date-picker"
                                            value={employee?.birthday}
-                                           readOnly={!myProfile}
-                                           placeholder="Select Birthday" type="date"/>
+                                           readOnly={true}
+                                           type="date"/>
                                 </div>
                                 <div className="form-group">
                                     <label>Gender </label>
-                                    <select className="custom-select" disabled={!myProfile} value={employee?.gender}>
-                                        <option value="None">Select gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select>
+                                    <input id="gender" className="form-control  date-picker"
+                                           value={employee?.gender}
+                                           readOnly={true}
+                                           type="text"/>
                                 </div>
                             </div>
                             <div className="col-xl-4">
@@ -117,7 +198,22 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                                     <label>Contact Number</label>
                                     <input className="form-control" placeholder="+61xxxxxxxxx" type="text"
                                            value={employee?.contactNumber}
-                                           readOnly={!myProfile}/>
+                                           readOnly={!myProfile}
+                                           onChange={(e) => {
+                                               setEmployee(prevState => ({
+                                                   ...prevState,
+                                                   contactNumber : e.target.value
+                                               }));
+                                               setValidation(prevState => ({
+                                                   ...prevState,
+                                                   contactNumberReq : !e.target.value
+                                               }));
+                                           }}
+                                    />
+                                    {
+                                        validation.contactNumberReq &&
+                                        <small className="invalid-feedback">The first name is required.</small>
+                                    }
                                 </div>
                                 {
                                     actionType === PROFILE_EMPLOYEE &&
@@ -140,28 +236,49 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                             <div className="col-lg-6">
                                 <div className="form-group">
                                     <label>Address</label>
-                                    <textarea className="form-control" readOnly={!myProfile} value={employee?.address}/>
+                                    <textarea className="form-control" readOnly={!myProfile} value={employee?.address}
+                                              onChange={(e) => {
+                                                  setEmployee(prevState => ({
+                                                      ...prevState,
+                                                       address : e.target.value
+                                                  }));
+                                                  setValidation(prevState => ({
+                                                      ...prevState,
+                                                      addressReq : !e.target.value
+                                                  }));
+                                              }}
+                                    />
+                                    {
+                                        validation.addressReq &&
+                                        <small className="invalid-feedback">The first name is required.</small>
+                                    }
                                 </div>
                             </div>
                             <div className="col-lg-6">
                                 <div className="form-group">
                                     <label>Other Details</label>
-                                    <textarea className="form-control" readOnly={!myProfile} value={employee?.otherDetails}/>
+                                    <textarea className="form-control" readOnly={!myProfile} value={employee?.otherDetails}
+                                              onChange={(e) => {
+                                                  setEmployee(prevState => ({
+                                                      ...prevState,
+                                                      otherDetails : e.target.value
+                                                  }));
+                                              }}
+                                    />
                                 </div>
                             </div>
                         </div>
                         {
                             myProfile &&
                             <div className="d-flex justify-content-end pd-t-0-l-30-r-30-b-30 pt-2">
-                                <button type="reset" className="btn btn-secondary mr-3">Reset</button>
-                                <button className="btn btn-primary ">Update</button>
+                                <button className="btn btn-primary" onClick={()=> {onSubmit();}} disabled={processing}>Update</button>
                             </div>
                         }
                     </div>
                 </div>
 
                 {
-                    actionType === PROFILE_ADMIN &&
+                    (actionType === PROFILE_ADMIN || actionType === MY_PROFILE) &&
                     <div className="col-lg-3 mb-30">
                     <div className="card-box pd-30">
                         <h6>Scheduled Jobs :</h6>

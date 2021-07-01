@@ -17,7 +17,7 @@ import {ScheduleJob} from "../Jobs/ScheduleJob";
 import {Jobs} from "../Jobs/Jobs";
 import {JobHistory} from "../Jobs/JobHistory";
 import {Payments} from "../Payments/Payments";
-import {EmployeeView, PROFILE_ADMIN, PROFILE_EMPLOYEE} from "../Profile/EmployeeView";
+import {EmployeeView, MY_PROFILE, PROFILE_ADMIN, PROFILE_EMPLOYEE} from "../Profile/EmployeeView";
 import {NotFoundDashboard} from "../Error/NotFound/NotFoundDashboard";
 import {locations, locationsStartWith} from "../constants";
 
@@ -131,6 +131,14 @@ export function HomePage() {
                       <ContainerNavigation title={"Admins"} mainTitle={"Profile"} mainNav={"admin"}
                                            suspendBtnEnabled={true}/>
                       <EmployeeView actionType={PROFILE_ADMIN} myProfile={false}/>
+                  </div>
+              }
+              {
+                  (location.hash === '#admin/profile') &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Profile"} mainTitle={"My Profile"} mainNav={""}
+                                           suspendBtnEnabled={false}/>
+                      <EmployeeView actionType={MY_PROFILE} myProfile={true}/>
                   </div>
               }
               {
