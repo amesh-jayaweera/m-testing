@@ -1,15 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from "../../../resources/images/logo_dark.svg";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../store/reducers/rootReducer";
+import {MENU_OPEN} from "../../../store/actionTypes";
+import {menuOpen} from "../../../store/actions/otherActions";
 
 export function SideBar() {
 
+    const dispatch = useDispatch();
+    const { type } = useSelector((state: RootState) => state.menu);
+
+    function onClose() {
+        dispatch(menuOpen(false));
+    }
+
     return (
-        <div className="left-side-bar">
+        <div className={`left-side-bar ${type === MENU_OPEN ? "h-menu-open" : ""}`} id="side_bar">
             <div className="brand-logo">
                 <a href="/">
                     <img className="img-fluid" src={logo} alt="logo"/>
                 </a>
-                <div className="close-sidebar" data-toggle="left-sidebar-close">
+                <div className="close-sidebar" data-toggle="left-sidebar-close" id="menu-close"
+                    onClick={() => {onClose()}}
+                >
                     <i className="icon ion-ios-close close-icon"/>
                 </div>
             </div>

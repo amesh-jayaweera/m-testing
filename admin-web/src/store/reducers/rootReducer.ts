@@ -9,6 +9,7 @@ import {
     scheduledTableReducer
 } from "./tablesReducer";
 import {scheduleJobReducer} from "./jobSchedulingReducer";
+import {menuReducer} from "./otherReducer";
 
 export const rootReducer = combineReducers({
     auth : authReducer,
@@ -21,7 +22,8 @@ export const rootReducer = combineReducers({
     adminProfileUpdate : adminProfileUpdateReducer,
     recurrenceJobs : recurrenceJobReducer,
     runningJobs : runningJobReducer,
-    jobHistory : runningJobHistoryReducer
+    jobHistory : runningJobHistoryReducer,
+    menu : menuReducer
 });
 
 // Root State

@@ -4,12 +4,15 @@ import {Notifications} from "../Notifications/Notifications";
 import {useDispatch, useSelector} from "react-redux";
 import {signOut} from "../../../store/actions/authActions";
 import {RootState} from "../../../store/reducers/rootReducer";
+import {menuOpen} from "../../../store/actions/otherActions";
 
 export function Header() {
 
     const dispatch = useDispatch();
     const { user } = useSelector((state: RootState) => state.auth);
-    const [toggle,setToggle] = useState(false);
+    function onMenuClick() {
+        dispatch(menuOpen(true))
+    }
 
     const logoutClickHandler = () => {
         dispatch(signOut());
@@ -17,8 +20,8 @@ export function Header() {
 
     return (
         <div className="header">
-            <div className="header-left">
-                <div className="menu-icon icon ion-ios-menu" onClick={() => {setToggle(!toggle)}}/>
+            <div className="header-left" onClick={() => onMenuClick()}>
+                <div className={`menu-icon icon ion-ios-menu`} id="top-menu-icon" onClick={() => onMenuClick()}/>
             </div>
             <div className="header-right">
 

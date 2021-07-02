@@ -257,3 +257,11 @@ export interface IUpdatedAdmin {
 export interface JobState  {
      data : IJobRecurrence[] | IJobRunning[];
 };
+
+type MenuAction = {
+    type : string;
+}
+
+export interface MenuState {
+    type : string;
+};
