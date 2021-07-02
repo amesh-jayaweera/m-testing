@@ -79,3 +79,11 @@ sup {
 .h-menu-open {
     left: 0px!important;
 }
+
+a.doc-link {
+    color: #2a4afc;
+}
+
+a.doc-link:hover {
+    color: #1b00ff;
+}

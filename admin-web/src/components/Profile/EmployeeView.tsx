@@ -17,7 +17,7 @@ import firebase from "firebase";
 export const PROFILE_ADMIN = "PROFILE_ADMIN";
 export const PROFILE_EMPLOYEE = "PROFILE_EMPLOYEE";
 export const MY_PROFILE = "MY_PROFILE";
-
+export const PDF_TAG : string = ".pdf";
 
 export function EmployeeView({actionType, myProfile} : {actionType : string, myProfile : boolean}) {
 
@@ -40,23 +40,34 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
        contactNumberReq : false
     });
     const [suspend,setSuspend] = useState<boolean>(false);
+    const [policeReport, setPoliceReport] = useState<string>("");
+    const [passport, setPassport] = useState<string>("");
 
     // load employee data
     useEffect(() => {
             setLoading(true);
             const db = firebase.firestore();
+            const storage = firebase.storage();
             const path = location.hash;
             let id : any;
             let dbRef : string = "";
+            let passportPath : string = "";
+            let policeReportPath : string = "";
             if(actionType === PROFILE_ADMIN) {
                 dbRef = "admins";
                 id = path.split('#admin/view?id=');
+                passportPath = "admins/passports/";
+                policeReportPath = "admins/police-reports/";
             } else if(actionType === PROFILE_EMPLOYEE) {
                 dbRef = "employees";
                 id = path.split('#employee/view?id=');
+                passportPath = "employees/passports/";
+                policeReportPath = "employees/police-reports/";
             } else if(actionType === MY_PROFILE) {
                 dbRef = "admins";
                 id = user?.email.trim();
+                passportPath = "admins/passports/";
+                policeReportPath = "admins/police-reports/";
             } else {
                 // not found
                 history.push('#dashbord/not-found');
@@ -69,6 +80,22 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                             let emp : IEmployee  = doc.data() as IEmployee;
                             setEmployee(emp);
                             setSuspend(emp?.suspend || false);
+                            passportPath = passportPath + emp.email.trim() + PDF_TAG;
+                            policeReportPath = policeReportPath + emp.email.trim() + PDF_TAG;
+                            storage.ref(passportPath).getDownloadURL()
+                                .then((url) => {
+                                    setPassport(url);
+                                })
+                                .catch(() => {
+                                    // Handle any errors
+                                });
+                            storage.ref(policeReportPath).getDownloadURL()
+                                .then((url) => {
+                                    setPoliceReport(url);
+                                })
+                                .catch(() => {
+                                    // Handle any errors
+                                });
                             setLoading(false);
                         } else {
                             // not found
@@ -87,6 +114,22 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                         let emp : IEmployee  = doc.data() as IEmployee;
                         setEmployee(emp);
                         setSuspend(emp?.suspend || false);
+                        passportPath = passportPath + emp.email.trim() + PDF_TAG;
+                        policeReportPath = policeReportPath + emp.email.trim() + PDF_TAG;
+                        storage.ref(passportPath).getDownloadURL()
+                            .then((url) => {
+                                setPassport(url);
+                            })
+                            .catch(() => {
+                                // Handle any errors
+                            });
+                        storage.ref(policeReportPath).getDownloadURL()
+                            .then((url) => {
+                                setPoliceReport(url);
+                            })
+                            .catch(() => {
+                                // Handle any errors
+                            });
                         setLoading(false);
                     } else {
                         // not found
@@ -350,13 +393,16 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                                 <button className="btn btn-primary" onClick={()=> {onSubmit();}} disabled={processing}>Update</button>
                             </div>
                         }
-                        {
-                            !myProfile && user?.email.trim() !== employee.email.trim() &&
-                            <div className="d-flex justify-content-end pd-t-0-l-30-r-30-b-30 pt-2">
-                                <button className="btn btn-danger mt-3 mt-sm-0" onClick={()=> {suspend ? onUnblock() : onSuspend();
-                                }} disabled={processing}>{suspend ? "Unblock" : "Suspend"}</button>
+                            <div className="d-flex justify-content-between pd-t-0-l-30-r-30-b-30 pt-2">
+                                <div className="align-self-center">
+                                    <a className={"doc-link"} href={policeReport} target="_blank" rel="noreferrer">Police Report</a>
+                                    <a className="doc-link ml-sm-3 " href={passport} target="_blank" rel="noreferrer">Passport Copy</a>
+                                </div>
+                                {
+                                    !myProfile && user?.email.trim() !== employee.email.trim() &&
+                                    <button className="btn btn-danger mt-3 mt-sm-0" onClick={()=> {suspend ? onUnblock() : onSuspend();
+                                }} disabled={processing}>{suspend ? "Unblock" : "Suspend"}</button> }
                             </div>
-                        }
                     </div>
                 </div>
 
