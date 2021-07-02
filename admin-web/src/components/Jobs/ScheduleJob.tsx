@@ -26,7 +26,6 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Skeleton from "react-loading-skeleton";
 import {MapView} from "../Common/MapViewModal/MapView";
-import {Add} from "@material-ui/icons"; // Import css
 
 export const defaultShiftOnTime : string = "08:00";
 export const defaultShiftOffTime : string = "17:00";
@@ -526,22 +525,21 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                             <br/>
                     </div>
                 </div>
-
-                <div className="d-flex justify-content-end">
-                    {
-                        !isEdit && <button type="reset" className="btn btn-danger mr-3"
-                                           onClick={() => onClear()}
-                        >Clear</button>
-                    }
-                    <button type="button" className="btn btn-primary"
-                        onClick={() => {onSubmit()}}
-                            disabled={processing}
-                    >{isEdit ? "Update" : "Schedule"}</button>
-                </div>
-
             </div>
         </div>
         </form>
+
+            <div className="d-flex justify-content-end">
+                {
+                    !isEdit && <button type="reset" className="btn btn-danger mr-3"
+                                       onClick={() => onClear()}
+                    >Clear</button>
+                }
+                <button type="button" className="btn btn-primary"
+                        onClick={() => {onSubmit()}}
+                        disabled={processing}
+                >{isEdit ? "Update" : "Schedule"}</button>
+            </div>
 
             <Location onLocationChange={(val : ILocation) =>
                     {

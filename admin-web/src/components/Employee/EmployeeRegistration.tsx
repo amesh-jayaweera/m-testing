@@ -345,19 +345,19 @@ export function EmployeeRegistration() {
                                 </div>
                             </div>
                         </div>
-                        <div className="d-flex justify-content-end">
-                            <button type="reset" className="btn btn-danger mr-3"
-                                onClick={ () => onClear() }
-                            >Clear</button>
-                            <button  className="btn btn-primary" disabled={processing}
-                                     onClick={() => {
-                                         onSubmit();
-                                     }}
-                            >Register</button>
-                        </div>
                     </div>
                 </div>
             </form>
+            <div className="d-flex justify-content-end">
+                <button type="reset" className="btn btn-danger mr-3"
+                        onClick={ () => onClear() }
+                >Clear</button>
+                <button  className="btn btn-primary" disabled={processing}
+                         onClick={() => {
+                             onSubmit();
+                         }}
+                >Register</button>
+            </div>
         </div>
     )
 }

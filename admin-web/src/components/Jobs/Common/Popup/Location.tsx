@@ -165,12 +165,12 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                         }
                                     </div>
                                 </div>
-                                <div className="float-right">
-                                    <button type="button" className="btn btn-primary"
-                                        onClick={() => onSubmit()}
-                                    >Locate</button>
-                                </div>
                             </form>
+                            <div className="float-right">
+                                <button type="button" className="btn btn-primary"
+                                        onClick={() => onSubmit()}
+                                >Locate</button>
+                            </div>
                         </div>
                     </div>
                 </div>
