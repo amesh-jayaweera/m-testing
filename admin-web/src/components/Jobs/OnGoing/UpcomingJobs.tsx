@@ -57,7 +57,7 @@ export function UpcomingJobs() {
                                         return (
                                             <UpComingJob title={job.title} address={job.address} jobID={job.jobId}
                                                           numberOfEmployees={job.employeeCount} shiftOff={job.shiftOn}
-                                                          shiftOn={job.shiftOff} key={job.jobId}/>
+                                                          shiftOn={job.shiftOff} key={`${job.jobId}-${job.datetime}`}/>
                                         )
                                     })
                                 }

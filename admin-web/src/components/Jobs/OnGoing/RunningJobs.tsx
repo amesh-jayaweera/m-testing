@@ -52,7 +52,7 @@ export function RunningJobs() {
                                     return (
                                         <RunningJob title={job.title} address={job.address} jobID={job.jobId}
                                                       shiftOff={job.shiftOn}
-                                                     shiftOn={job.shiftOff} key={job.jobId} employee={job.employee}/>
+                                                     shiftOn={job.shiftOff} key={`${job.jobId}-${job.datetime}`} employee={job.employee}/>
                                     )
                                 })
                             }

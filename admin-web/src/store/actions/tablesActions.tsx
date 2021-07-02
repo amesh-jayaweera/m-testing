@@ -145,7 +145,6 @@ export const getTodayJobs = () : ThunkAction<void, RootState, null, TableActions
                     const job : IJobRecurrence = doc.data() as IJobRecurrence;
                     jobs.push(job);
                 });
-                console.log("Jobs ====> ", jobs);
                 dispatch({
                     type : RECURRENCE_JOBS,
                     data : jobs
