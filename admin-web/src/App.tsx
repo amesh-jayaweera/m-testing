@@ -13,6 +13,7 @@ import PublicRoute from "./components/Auth/PublicRoute";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import {NotFound} from "./components/Error/NotFound/NotFound";
 import {ForgotPassword} from "./components/ForgotPassword/ForgotPassword";
+import {NotAvailable} from "./components/Error/NotAvailable/NotAvailable";
 
 const history = createBrowserHistory();
 
@@ -48,6 +49,7 @@ function App() {
                   <PublicRoute path="/login" component={Login} exact />
                   <PrivateRoute path="/loading" component={Login} exact />
                   <PublicRoute path="/forgot-password" component={ForgotPassword} exact/>
+                  <PrivateRoute path="/not-available" component={NotAvailable} exact/>
                   <PublicRoute path="*" component={NotFound} exact/>
               </Switch>
           </Router>

@@ -395,8 +395,8 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                         }
                             <div className="d-flex justify-content-between pd-t-0-l-30-r-30-b-30 pt-2">
                                 <div className="align-self-center">
-                                    <a className={"doc-link"} href={policeReport} target="_blank" rel="noreferrer">Police Report</a>
-                                    <a className="doc-link ml-sm-3 " href={passport} target="_blank" rel="noreferrer">Passport Copy</a>
+                                    <a className={"doc-link"} href={policeReport.trim() ? policeReport : "/not-available"} target="_blank" rel="noreferrer">Police Report</a>
+                                    <a className="doc-link ml-sm-3 " href={passport.trim() ? passport : "/not-available"} target="_blank" rel="noreferrer">Passport Copy</a>
                                 </div>
                                 {
                                     !myProfile && user?.email.trim() !== employee.email.trim() &&
