@@ -1,35 +1,37 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router";
 import {removeValFromArray} from "../../../../util/Helpers";
 
-export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initDays : string[]}) {
+export function AddDays( {onDaysChange , initDays, isOpen} : {onDaysChange : any , initDays : string[], isOpen : boolean}) {
 
     const history = useHistory();
-    const [open,setOpen] = useState<boolean>(true);
     const [valid, setValid] = useState<boolean>(true);
-    let days : string[] = initDays;
+    const [days, setDays] = useState<string[]>(initDays);
 
     function onHandler(checked : boolean, day : string) {
         if(checked) {
-            if(!days.includes(day))
-                days.push(day)
+            if(!days.includes(day)) {
+                setDays([...days,day]);
+            }
         } else {
-            days = removeValFromArray(days, day)
+            let temp = removeValFromArray(days, day);
+            setDays(temp);
         }
-
-        setValid(days.length !== 0);
     }
+
+    useEffect(() => {
+        setValid(days.length !== 0);
+    },[days]);
 
     function onSubmit() {
         if(valid) {
             onDaysChange(days);
-            setOpen(false);
             history.goBack();
         }
     }
 
     return (
-        <div className={open ? "modal fade show d-block animated slideInDown" : "modal fade show d-block animated fadeOutUp"} id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel"
+        <div className={`modal fade ${isOpen ? "show d-block" : ""}`} id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div className="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div className="modal-content">
@@ -37,7 +39,6 @@ export function AddDays( {onDaysChange , initDays} : {onDaysChange : any , initD
                         <h5 className="modal-title" id="exampleModalLabel">Customized Days</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close"
                             onClick={() => {
-                                setOpen(false);
                                 history.goBack();
                             }}
                         >

@@ -17,7 +17,8 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
     }
 
     return (
-            <div className={`modal fade ${isOpen ? "show d-block" : ""}`} id="exampleModal2" role="dialog" aria-labelledby="exampleModalLabel"
+            <div className={`modal fade ${isOpen ? "show d-block" : ""}`} id="exampleModal2" role="dialog"
+                 aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div className="modal-dialog modal-md modal-dialog-centered" role="document">
                     <div className="modal-content">

@@ -25,7 +25,8 @@ import firebase from "firebase";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Skeleton from "react-loading-skeleton";
-import {MapView} from "../Common/MapViewModal/MapView"; // Import css
+import {MapView} from "../Common/MapViewModal/MapView";
+import {Add} from "@material-ui/icons"; // Import css
 
 export const defaultShiftOnTime : string = "08:00";
 export const defaultShiftOffTime : string = "17:00";
@@ -553,18 +554,18 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
                       isOpen={((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#add-location`)
                           || (location.hash === "#jobs/schedule-job#add-location"))}
             />
-            {
-                ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#add-recurrence-day`)
-                    || (location.hash === "#jobs/schedule-job#add-recurrence-days")) &&
-                <AddDays onDaysChange={(val : string[]) => {
-                    setRecurrence("Custom");
-                    setJob(prevState => ({
-                        ...prevState,
-                        days : val as string[]
-                    }))}}
-                         initDays={job.days}
-                />
-            }
+
+            <AddDays onDaysChange={(val : string[]) => {
+                setRecurrence("Custom");
+                setJob(prevState => ({
+                    ...prevState,
+                    days : val as string[]
+                }))}}
+                     initDays={job.days}
+                isOpen={((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#add-recurrence-day`)
+                    || (location.hash === "#jobs/schedule-job#add-recurrence-days"))}
+            />
+
             {
                 ((isEdit && editedJob && location.hash === `#jobs/schedule-job/edit?id=${jobID}#map-view`)
                     || (location.hash === "#jobs/schedule-job#map-view")) &&
