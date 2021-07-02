@@ -12,6 +12,7 @@ import {Loader} from "./components/Common/Loader/Loader";
 import PublicRoute from "./components/Auth/PublicRoute";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import {NotFound} from "./components/Error/NotFound/NotFound";
+import {ForgotPassword} from "./components/ForgotPassword/ForgotPassword";
 
 const history = createBrowserHistory();
 
@@ -46,6 +47,7 @@ function App() {
                   <PrivateRoute path="/" component={HomePage} exact/>
                   <PublicRoute path="/login" component={Login} exact />
                   <PrivateRoute path="/loading" component={Login} exact />
+                  <PublicRoute path="/forgot-password" component={ForgotPassword} exact/>
                   <PublicRoute path="*" component={NotFound} exact/>
               </Switch>
           </Router>
