@@ -14,14 +14,13 @@ numberOfEmployees : number}) {
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="dash-list-img img-fluid rounded-circle border border-light bg-bblue"/>
                     <div className="list-job-details ml-4">
-                        <p className="p-0 m-0 ">{title}</p>
+                        <p className="p-0 m-0 list-job-topic">{title}</p>
                         <div className="p-0 m-0 list-job-details">{address}</div>
                         <div className="p-0 m-0 list-job-details">{`Shift : ${shiftOn} - ${shiftOff}`}</div>
                     </div>
                 </div>
 
                 <div>
-                    <div className="list-job-id">{jobID}</div>
                     <p className="badge custom-badge float-right badge-dyellow">{numberOfEmployees}</p>
                 </div>
             </div>

@@ -13,15 +13,15 @@ function RunningJob({title, jobID, shiftOn, shiftOff, address, employee} : {titl
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="dash-list-img img-fluid rounded-circle border border-light bg-dpurple"/>
                     <div className="list-job-details ml-4">
-                        <p className="p-0 m-0 ">{title}</p>
+                        <p className="p-0 m-0 list-job-topic">{title}</p>
                         <div className="p-0 m-0 list-job-details">{address}</div>
                         <div className="p-0 m-0 list-job-details">{`Shift : ${shiftOn} - ${shiftOff}`}</div>
                     </div>
                 </div>
 
                 <div>
-                    <div className="list-job-id">{employee?.email}</div>
                     <div className="list-job-id">{`${employee?.firstName} ${employee?.lastName}`}</div>
+                    <div className="list-job-id">{employee?.email}</div>
                 </div>
             </div>
             <hr/>

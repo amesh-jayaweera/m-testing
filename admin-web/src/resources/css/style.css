@@ -1102,11 +1102,15 @@ li p {
 }
 
 .list-job-details {
-    font-size: 18px;
+    font-size: 12px;
+}
+
+.list-job-topic {
+    font-size: 15px;
 }
 
 .list-job-id {
-    font-size: 15px !important;
+    font-size: 12px !important;
     font-weight: bold;
 }
 

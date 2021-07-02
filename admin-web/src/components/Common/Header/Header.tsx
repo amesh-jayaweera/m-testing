@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import profilePhoto from "../../../resources/images/photo1.jpg";
+import profilePhoto from "../../../resources/images/profile-placeholder.svg";
 import {Notifications} from "../Notifications/Notifications";
 import {useDispatch, useSelector} from "react-redux";
 import {signOut} from "../../../store/actions/authActions";
