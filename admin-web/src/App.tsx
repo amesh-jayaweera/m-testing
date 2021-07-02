@@ -45,6 +45,7 @@ function App() {
               <Switch>
                   <PrivateRoute path="/" component={HomePage} exact/>
                   <PublicRoute path="/login" component={Login} exact />
+                  <PrivateRoute path="/loading" component={Login} exact />
                   <PublicRoute path="*" component={NotFound} exact/>
               </Switch>
           </Router>

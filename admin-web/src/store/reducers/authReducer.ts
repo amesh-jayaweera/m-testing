@@ -13,7 +13,7 @@ const initialState: AuthState = {
         address : ""
     },
     authenticated: false,
-    loading: false,
+    loading: true,
     error: '',
     success: ''
 };
