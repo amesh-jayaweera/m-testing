@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import profilePhoto from "../../../resources/images/profile-placeholder.svg";
 import {Notifications} from "../Notifications/Notifications";
 import {useDispatch, useSelector} from "react-redux";

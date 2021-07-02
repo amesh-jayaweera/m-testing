@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import logo from "../../../resources/images/logo_dark.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/reducers/rootReducer";

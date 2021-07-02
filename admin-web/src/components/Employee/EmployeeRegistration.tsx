@@ -299,6 +299,7 @@ export function EmployeeRegistration() {
                                 <option value="None">Select Position</option>
                                 <option value="Business Developer">Business Developer</option>
                                 <option value="Area Supervisor">Area Supervisor</option>
+                                <option value="Cleaner">Cleaner</option>
                             </select>
                             {
                                 validation.positionReq &&
