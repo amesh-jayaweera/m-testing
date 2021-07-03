@@ -7,21 +7,41 @@ import {IJobRunning} from "../../../type";
 function RunningJob({title, jobID, shiftOn, shiftOff, address, employee} : {title : string,jobID : string, shiftOn : string, shiftOff : string , address : string
     employee : any}) {
     return (
+        // <li>
+        //     <div
+        //         className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
+        //         <div className="d-flex justify-content-center align-items-center">
+        //             <div className="dash-list-img img-fluid rounded-circle border border-light bg-dpurple"/>
+        //             <div className="list-job-details ml-4">
+        //                 <p className="p-0 m-0 list-job-topic">{title}</p>
+        //                 <div className="p-0 m-0 list-job-details">{address}</div>
+        //                 <div className="p-0 m-0 list-job-details">{`Shift : ${shiftOn} - ${shiftOff}`}</div>
+        //             </div>
+        //         </div>
+        //
+        //         <div>
+        //             <div className="list-job-id">{`${employee?.firstName} ${employee?.lastName}`}</div>
+        //             <div className="list-job-id">{employee?.email}</div>
+        //         </div>
+        //     </div>
+        //     <hr/>
+        // </li>
         <li>
-            <div
-                className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
+            <div className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
                 <div className="d-flex justify-content-center align-items-center">
-                    <div className="dash-list-img img-fluid rounded-circle border border-light bg-dpurple"/>
-                    <div className="list-job-details ml-4">
+                    <div className="list-job-details">
                         <p className="p-0 m-0 list-job-topic">{title}</p>
-                        <div className="p-0 m-0 list-job-details">{address}</div>
-                        <div className="p-0 m-0 list-job-details">{`Shift : ${shiftOn} - ${shiftOff}`}</div>
+                        <div className="p-0 m-0 list-job-details">Shift : {shiftOn} - {shiftOff}</div>
+                        <div className="p-0 m-0 list-job-details">Shift On : 08:05 am</div>
+                        <div className="p-0 m-0 list-job-details">Shift Off : 17.05 pm</div>
                     </div>
                 </div>
 
                 <div>
-                    <div className="list-job-id">{`${employee?.firstName} ${employee?.lastName}`}</div>
-                    <div className="list-job-id">{employee?.email}</div>
+                    <div className="text-right"><span className="badge badge-dgreen">On</span></div>
+                    <div className="list-job-id text-right">{`${employee?.firstName} ${employee?.lastName}`}</div>
+                    <div className="list-job-id text-right">{employee?.email}</div>
+
                 </div>
             </div>
             <hr/>
