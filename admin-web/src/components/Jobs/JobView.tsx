@@ -4,12 +4,14 @@ import {IJob, ILocation} from "../../type";
 import {useHistory, useLocation} from "react-router";
 import firebase from "firebase";
 import Skeleton from "react-loading-skeleton";
+import {MapView} from "../Common/MapViewModal/MapView";
 
 export function JobView() {
 
     const location = useLocation();
     const history = useHistory();
     const [loading, setLoading] = useState<boolean>(true);
+    const [jobId, setJobId] = useState<string>();
     const [job, setJob] = useState<IJob>();
     const [createdDate, setCreatedDate] = useState<Date>();
 
@@ -18,6 +20,7 @@ export function JobView() {
         if(docID.length >= 2) {
             firebase.firestore().collection("jobs").doc(docID[1].trim()).get().then((doc) => {
                 if(doc.exists) {
+                    setJobId(doc.id);
                     let data : IJob = doc.data() as IJob;
                     setJob(data);
                     setCreatedDate((data.createdDate as any).toDate().toLocaleDateString());
@@ -110,7 +113,9 @@ export function JobView() {
                                 <div className="wrapping location-view">{!loading ? modifiedLocationString() : <Skeleton/>}</div>
                                 {loading ? <Skeleton/>
                                     :
-                                    (<button className="btn btn-primary float-right mb-2 mt-2">
+                                    (<button className="btn btn-primary float-right mb-2 mt-2"
+                                        onClick={()=> {history.push(`#jobs/schedule-job/view?id=${jobId}#map-view`);}}
+                                    >
                                         <span>
                                             <img width="24px " height="24px " src={mapIcon} alt="open map icon"/>
                                         </span>
@@ -146,6 +151,10 @@ export function JobView() {
                     </div>
                 </div>
             </div>
+            {
+                location.hash === `#jobs/schedule-job/view?id=${jobId}#map-view` &&
+                <MapView lat={job?.locations?.lat4 || 0} lon={job?.locations?.lon4 || 0}/>
+            }
         </>
     )
 }
