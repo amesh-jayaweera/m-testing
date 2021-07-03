@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getEmployees} from "../../store/actions/tablesActions";
 import {RootState} from "../../store/reducers/rootReducer";
 import MUIDataTable from "mui-datatables";
+import {TableLoading} from "../Common/Other/TableLoading";
 
 export function Employees() {
 
@@ -79,7 +80,7 @@ export function Employees() {
         textLabels: {
             body: {
                 noMatch: loading ?
-                    'Loading' :
+                    <TableLoading/> :
                     'Sorry, there is no matching data to display',
             },
         }

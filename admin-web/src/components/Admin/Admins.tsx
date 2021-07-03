@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/rootReducer";
 import {getAdmins} from "../../store/actions/tablesActions";
 import MUIDataTable from "mui-datatables";
+import {TableLoading} from "../Common/Other/TableLoading";
 
 export function Admins() {
 
@@ -74,7 +75,7 @@ export function Admins() {
         textLabels: {
             body: {
                 noMatch: loading ?
-                    'Loading' :
+                    <TableLoading/> :
                     'Sorry, there is no matching data to display',
             },
         }
