@@ -87,3 +87,13 @@ a.doc-link {
 a.doc-link:hover {
     color: #1b00ff;
 }
+
+.wrapping {
+    border: 1px rgb(209, 209, 209) solid;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.location-view {
+    height: 80px;
+}

@@ -19,5 +19,6 @@ export const locations : string[] = [
 export const locationsStartWith : string[] = [
     '#jobs/schedule-job/edit?id=',
     '#admin/view?id=',
-    '#employee/view?id='
+    '#employee/view?id=',
+    '#jobs/schedule-job/view?id='
 ];
