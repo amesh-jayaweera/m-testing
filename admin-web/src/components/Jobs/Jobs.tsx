@@ -4,12 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getScheduledJobs} from "../../store/actions/tablesActions";
 import {RootState} from "../../store/reducers/rootReducer";
 
-const options = {
-    searchPlaceholder : "search ...",
-    selectableRowsHeader : false,
-    selectableRowsHideCheckboxes : true
-};
-
 export function Jobs() {
 
     const columns = [
@@ -129,12 +123,25 @@ export function Jobs() {
     ];
 
     const dispatch = useDispatch();
-    const { data } = useSelector((state: RootState) => state.scheduleJobTable);
+    const { loading, data } = useSelector((state: RootState) => state.scheduleJobTable);
 
     useEffect(() => {
         dispatch(getScheduledJobs());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    const options = {
+        searchPlaceholder : "search ...",
+        selectableRowsHeader : false,
+        selectableRowsHideCheckboxes : true,
+        textLabels: {
+            body: {
+                noMatch: loading ?
+                    'Loading' :
+                    'Sorry, there is no matching data to display',
+            },
+        }
+    };
 
     return (
         <div className="card-box mb-30 ">

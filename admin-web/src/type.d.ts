@@ -96,10 +96,12 @@ export interface EmployeeRegistrationState {
 }
 
 export interface AdminListTableState  {
+    loading : boolean,
     data : any[];
 }
 
 export interface EmployeeListTableState  {
+    loading : boolean,
     data : any[];
 }
 
@@ -108,6 +110,7 @@ export interface EmployeeEmailsState {
 }
 
 export interface ScheduledTableState {
+    loading : boolean,
     data : any[];
 }
 

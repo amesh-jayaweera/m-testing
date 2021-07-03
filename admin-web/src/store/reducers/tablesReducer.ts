@@ -8,6 +8,7 @@ import {
 } from "../actionTypes";
 
 const initAdminsState : AdminListTableState = {
+    loading : true,
     data : []
 };
 
@@ -15,13 +16,20 @@ export const adminTableReducer = ( state: AdminListTableState = initAdminsState,
     switch (action.type) {
         case ADMIN_TABLE_DATA :
             return  {
+                loading: false,
                 data : action.data
+            };
+        case LOADING:
+            return {
+                loading : true,
+               data : action.data
             };
         default: return state
     }
 };
 
 const initEmployeesState : EmployeeListTableState = {
+    loading : true,
     data : []
 };
 
@@ -29,13 +37,20 @@ export const employeeTableReducer = ( state: EmployeeListTableState = initEmploy
     switch (action.type) {
         case EMPLOYEE_TABLE_DATA :
             return  {
+                loading : false,
                 data : action.data
+            };
+        case LOADING:
+            return {
+                loading: true,
+                data: action.data
             };
         default: return state
     }
 };
 
 const initJobState : ScheduledTableState = {
+    loading : true,
     data : []
 };
 
@@ -43,6 +58,12 @@ export const scheduledTableReducer = ( state: ScheduledTableState = initJobState
     switch (action.type) {
         case SCHEDULED_JOB_TABLE_DATA :
             return  {
+                loading : false,
+                data : action.data
+            };
+        case LOADING:
+            return {
+                loading: true,
                 data : action.data
             };
         default: return state

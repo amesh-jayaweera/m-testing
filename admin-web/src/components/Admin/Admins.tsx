@@ -4,12 +4,6 @@ import {RootState} from "../../store/reducers/rootReducer";
 import {getAdmins} from "../../store/actions/tablesActions";
 import MUIDataTable from "mui-datatables";
 
-const options = {
-    searchPlaceholder : "search ...",
-    selectableRowsHeader : false,
-    selectableRowsHideCheckboxes : true
-};
-
 export function Admins() {
 
     const columns = [
@@ -66,12 +60,25 @@ export function Admins() {
     ];
 
     const dispatch = useDispatch();
-    const { data } = useSelector((state: RootState) => state.adminTable);
+    const { loading, data } = useSelector((state: RootState) => state.adminTable);
 
     useEffect(() => {
         dispatch(getAdmins());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    const options = {
+        searchPlaceholder : "search ...",
+        selectableRowsHeader : false,
+        selectableRowsHideCheckboxes : true,
+        textLabels: {
+            body: {
+                noMatch: loading ?
+                    'Loading' :
+                    'Sorry, there is no matching data to display',
+            },
+        }
+    };
 
     return (
         <div className="card-box mb-30 ">

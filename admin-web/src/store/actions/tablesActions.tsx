@@ -24,7 +24,10 @@ export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> =
     const db = firebase.firestore();
 
     return async dispatch => {
-
+        dispatch({
+            type : LOADING,
+            data : []
+        });
         let admins : AdminListTable[] = [];
 
         db.collection("admins").get().then((querySnapshot) => {
@@ -50,7 +53,10 @@ export const getEmployees = () : ThunkAction<void, RootState, null, TableActions
     const db = firebase.firestore();
 
     return async dispatch => {
-
+        dispatch({
+            type : LOADING,
+            data : []
+        });
         let employees : EmployeeListTable[] = [];
 
         db.collection("employees").get().then((querySnapshot) => {
@@ -198,6 +204,10 @@ export const getRunningJobHistory = () : ThunkAction<void, RootState, null, Tabl
     const todayStr : string = `${today.getFullYear()}-${(month/10) < 1 ? "0" : ""}${month}-${(date/10) < 1 ? "0" : ""}${today.getDate()}`;
 
     return async dispatch => {
+        dispatch({
+            type : LOADING,
+            data : []
+        });
         db.collection("running_jobs")
             .where("date","!=",todayStr)
             .get()

@@ -4,16 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/rootReducer";
 import {getRunningJobHistory} from "../../store/actions/tablesActions";
 
-const options = {
-    searchPlaceholder : "search ...",
-    selectableRowsHeader : false,
-    selectableRowsHideCheckboxes : true
-};
-
 export function JobHistory() {
 
     const dispatch = useDispatch();
-    const { data } = useSelector((state: RootState) => state.jobHistory);
+    const { loading, data } = useSelector((state: RootState) => state.jobHistory);
 
     const columns = [
         {
@@ -59,6 +53,19 @@ export function JobHistory() {
             }
         }
     ];
+
+    const options = {
+        searchPlaceholder : "search ...",
+        selectableRowsHeader : false,
+        selectableRowsHideCheckboxes : true,
+        textLabels: {
+            body: {
+                noMatch: loading ?
+                    'Loading ...' :
+                    'Sorry, there is no matching data to display',
+            },
+        }
+    };
 
     useEffect(() => {
         dispatch(getRunningJobHistory());
