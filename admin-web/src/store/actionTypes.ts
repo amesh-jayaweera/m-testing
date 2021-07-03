@@ -45,3 +45,4 @@ export const ERROR = "ERROR";
 export const MENU_OPEN = "MENU_OPEN";
 export const MENU_CLOSE = "MENU_CLOSE";
 export const MENU_DEFAULT = "MENU_DEFAULT";
+export const LOADING = "LOADING";

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/reducers/rootReducer";
 import {getTodayJobs} from "../../../store/actions/tablesActions";
 import {IJobRecurrence} from "../../../type";
+import Skeleton from "react-loading-skeleton";
 
 function UpComingJob({title, jobID, shiftOn, shiftOff, address, numberOfEmployees} : {title : string,jobID : string, shiftOn : string, shiftOff : string , address : string
 numberOfEmployees : number}) {
@@ -32,7 +33,7 @@ numberOfEmployees : number}) {
 export function UpcomingJobs() {
 
     const dispatch = useDispatch();
-    const { data } = useSelector((state: RootState) => state.recurrenceJobs);
+    const { loading, data } = useSelector((state: RootState) => state.recurrenceJobs);
 
     useEffect(() => {
         dispatch(getTodayJobs());
@@ -53,13 +54,16 @@ export function UpcomingJobs() {
                         <hr className="custom-hr"/>
                             <ul className="running-jobs">
                                 {
-                                    data && data.map((job : IJobRecurrence) => {
+                                    !loading && data && data.map((job : IJobRecurrence) => {
                                         return (
                                             <UpComingJob title={job.title} address={job.address} jobID={job.jobId}
                                                           numberOfEmployees={job.employeeCount} shiftOff={job.shiftOn}
                                                           shiftOn={job.shiftOff} key={`${job.jobId}-${job.datetime}`}/>
                                         )
                                     })
+                                }
+                                {
+                                    loading && <Skeleton count={10} height={100}/>
                                 }
                             </ul>
                     </div>

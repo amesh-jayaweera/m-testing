@@ -255,6 +255,7 @@ export interface IUpdatedAdmin {
 }
 
 export interface JobState  {
+     loading : boolean,
      data : IJobRecurrence[] | IJobRunning[];
 };
 

@@ -1,7 +1,7 @@
 import {TableActions, AdminListTableState, EmployeeListTableState, ScheduledTableState, JobState} from "../../type";
 import {
     ADMIN_TABLE_DATA,
-    EMPLOYEE_TABLE_DATA,
+    EMPLOYEE_TABLE_DATA, LOADING,
     RECURRENCE_JOBS,
     RUNNING_JOBS, RUNNING_JOBS_HISTORY,
     SCHEDULED_JOB_TABLE_DATA
@@ -50,6 +50,7 @@ export const scheduledTableReducer = ( state: ScheduledTableState = initJobState
 };
 
 const initRecurrenceJobState : JobState = {
+    loading : true,
     data : []
 };
 
@@ -57,6 +58,12 @@ export const recurrenceJobReducer = (state: JobState = initRecurrenceJobState, a
     switch (action.type) {
         case RECURRENCE_JOBS:
             return  {
+                loading : false,
+                data : action.data
+            };
+        case LOADING:
+            return {
+                loading: true,
                 data : action.data
             };
         default: return state
@@ -64,6 +71,7 @@ export const recurrenceJobReducer = (state: JobState = initRecurrenceJobState, a
 };
 
 const initRunningJobState : JobState = {
+    loading : true,
     data : []
 };
 
@@ -71,6 +79,12 @@ export const runningJobReducer = (state: JobState = initRunningJobState, action:
     switch (action.type) {
         case RUNNING_JOBS:
             return  {
+                loading : false,
+                data : action.data
+            };
+        case LOADING:
+            return  {
+                loading:  true,
                 data : action.data
             };
         default: return state
@@ -78,13 +92,20 @@ export const runningJobReducer = (state: JobState = initRunningJobState, action:
 };
 
 const initRunningJobHistoryState : JobState = {
-  data : []
+    loading : true,
+    data : []
 };
 
 export const runningJobHistoryReducer = (state : JobState = initRunningJobHistoryState, action : TableActions) => {
     switch (action.type) {
         case RUNNING_JOBS_HISTORY:
             return {
+                loading : false,
+                data : action.data
+            };
+        case LOADING:
+            return  {
+                loading: true,
                 data : action.data
             };
         default: return state;

@@ -5,7 +5,7 @@ import {IJob, IJobRecurrence, IJobRunning, TableActions} from "../../type";
 import {AdminListTable, EmployeeListTable, JobListTable} from "../table";
 import {
     ADMIN_TABLE_DATA,
-    EMPLOYEE_TABLE_DATA,
+    EMPLOYEE_TABLE_DATA, LOADING,
     RECURRENCE_JOBS,
     RUNNING_JOBS, RUNNING_JOBS_HISTORY,
     SCHEDULED_JOB_TABLE_DATA
@@ -96,7 +96,10 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
     const db = firebase.firestore();
 
     return async dispatch => {
-
+        dispatch({
+            type : LOADING,
+            data : []
+        });
         let jobs : JobListTable[] = [];
 
         db.collection("jobs").get().then((querySnapshot) => {
@@ -137,6 +140,10 @@ export const getTodayJobs = () : ThunkAction<void, RootState, null, TableActions
     const todayStr : string = `${today.getFullYear()}-${(month/10) < 1 ? "0" : ""}${month}-${(date/10) < 1 ? "0" : ""}${today.getDate()}`;
 
     return async dispatch => {
+        dispatch({
+            type : LOADING,
+            data : []
+        });
         db.collection("today_jobs")
             .where("date","==",todayStr)
             .onSnapshot((querySnapshot) => {
@@ -162,6 +169,10 @@ export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActio
     const todayStr : string = `${today.getFullYear()}-${(month/10) < 1 ? "0" : ""}${month}-${(date/10) < 1 ? "0" : ""}${today.getDate()}`;
 
     return async dispatch => {
+        dispatch({
+            type : LOADING,
+            data : []
+        });
         db.collection("running_jobs")
             .where("date","==",todayStr)
             .onSnapshot((querySnapshot) => {
