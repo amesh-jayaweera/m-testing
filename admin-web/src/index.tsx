@@ -9,6 +9,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
+console.log = console.warn = console.error = () => {};
+
 const firebaseConfig = {
     apiKey: "AIzaSyCEIhkwskJv2cdl1Yffm9UZdmGQVNk1Syg",
     authDomain: "multi-flex-cleaning-backend.firebaseapp.com",
