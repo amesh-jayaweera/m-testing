@@ -220,7 +220,7 @@ export const getRunningJobHistory = () : ThunkAction<void, RootState, null, Tabl
                     const employee : any = job.employee;
                     job.employeeDetails = `${employee.email}\n${employee.firstName} ${employee.lastName}\n${employee.position}`;
                     job.documentId = doc.id;
-                    job.action = RenderViewAction(`#jobs/running/history/job?id=${doc.id}`);
+                    job.action = RenderViewAction(`#jobs/running/history/job/view?id=${doc.id}`);
                     jobs.push(job);
                 });
                 dispatch({

@@ -111,6 +111,10 @@ export function JobHistory() {
             options : {
                 filter : false
             }
+        },
+        {
+            label: 'Actions',
+            name : 'action'
         }
     ];
 
