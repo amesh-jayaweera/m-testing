@@ -202,6 +202,13 @@ export interface IJobRecurrence {
     employeeCount : number;
 }
 
+export interface Timeline {
+    lat : number;
+    lon : number;
+    status : boolean; // live or not
+    time : any;
+}
+
 export interface IJobRunning {
     documentId? : string;
     jobId : string;
@@ -222,6 +229,16 @@ export interface IJobRunning {
     datetime : any;
     employeeDetails? : string;
     action? : any;
+    status : {
+        status : string;
+        lat? : number;
+        lon? : number;
+        live? : boolean;
+        offTime? : string;
+        onTime? : string;
+        url? : string; // feedback
+        timline? : Timeline[];
+    }
 }
 
 export interface IJobValidation {
