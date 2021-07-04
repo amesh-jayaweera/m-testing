@@ -39,7 +39,7 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                         className="text-dark">st</sup> Point<sup>*</sup></label>
                                     <div className="d-flex">
                                         <input type="number" placeholder="Lat" className="form-control mr-1"
-                                               id="recipient-name" required
+                                               id="lat-1" required
                                                onChange={(e)=> {
                                                    setLocation(prevState => ({
                                                        ...prevState,
@@ -52,7 +52,7 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                             !ValidateLatitude(location.lat1) &&  <small className="invalid-feedback">Invalid</small>
                                         }
                                             <input type="number" placeholder="Long" className="form-control ml-1"
-                                                   id="recipient-name" required
+                                                   id="lon-1" required
                                                    onChange={(e)=> {
                                                        setLocation(prevState => ({
                                                            ...prevState,
@@ -72,7 +72,7 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                         className="text-dark">nd</sup> Point<sup>*</sup></label>
                                     <div className="d-flex">
                                         <input type="number" placeholder="Lat" className="form-control mr-1"
-                                               id="recipient-name" required
+                                               id="lat-2" required
                                                onChange={(e)=> {
                                                    setLocation(prevState => ({
                                                        ...prevState,
@@ -85,7 +85,7 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                             !ValidateLatitude(location.lat2) &&  <small className="invalid-feedback">Invalid</small>
                                         }
                                             <input type="number" placeholder="Long" className="form-control ml-1"
-                                                   id="recipient-name" required
+                                                   id="lon-2" required
                                                    onChange={(e)=> {
                                                        setLocation(prevState => ({
                                                            ...prevState,
@@ -105,7 +105,7 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                         className="text-dark">rd</sup> Point<sup>*</sup></label>
                                     <div className="d-flex">
                                         <input type="number" placeholder="Lat" className="form-control mr-1"
-                                               id="recipient-name" required
+                                               id="lat-3" required
                                                onChange={(e)=> {
                                                    setLocation(prevState => ({
                                                        ...prevState,
@@ -118,7 +118,7 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                             !ValidateLatitude(location.lat3) &&  <small className="invalid-feedback">Invalid</small>
                                         }
                                             <input type="number" placeholder="Long" className="form-control ml-1"
-                                                   id="recipient-name" required
+                                                   id="lon-3" required
                                                    onChange={(e)=> {
                                                        setLocation(prevState => ({
                                                            ...prevState,
@@ -138,7 +138,7 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                         className="text-dark">th</sup> Point<sup>*</sup></label>
                                     <div className="d-flex">
                                         <input type="number" placeholder="Lat" className="form-control mr-1"
-                                               id="recipient-name" required
+                                               id="lat-4" required
                                                onChange={(e)=> {
                                                    setLocation(prevState => ({
                                                        ...prevState,
@@ -151,7 +151,7 @@ export function Location ({onLocationChange , initLocation ,isOpen} : {onLocatio
                                             !ValidateLatitude(location.lat4) &&  <small className="invalid-feedback">Invalid</small>
                                         }
                                             <input type="number" placeholder="Long" className="form-control ml-1"
-                                                   id="recipient-name" required
+                                                   id="lon-4" required
                                                    onChange={(e)=> {
                                                        setLocation(prevState => ({
                                                            ...prevState,
