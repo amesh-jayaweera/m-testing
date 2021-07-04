@@ -4,7 +4,22 @@ import './index.css';
 import App from './App';
 import {Provider} from "react-redux";
 import {configureStore} from "./store/store";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCEIhkwskJv2cdl1Yffm9UZdmGQVNk1Syg",
+    authDomain: "multi-flex-cleaning-backend.firebaseapp.com",
+    projectId: "multi-flex-cleaning-backend",
+    storageBucket: "multi-flex-cleaning-backend.appspot.com",
+    messagingSenderId: "50317097132",
+    appId: "1:50317097132:web:4b59d5048161ec9a40c709",
+    measurementId: "G-WH6NWTVSQX"
+};
+
+export const fire = firebase.initializeApp(firebaseConfig);
 
 const store  = configureStore();
 
@@ -19,18 +34,6 @@ function Root() {
     //     appId: "1:62729891915:web:a160eee2c40ba014675dce",
     //     measurementId: "G-MMFNQ5JL8H"
     // };
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyCEIhkwskJv2cdl1Yffm9UZdmGQVNk1Syg",
-        authDomain: "multi-flex-cleaning-backend.firebaseapp.com",
-        projectId: "multi-flex-cleaning-backend",
-        storageBucket: "multi-flex-cleaning-backend.appspot.com",
-        messagingSenderId: "50317097132",
-        appId: "1:50317097132:web:4b59d5048161ec9a40c709",
-        measurementId: "G-WH6NWTVSQX"
-    };
-
-    firebase.initializeApp(firebaseConfig);
 
     return (
         <Provider store={store}>
