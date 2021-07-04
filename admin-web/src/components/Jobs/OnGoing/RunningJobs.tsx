@@ -5,7 +5,7 @@ import {getRunningJobs} from "../../../store/actions/tablesActions";
 import {IJobRunning} from "../../../type";
 import Skeleton from "react-loading-skeleton";
 
-function RunningJob({title, jobID, shiftOn, shiftOff, address, employee} : {title : string,jobID : string, shiftOn : string, shiftOff : string , address : string
+function RunningJob({title, shiftOn, shiftOff, employee} : {title : string,jobID : string, shiftOn : string, shiftOff : string , address : string
     employee : any}) {
     return (
         <li>

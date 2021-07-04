@@ -6,7 +6,7 @@ import {getTodayJobs} from "../../../store/actions/tablesActions";
 import {IJobRecurrence} from "../../../type";
 import Skeleton from "react-loading-skeleton";
 
-function UpComingJob({title, jobID, shiftOn, shiftOff, address, numberOfEmployees} : {title : string,jobID : string, shiftOn : string, shiftOff : string , address : string
+function UpComingJob({title, shiftOn, shiftOff, address, numberOfEmployees} : {title : string,jobID : string, shiftOn : string, shiftOff : string , address : string
 numberOfEmployees : number}) {
     return (
         <li>

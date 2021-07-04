@@ -59,7 +59,7 @@ export function ForgotPassword() {
                                                 }
                                             </div>
                                             <div className="input-group text-center mt-4">
-                                                <a className="w-100" href="/login">Back to Login</a>
+                                                <a className="w-100" href={"/login"}>Back to Login</a>
                                             </div>
                                             <div className="row mt-2">
                                                 <div className="col-md-12">

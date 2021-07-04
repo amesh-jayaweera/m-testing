@@ -1,6 +1,5 @@
 // Auth
 import {SET_ERROR, SET_LOADING, SET_SUCCESS, SET_SUSPEND, SET_USER, SIGN_OUT} from "./store/actionTypes";
-import {string} from "prop-types";
 
 export interface LoggedUser {
     firstName : string;
@@ -268,7 +267,7 @@ export interface IUpdatedAdmin {
 export interface JobState  {
      loading : boolean,
      data : IJobRecurrence[] | IJobRunning[];
-};
+}
 
 type MenuAction = {
     type : string;
@@ -276,4 +275,4 @@ type MenuAction = {
 
 export interface MenuState {
     type : string;
-};
+}

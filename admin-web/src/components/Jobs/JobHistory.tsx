@@ -29,10 +29,8 @@ export function JobHistory() {
                         const val1 = new Date(from) as any;
                         const val2 = new Date(to) as any;
                         const val3 = new Date(date) as any;
-                        if(!(val1 >= val3 && val2 <= val3)) {
-                            return true;
-                        }
-                        return false;
+                        return !(val1 >= val3 && val2 <= val3);
+
                     },
                     display: (filterList : any, onChange : any, index : any, column : any) => {
                         return (

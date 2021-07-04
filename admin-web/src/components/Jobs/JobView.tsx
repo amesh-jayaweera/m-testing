@@ -124,13 +124,13 @@ export function JobView() {
                             </div>
                         </div>
 
-                        <div className="clearfix"></div>
+                        <div className="clearfix"/>
                         <br/>
                         <br/>
                         <div className="form-group bg-light border rounded ">
                             <div className="mt-1 mx-2 ">
                                 <label>Assigned Employees</label>
-                                <div className="input-group "></div>
+                                <div className="input-group"/>
                             </div>
                             <div className="row flex-wrap mx-auto p-2 justify-content-center ">
                                 {
