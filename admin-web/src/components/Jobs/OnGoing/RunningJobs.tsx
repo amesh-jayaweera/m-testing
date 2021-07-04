@@ -36,7 +36,7 @@ function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, 
                             <span className="badge badge-dyellow">Not Started</span>
                     }</div>
                     <div className="list-job-id text-right mt-2">{`${employee?.firstName} ${employee?.lastName}`}</div>
-                    <div className="list-job-id text-right">{employee?.email}</div>
+                    <div className="list-job-id text-right running-job-email">{employee?.email}</div>
 
                 </div>
             </div>

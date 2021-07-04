@@ -133,3 +133,7 @@ a.doc-link:hover {
 .running-cursor {
     cursor: pointer;
 }
+
+.running-job-email {
+    margin-bottom: 9px;
+}
