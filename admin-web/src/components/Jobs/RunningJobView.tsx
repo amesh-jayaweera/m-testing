@@ -1,7 +1,42 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import imagePlaceHolder from '../../resources/images/u-placeholder.svg';
+import {useHistory, useLocation} from "react-router";
+import {IJobRunning, Timeline} from "../../type";
+import {fire} from "../../index";
+import Skeleton from "react-loading-skeleton";
 
 export function RunningJobView() {
+
+    const location = useLocation();
+    const history = useHistory();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [jobId, setJobId] = useState<string>();
+    const [job, setJob] = useState<IJobRunning>();
+    const [date, setDate] = useState<Date>();
+
+    useEffect(()=> {
+        const docID = location.hash.split('#jobs/running/job/view?id=');
+        if(docID.length >= 2) {
+            fire.firestore().collection("running_jobs").doc(docID[1].trim()).get().then((doc) => {
+                if(doc.exists) {
+                    let data : IJobRunning = doc.data() as IJobRunning;
+                    setJob(data);
+                    setJobId(data.jobId);
+                    setDate((data.datetime as any).toDate().toLocaleDateString());
+                    setLoading(false);
+                } else {
+                    // not found
+                    setLoading(false);
+                    history.push('#dashbord/not-found');
+                }
+            });
+        } else {
+            // not found
+            setLoading(false);
+            history.push('#dashbord/not-found');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     return (
         <div className="mb-30">
@@ -14,62 +49,68 @@ export function RunningJobView() {
                                 <div className="col-lg-6 px-2">
                                     <div className="form-group">
                                         <label htmlFor="">Job Id</label>
-                                        <div className="wrapping"></div>
+                                        <div className="wrapping">{!loading ? jobId : <Skeleton/>}</div>
                                     </div>
                                     <div className="form-group">
                                         <label>Shift</label>
-                                        <div className="wrapping"></div>
+                                        <div className="wrapping">{!loading ? `From ${job?.shiftOn} to ${job?.shiftOff}`
+                                            : <Skeleton/>}</div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 px-2">
                                     <div className="form-group">
                                         <label>Job Title</label>
-                                        <div className="wrapping"></div>
+                                        <div className="wrapping">{!loading ? job?.title : <Skeleton/>}</div>
                                     </div>
                                     <div className="form-group">
                                         <label>Address</label>
-                                        <div className="wrapping"></div>
+                                        <div className="wrapping">{!loading ? job?.address : <Skeleton/>}</div>
                                     </div>
                                 </div>
                             </div>
                             <div className="row no-gutters w-100">
                                 <div className="col-lg-6 px-2">
                                     <div className="form-group">
-                                        <label htmlFor="">Employee Id </label>
-                                        <div className="wrapping"></div>
+                                        <label htmlFor="">Employee Email (ID) </label>
+                                        <div className="wrapping">{!loading ? job?.employee.email : <Skeleton/>}</div>
                                     </div>
                                     <div className="form-group">
                                         <label>Shift On Time </label>
-                                        <div className="wrapping"></div>
+                                        <div className="wrapping">{!loading ? job?.status.onTime : <Skeleton/>}</div>
                                     </div>
                                     <div className="form-group">
-                                        <label>Location In Time </label>
-                                        <div className="wrapping"></div>
+                                        <label>Address</label>
+                                        <div className="wrapping">{!loading ? job?.address : <Skeleton/>}</div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 px-2">
                                     <div className="form-group">
                                         <label>Employee Name </label>
-                                        <div className="wrapping"></div>
+                                        <div className="wrapping">{!loading ? `${job?.employee.firstName} ${job?.employee.lastName}`
+                                            : <Skeleton/>}</div>
                                     </div>
                                     <div className="form-group">
                                         <label>Shift Off Time </label>
-                                        <div className="wrapping"></div>
+                                        <div className="wrapping">{!loading ? job?.status.offTime : <Skeleton/>}</div>
                                     </div>
                                     <div className="form-group">
-                                        <label>Location Out Time </label>
-                                        <div className="wrapping"></div>
+                                        <label>Date</label>
+                                        <div className="wrapping">{!loading ? date : <Skeleton/>}</div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="row w-100 no-gutters">
                                 <div className="d-flex p-1 flex-wrap">
-                                    <img className="img-fluid eve-images shadow-sm m-1" width="150px" height="150px"
-                                         src={imagePlaceHolder} alt="eve-images"/>
+                                    {
+                                        loading ?
+                                            <Skeleton className={"img-fluid eve-images shadow-sm m-1 feedback-images"}/>
+                                            :
+                                            <img className="img-fluid eve-images shadow-sm m-1 feedback-images"
+                                                 src={job?.status.url || imagePlaceHolder} alt="eve-images"/>
+                                    }
                                 </div>
                             </div>
-
 
                         </div>
                     </div>
@@ -129,32 +170,54 @@ export function RunningJobView() {
                                 </tr>
                                 </thead>
                                 <tbody className="pd-20">
-                                <tr>
-                                    <td>7:35:49 PM</td>
-                                    <td>1.08452</td>
-                                    <td>80.01454</td>
-                                    <td>
-                                        <div className="badge text-dark badge-dgreen ">In Location</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7:35:49 PM</td>
-                                    <td>1.08452</td>
-                                    <td>80.01454</td>
-                                    <td>
-                                        <div className="badge text-dark badge-dred ">Location Out</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7:35:49 PM</td>
-                                    <td>1.08452</td>
-                                    <td>80.01454</td>
-                                    <td>
-                                        <div className="badge text-light badge-secondary ">Unable to track</div>
-                                    </td>
-                                </tr>
+                                {!loading && job &&
+                                        job.status.timline &&
+                                        job.status.timline.map((time : Timeline) => {
+                                            return (
+                                                <tr>
+                                                    <td>{(time.time as any).toDate().toLocaleTimeString()}</td>
+                                                    <td>{time.lat}</td>
+                                                    <td>{time.lon}</td>
+                                                    <td>
+                                                        {
+                                                            time.status ? <div className="badge text-dark badge-dgreen">Live</div> :
+                                                                <div className="badge text-dark badge-dred">Offline</div>
+                                                        }
 
-
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                }
+                                {
+                                    loading &&
+                                        <>
+                                            <tr>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                                <td><Skeleton/></td>
+                                            </tr>
+                                        </>
+                                }
                                 </tbody>
                             </table>
                         </div>
@@ -167,9 +230,9 @@ export function RunningJobView() {
                             <h4 className="text-blue h4 ">Tracking</h4>
                         </div>
                         <div className="map-view-container">
-                            <div className="">
+                            <div>
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d440.5316425800358!2d80.35407879313111!3d7.482881420627846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMjgnNTguNCJOIDgwwrAyMScxNS4zIkU!5e0!3m2!1sen!2slk!4v1623264982066!5m2!1sen!2slk"
+                                    src={`https://maps.google.com/maps?q=${job?.status.lat},${job?.status.lon}&hl=es;z=14&amp&output=embed`}
                                     width="100%" height="450"
                                     loading="lazy" className="iframe-map" title={"Running Job Current Location"}></iframe>
                             </div>

@@ -124,3 +124,8 @@ a.doc-link:hover {
     object-fit: cover;
     border-radius: 50%!important;
 }
+
+.feedback-images {
+    width: 150px;
+    height:150px;
+}
