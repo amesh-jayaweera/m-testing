@@ -4,14 +4,19 @@ import {RootState} from "../../../store/reducers/rootReducer";
 import {getRunningJobs} from "../../../store/actions/tablesActions";
 import {IJobRunning} from "../../../type";
 import Skeleton from "react-loading-skeleton";
+import {useHistory} from "react-router";
 
-function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS} : {title : string,jobID : string, shiftOn : string,
+function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, action} : {title : string,jobID : string, shiftOn : string,
     shiftOff : string , address : string
     employee : any,
-    ON : string, OFF : string, STATUS : string, LIVE : boolean
+    ON : string, OFF : string, STATUS : string, LIVE : boolean,
+    action : string
 }) {
+
+    const history = useHistory();
+
     return (
-        <li>
+        <li onClick={() => {history.push(action)}}>
             <div className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="list-job-details">
@@ -66,6 +71,7 @@ export function RunningJobs() {
                                                      shiftOn={job.shiftOff} key={`${job.jobId}-${job.datetime}`} employee={job.employee}
                                                     ON={job.status?.onTime || "_"} OFF={job.status?.offTime || "_"}
                                                     STATUS={job.status.status} LIVE={job.status?.live || false}
+                                                    action={job.action}
                                         />
                                     )
                                 })

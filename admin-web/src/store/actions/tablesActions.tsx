@@ -186,7 +186,7 @@ export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActio
                 querySnapshot.forEach((doc) => {
                     const job : IJobRunning = doc.data() as IJobRunning;
                     job.documentId = doc.id;
-                    job.action = RenderViewAction(`#jobs/running/job?id=${doc.id}`);
+                    job.action = `#jobs/running/job/view?id=${doc.id}`;
                     jobs.push(job);
                 });
                 dispatch({
