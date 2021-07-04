@@ -117,3 +117,10 @@ a.doc-link:hover {
     border-top-color: #333;
     animation: spinner .6s linear infinite;
 }
+
+.profile-custom {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 50%!important;
+}

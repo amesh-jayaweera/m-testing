@@ -1018,11 +1018,11 @@ table tbody tr td:last-child {
 /* Round profile image */
 
 .profile-photo {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     margin: 0 auto 15px;
     position: relative;
-    border-radius: 100%;
+    border-radius: 50%;
 }
 
 .avatar-photo {

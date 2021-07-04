@@ -270,7 +270,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                         <div className="row pd-t-30-l-30-r-30-b-0">
                             <div className="col-xl-4">
                                 <div className="profile-photo img-fluid ">
-                                    <img className="avatar-photo img-fluid shadow-sm border border-dark"
+                                    <img className="shadow-sm border border-dark profile-custom"
                                          src={employee?.url || defaultProfile} alt="Admin Profile Identity"/>
                                 </div>
                                 <h6 className="text-center text-muted">{employee?.email}</h6>
