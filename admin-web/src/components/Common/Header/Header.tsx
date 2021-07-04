@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {signOut} from "../../../store/actions/authActions";
 import {RootState} from "../../../store/reducers/rootReducer";
 import {menuOpen} from "../../../store/actions/otherActions";
+import Clock from 'react-live-clock';
 
 export function Header() {
 
@@ -22,6 +23,9 @@ export function Header() {
         <div className="header">
             <div className="header-left" onClick={() => onMenuClick()}>
                 <div className={`menu-icon icon ion-ios-menu`} id="top-menu-icon" onClick={() => onMenuClick()}/>
+                <div className="ml-3">
+                    <h5><Clock format={'HH:mm:ss'} ticking={true} timezone={'Asia/Colombo'} /></h5>
+                </div>
             </div>
             <div className="header-right">
 

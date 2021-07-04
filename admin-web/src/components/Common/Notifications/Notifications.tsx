@@ -16,7 +16,7 @@ export function Notifications() {
                                 <a href="/#">
                                     <img src={profilePhotoNotification} alt=""/>
                                     <h3>John Doe</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
+                                    <p>New employee has been added</p>
                                 </a>
                             </li>
                         </ul>
