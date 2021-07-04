@@ -71,6 +71,9 @@ exports.scheduleJobs = functions.pubsub
                               lastName: employeeDocData.lastName,
                               position: employeeDocData.position,
                             },
+                              status : {
+                                status : 'NOT_STARTED'
+                              }
                           }).then(() => {
                             console.log("Created running job for --- Email - "
                                 , employee, " - First Name - ",
