@@ -129,3 +129,7 @@ a.doc-link:hover {
     width: 150px;
     height:150px;
 }
+
+.running-cursor {
+    cursor: pointer;
+}

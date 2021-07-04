@@ -16,7 +16,7 @@ function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, 
     const history = useHistory();
 
     return (
-        <li onClick={() => {history.push(action)}}>
+        <li onClick={() => {history.push(action)}} className={"running-cursor"}>
             <div className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="list-job-details">
