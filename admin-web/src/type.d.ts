@@ -209,6 +209,10 @@ export interface Timeline {
     time : any;
 }
 
+export interface Feedback {
+    url : string;
+}
+
 export interface IJobRunning {
     documentId? : string;
     jobId : string;
@@ -236,7 +240,7 @@ export interface IJobRunning {
         live? : boolean;
         offTime? : string;
         onTime? : string;
-        url? : string; // feedback
+        feedback? : Feedback[]; // feedback
         timline? : Timeline[];
     }
 }

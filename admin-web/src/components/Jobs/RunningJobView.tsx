@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import imagePlaceHolder from '../../resources/images/u-placeholder.svg';
 import {useHistory, useLocation} from "react-router";
-import {IJobRunning, Timeline} from "../../type";
+import {Feedback, IJobRunning, Timeline} from "../../type";
 import {fire} from "../../index";
 import Skeleton from "react-loading-skeleton";
 
@@ -107,8 +107,13 @@ export function RunningJobView() {
                                         loading ?
                                             <Skeleton className={"img-fluid eve-images shadow-sm m-1 feedback-images"}/>
                                             :
-                                            <img className="img-fluid eve-images shadow-sm m-1 feedback-images"
-                                                 src={job?.status.url || imagePlaceHolder} alt="eve-images"/>
+                                            job && job.status.feedback &&
+                                            job.status.feedback.map((val : Feedback) => {
+                                                return (
+                                                    <img className="img-fluid eve-images shadow-sm m-1 feedback-images"
+                                                         src={val.url || imagePlaceHolder} alt="eve-images"/>
+                                                )
+                                            })
                                     }
                                 </div>
                             </div>
