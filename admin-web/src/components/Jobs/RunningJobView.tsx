@@ -101,6 +101,8 @@ export function RunningJobView() {
                             </div>
 
                             <div className="row w-100 no-gutters">
+                                <label>Feedbacks</label>
+                                <hr/>
                                 <div className="d-flex p-1 flex-wrap">
                                     {
                                         loading ?
