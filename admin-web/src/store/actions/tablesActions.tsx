@@ -185,6 +185,8 @@ export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActio
                 let jobs : IJobRunning[] = [];
                 querySnapshot.forEach((doc) => {
                     const job : IJobRunning = doc.data() as IJobRunning;
+                    job.documentId = doc.id;
+                    job.action = RenderViewAction(`#jobs/running/job?id=${doc.id}`);
                     jobs.push(job);
                 });
                 dispatch({
@@ -217,6 +219,8 @@ export const getRunningJobHistory = () : ThunkAction<void, RootState, null, Tabl
                     let job : IJobRunning = doc.data() as IJobRunning;
                     const employee : any = job.employee;
                     job.employeeDetails = `${employee.email}\n${employee.firstName} ${employee.lastName}\n${employee.position}`;
+                    job.documentId = doc.id;
+                    job.action = RenderViewAction(`#jobs/running/history/job?id=${doc.id}`);
                     jobs.push(job);
                 });
                 dispatch({

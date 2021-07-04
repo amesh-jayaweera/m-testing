@@ -21,6 +21,7 @@ import {EmployeeView, MY_PROFILE, PROFILE_ADMIN, PROFILE_EMPLOYEE} from "../Prof
 import {NotFoundDashboard} from "../Error/NotFound/NotFoundDashboard";
 import {locations, locationsStartWith} from "../constants";
 import {JobView} from "../Jobs/JobView";
+import {RunningJobView} from "../Jobs/RunningJobView";
 
 export function HomePage() {
 
@@ -143,6 +144,13 @@ export function HomePage() {
                   <div className="pd-ltr-20 xs-pd-20-10">
                       <ContainerNavigation title={"Job Profile"} mainTitle={"Scheduled Jobs"} mainNav={"jobs"}/>
                       <JobView/>
+                  </div>
+              }
+              {
+                  (location.hash.startsWith('#test')) &&
+                  <div className="pd-ltr-20 xs-pd-20-10">
+                      <ContainerNavigation title={"Job Profile"} mainTitle={"Running Jobs"} mainNav={"jobs"}/>
+                      <RunningJobView/>
                   </div>
               }
               {

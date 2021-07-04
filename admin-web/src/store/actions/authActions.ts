@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import {AuthAction, SignInData, LoggedUser} from '../../type';
-import {SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, SET_SUCCESS} from '../actionTypes';
+import {SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, SET_SUCCESS, SET_SUSPEND} from '../actionTypes';
 import firebase from "firebase";
 import {RootState} from "../reducers/rootReducer";
 
@@ -11,10 +11,18 @@ export const getUserById = (id: string): ThunkAction<void, RootState, null, Auth
             const user = await firebase.firestore().collection('admins').doc(id).get();
             if(user.exists) {
                 const userData = user.data() as LoggedUser;
-                dispatch({
-                    type: SET_USER,
-                    payload: userData
-                });
+                if(!userData.suspend) {
+                    dispatch({
+                        type: SET_USER,
+                        payload: userData
+                    });
+                } else {
+                    dispatch({
+                        type: SET_SUSPEND,
+                        payload : 'Sorry, you account has been suspended.' +
+                            '\nPlease contact the administrator for more details'
+                    });
+                }
             }
         } catch (err) {
             dispatch(setError(err.message));

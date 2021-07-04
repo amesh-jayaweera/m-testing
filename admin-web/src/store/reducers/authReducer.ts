@@ -1,6 +1,5 @@
-
-import { AuthAction, AuthState } from '../../type';
-import {SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, SET_SUCCESS} from '../actionTypes';
+import {AuthAction, AuthState} from '../../type';
+import {SET_ERROR, SET_LOADING, SET_SUCCESS, SET_SUSPEND, SET_USER, SIGN_OUT} from '../actionTypes';
 
 const initialState: AuthState = {
     user : {
@@ -10,7 +9,8 @@ const initialState: AuthState = {
         birthday : "",
         email : "",
         contactNumber : "",
-        address : ""
+        address : "",
+        suspend : false
     },
     authenticated: false,
     loading: true,
@@ -20,6 +20,12 @@ const initialState: AuthState = {
 
 export const authReducer = (state = initialState, action: AuthAction) => {
     switch(action.type) {
+        case SET_SUSPEND:
+            return {
+                ...state,
+                authenticated: false,
+                error : action.payload
+            };
         case SET_USER:
             return {
                 ...state,

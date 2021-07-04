@@ -79,7 +79,8 @@ export function JobHistory() {
             label: 'Job Id',
             name: 'jobId',
             options : {
-                filter : false
+                filter : false,
+                display: false
             }
         },
         {

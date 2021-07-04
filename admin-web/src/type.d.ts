@@ -1,5 +1,5 @@
 // Auth
-import {SET_ERROR, SET_LOADING, SET_SUCCESS, SET_USER, SIGN_OUT} from "./store/actionTypes";
+import {SET_ERROR, SET_LOADING, SET_SUCCESS, SET_SUSPEND, SET_USER, SIGN_OUT} from "./store/actionTypes";
 import {string} from "prop-types";
 
 export interface LoggedUser {
@@ -10,10 +10,11 @@ export interface LoggedUser {
     email : string;
     contactNumber : string;
     address : string;
+    suspend : boolean;
 }
 
 export interface AuthState {
-    user: LoggedUser | null;
+    user: LoggedUser;
     authenticated: boolean;
     loading: boolean;
     error: string;
@@ -46,12 +47,17 @@ interface SetErrorAction {
     payload: string;
 }
 
+interface SetSuspendAction {
+    type: typeof SET_SUSPEND;
+    payload: string;
+}
+
 interface SetSuccessAction {
     type: typeof SET_SUCCESS;
     payload: string;
 }
 
-export type AuthAction = SetUserAction | SetLoadingAction | SignOutAction | SetErrorAction | SetSuccessAction;
+export type AuthAction = SetUserAction | SetLoadingAction | SignOutAction | SetErrorAction | SetSuccessAction | SetSuspendAction;
 
 // Employee or Admin
 export interface IEmployee {
@@ -197,6 +203,7 @@ export interface IJobRecurrence {
 }
 
 export interface IJobRunning {
+    documentId? : string;
     jobId : string;
     title : string;
     category : string;
@@ -214,6 +221,7 @@ export interface IJobRunning {
     date : string;
     datetime : any;
     employeeDetails? : string;
+    action? : any;
 }
 
 export interface IJobValidation {

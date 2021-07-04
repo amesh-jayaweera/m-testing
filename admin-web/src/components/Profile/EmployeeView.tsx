@@ -23,7 +23,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
 
     const history = useHistory();
     const location = useLocation();
-    const { user } = useSelector((state: RootState) => state.auth);
+    const { user : {email} } = useSelector((state: RootState) => state.auth);
     const [loading, setLoading] = useState<boolean>(false);
     const [processing, setProcessing] = useState<boolean>(false);
     const [employee, setEmployee] = useState<IEmployee>({
@@ -65,7 +65,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                 policeReportPath = "employees/police-reports/";
             } else if(actionType === MY_PROFILE) {
                 dbRef = "admins";
-                id = user?.email.trim();
+                id = (email as string).trim();
                 passportPath = "admins/passports/";
                 policeReportPath = "admins/police-reports/";
             } else {
@@ -185,7 +185,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
     }
 
     function onSuspend() {
-        if(user?.email.trim() !== employee.email) {
+        if((email as string).trim() !== employee.email) {
             setProcessing(true);
             let userPath : string = "";
             if(actionType === PROFILE_EMPLOYEE) {
@@ -221,7 +221,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
     }
 
     function onUnblock() {
-        if(user?.email.trim() !== employee.email) {
+        if((email as string).trim() !== employee.email) {
             setProcessing(true);
             let userPath : string = "";
             if(actionType === PROFILE_EMPLOYEE) {
@@ -399,7 +399,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                                     <a className="doc-link ml-sm-3 " href={passport.trim() ? passport : "/not-available"} target="_blank" rel="noreferrer">Passport Copy</a>
                                 </div>
                                 {
-                                    !myProfile && user?.email.trim() !== employee.email.trim() &&
+                                    !myProfile && (email as string).trim() !== employee.email.trim() &&
                                     <button className="btn btn-danger mt-3 mt-sm-0" onClick={()=> {suspend ? onUnblock() : onSuspend();
                                 }} disabled={processing}>{suspend ? "Unblock" : "Suspend"}</button> }
                             </div>

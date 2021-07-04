@@ -16,6 +16,7 @@ export const SIGN_OUT = 'SIGN_OUT';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_ERROR = 'SET_ERROR';
 export const SET_SUCCESS = 'SET_SUCCESS';
+export const SET_SUSPEND = 'SUSPENDED';
 
 // TABLES
 export const ADMIN_TABLE_DATA = "ADMIN_TABLE_DATA";

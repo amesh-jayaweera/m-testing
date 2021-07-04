@@ -9,7 +9,7 @@ import {menuOpen} from "../../../store/actions/otherActions";
 export function Header() {
 
     const dispatch = useDispatch();
-    const { user } = useSelector((state: RootState) => state.auth);
+    const { user: {firstName, lastName} } = useSelector((state: RootState) => state.auth);
     function onMenuClick() {
         dispatch(menuOpen(true))
     }
@@ -33,7 +33,7 @@ export function Header() {
                         <span className="user-icon">
                             <img src={profilePhoto} alt="User Profile Identity"/>
                         </span>
-                            <span className="user-name">{`${user?.firstName} ${user?.lastName}`}</span>
+                            <span className="user-name">{`${firstName} ${lastName}`}</span>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                             <a className="dropdown-item" href="#admin/profile"><i className="icon ion-md-contact"/>Profile</a>
