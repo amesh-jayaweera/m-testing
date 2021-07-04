@@ -5,7 +5,6 @@ export function MapView({lat, lon} : {lat : number, lon : number}) {
 
     const history = useHistory();
     const url = `https://maps.google.com/maps?q=${lat},${lon}&hl=es;z=14&amp&output=embed`;
-    console.log(url);
 
     return (
         <div className="modal fade show d-block" id="map_view" role="dialog" aria-labelledby="myModalLabel"
