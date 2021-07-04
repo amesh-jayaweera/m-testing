@@ -1,14 +1,14 @@
 import { ThunkAction } from 'redux-thunk';
 import {AuthAction, SignInData, LoggedUser} from '../../type';
 import {SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, SET_SUCCESS, SET_SUSPEND} from '../actionTypes';
-import firebase from "firebase";
+import {fire} from "../../index";
 import {RootState} from "../reducers/rootReducer";
 
 // Get user by id
 export const getUserById = (id: string): ThunkAction<void, RootState, null, AuthAction> => {
     return async dispatch => {
         try {
-            const user = await firebase.firestore().collection('admins').doc(id).get();
+            const user = await fire.firestore().collection('admins').doc(id).get();
             if(user.exists) {
                 const userData = user.data() as LoggedUser;
                 if(!userData.suspend) {
@@ -44,7 +44,7 @@ export const setLoading = (value: boolean): ThunkAction<void, RootState, null, A
 export const signIn = (data: SignInData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
     return async dispatch => {
         try {
-            await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+            await fire.auth().signInWithEmailAndPassword(data.email, data.password);
             return getUserById(data.email);
         } catch (err) {
             onError();
@@ -58,7 +58,7 @@ export const signOut = (): ThunkAction<void, RootState, null, AuthAction> => {
     return async dispatch => {
         try {
             dispatch(setLoading(true));
-            await firebase.auth().signOut();
+            await fire.auth().signOut();
             dispatch({
                 type: SIGN_OUT
             });

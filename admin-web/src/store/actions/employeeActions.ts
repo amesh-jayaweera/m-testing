@@ -1,8 +1,7 @@
 import {AdminUpdateAction, EmployeeEmailsAction, EmployeeRegisterAction, IEmployee, IUpdatedAdmin} from "../../type";
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../reducers/rootReducer";
-import firebase from "firebase";
-
+import {fire} from "../../index";
 import {
     ADMIN_PROFILE_UPDATE_FAILED,
     ADMIN_PROFILE_UPDATE_SUCCESS,
@@ -31,7 +30,7 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
         policeReportStoragePath = "employees/police-reports/";
     }
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
 
     return async dispatch => {
         const user = await db.collection(collectionPath).doc(employee.email.trim()).get();
@@ -64,7 +63,7 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
 
 const uploadPassport = (passport : any, policeReport : any , email : string, passportStoragePath : string,
                         policeReportStoragePath : string , dispatch : any) => {
-    const storage = firebase.storage();
+    const storage = fire.storage();
         if(passport != null) {
             let temp = passport.name.split('.');
             const storageRefPassport = storage.ref(`${passportStoragePath}${email.trim()}.${temp[temp.length-1]}`);
@@ -97,7 +96,7 @@ const uploadPassport = (passport : any, policeReport : any , email : string, pas
 };
 
 const uploadPoliceReport = (policeReport : any, email : string, policeReportStoragePath : string ,dispatch : any) => {
-    const storage = firebase.storage();
+    const storage = fire.storage();
         if(policeReport != null) {
             let temp = policeReport.name.split('.');
             const storageRefPoliceReport = storage.ref(`${policeReportStoragePath}${email.trim()}.${temp[temp.length-1]}`);
@@ -160,7 +159,7 @@ function getProgressStep(progress : number) {
 
 export const getAllEmployeeEmails = (): ThunkAction<void, RootState, null, EmployeeEmailsAction> => {
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
 
     return async dispatch => {
         db.collection("employees").get().then((querySnapshot) => {
@@ -182,7 +181,7 @@ export const getAllEmployeeEmails = (): ThunkAction<void, RootState, null, Emplo
 
 export const updateAdmin = (admin : IUpdatedAdmin): ThunkAction<void, RootState, null, AdminUpdateAction> => {
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
 
     return async dispatch => {
 

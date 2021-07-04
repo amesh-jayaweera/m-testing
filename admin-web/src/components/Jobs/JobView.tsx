@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import mapIcon from "../../resources/icons/map_icon.svg";
 import {IJob, ILocation} from "../../type";
 import {useHistory, useLocation} from "react-router";
-import firebase from "firebase";
+import {fire} from "../../index";
 import Skeleton from "react-loading-skeleton";
 import {MapView} from "../Common/MapViewModal/MapView";
 
@@ -18,7 +18,7 @@ export function JobView() {
     useEffect(()=> {
         const docID = location.hash.split('#jobs/schedule-job/view?id=');
         if(docID.length >= 2) {
-            firebase.firestore().collection("jobs").doc(docID[1].trim()).get().then((doc) => {
+            fire.firestore().collection("jobs").doc(docID[1].trim()).get().then((doc) => {
                 if(doc.exists) {
                     setJobId(doc.id);
                     let data : IJob = doc.data() as IJob;

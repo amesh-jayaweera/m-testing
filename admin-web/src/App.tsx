@@ -7,7 +7,7 @@ import {Login} from "./components/Login/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./store/reducers/rootReducer";
 import {getUserById, setLoading} from "./store/actions/authActions";
-import firebase from "firebase";
+import {fire} from "./index";
 import {Loader} from "./components/Common/Loader/Loader";
 import PublicRoute from "./components/Auth/PublicRoute";
 import PrivateRoute from "./components/Auth/PrivateRoute";
@@ -25,7 +25,7 @@ function App() {
     // Check if user exists
     useEffect(() => {
         dispatch(setLoading(true));
-        const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+        const unsubscribe = fire.auth().onAuthStateChanged(async (user) => {
             if(user) {
                 dispatch(setLoading(true));
                 await dispatch(getUserById(user.email as string));

@@ -1,6 +1,6 @@
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../reducers/rootReducer";
-import firebase from "firebase";
+import {fire} from "../../index";
 import {IJob, IJobRecurrence, IJobRunning, TableActions} from "../../type";
 import {AdminListTable, EmployeeListTable, JobListTable} from "../table";
 import {
@@ -21,7 +21,7 @@ const RenderViewAction = (url : string) => {
 
 export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> => {
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
 
     return async dispatch => {
         dispatch({
@@ -50,7 +50,7 @@ export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> =
 
 export const getEmployees = () : ThunkAction<void, RootState, null, TableActions> => {
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
 
     return async dispatch => {
         dispatch({
@@ -99,7 +99,7 @@ const RenderEditAction = (id : string) => {
 
 export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableActions> => {
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
 
     return async dispatch => {
         dispatch({
@@ -139,7 +139,7 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
 
 export const getTodayJobs = () : ThunkAction<void, RootState, null, TableActions> => {
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
     const today = new Date();
     const month = today.getMonth()+1;
     const date  = today.getDate();
@@ -168,7 +168,7 @@ export const getTodayJobs = () : ThunkAction<void, RootState, null, TableActions
 
 export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActions> => {
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
     const today = new Date();
     const month = today.getMonth()+1;
     const date  = today.getDate();
@@ -199,7 +199,7 @@ export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActio
 
 export const getRunningJobHistory = () : ThunkAction<void, RootState, null, TableActions> => {
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
     const today = new Date();
     const month = today.getMonth()+1;
     const date  = today.getDate();

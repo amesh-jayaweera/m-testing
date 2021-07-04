@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import logo from "../../resources/images/logo_light.svg";
-import firebase from "firebase";
+import {fire} from "../../index";
 import {ToastContainer} from "react-toastify";
 import {Failure, Success} from "../../util/Toasts";
 
@@ -11,7 +11,7 @@ export function ForgotPassword() {
 
     function onSubmit() {
         if(email) {
-            firebase.auth().sendPasswordResetEmail(email)
+            fire.auth().sendPasswordResetEmail(email)
                 .then(() => {
                     // Password reset email sent!
                     Success("Password reset email sent!\nPlease check your mail box");

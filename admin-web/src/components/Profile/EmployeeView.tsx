@@ -12,7 +12,7 @@ import {
     ADMIN_PROFILE_UPDATE_SUCCESS
 } from "../../store/actionTypes";
 import {Failure, Success} from "../../util/Toasts";
-import firebase from "firebase";
+import {fire} from "../../index";
 
 export const PROFILE_ADMIN = "PROFILE_ADMIN";
 export const PROFILE_EMPLOYEE = "PROFILE_EMPLOYEE";
@@ -46,8 +46,8 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
     // load employee data
     useEffect(() => {
             setLoading(true);
-            const db = firebase.firestore();
-            const storage = firebase.storage();
+            const db = fire.firestore();
+            const storage = fire.storage();
             const path = location.hash;
             let id : any;
             let dbRef : string = "";
@@ -197,7 +197,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                 history.push('#dashbord/not-found');
             }
 
-            const db = firebase.firestore();
+            const db = fire.firestore();
 
             if(actionType === PROFILE_ADMIN || actionType === PROFILE_EMPLOYEE) {
                 db.collection(userPath).doc(employee.email).set({
@@ -233,7 +233,7 @@ export function EmployeeView({actionType, myProfile} : {actionType : string, myP
                 history.push('#dashbord/not-found');
             }
 
-            const db = firebase.firestore();
+            const db = fire.firestore();
 
             if(actionType === PROFILE_ADMIN || actionType === PROFILE_EMPLOYEE) {
                 db.collection(userPath).doc(employee.email).set({

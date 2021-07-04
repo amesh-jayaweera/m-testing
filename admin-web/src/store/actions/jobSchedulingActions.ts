@@ -1,7 +1,7 @@
 import {IJob, IJobForm, LoggedUser, ScheduleJobAction} from "../../type";
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../reducers/rootReducer";
-import firebase from "firebase";
+import {fire} from "../../index";
 import {
     SCHEDULE_JOB_FAILED,
     SCHEDULE_JOB_SUCCESS,
@@ -63,7 +63,7 @@ export const scheduleJob = (jobForm : IJobForm , user : LoggedUser, isEdit : boo
         }
     };
 
-    const db = firebase.firestore();
+    const db = fire.firestore();
 
     return async dispatch => {
         if(!isEdit) {

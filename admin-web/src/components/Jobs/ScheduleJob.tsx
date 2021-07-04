@@ -21,7 +21,7 @@ import {
     SCHEDULED_JOB_UPDATED_FAILED,
     SCHEDULED_JOB_UPDATED_SUCCESS
 } from "../../store/actionTypes";
-import firebase from "firebase";
+import {fire} from "../../index";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Skeleton from "react-loading-skeleton";
@@ -87,7 +87,7 @@ export function ScheduleJob({isEdit} : {isEdit : boolean}) {
 
     useEffect(() => {
         if(isEdit) {
-            const db = firebase.firestore();
+            const db = fire.firestore();
             const path = location.hash;
             const docID = path.split('#jobs/schedule-job/edit?id=');
             if(docID.length >= 2) {
