@@ -5,7 +5,7 @@ import {getRunningJobs} from "../../../store/actions/tablesActions";
 import {IJobRunning} from "../../../type";
 import Skeleton from "react-loading-skeleton";
 
-function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE} : {title : string,jobID : string, shiftOn : string,
+function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS} : {title : string,jobID : string, shiftOn : string,
     shiftOff : string , address : string
     employee : any,
     ON : string, OFF : string, STATUS : string, LIVE : boolean
@@ -23,10 +23,14 @@ function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE} : {title
                 </div>
 
                 <div>
-                    <div className="text-right">{LIVE ? <span className="badge badge-dgreen">Live</span> :
+                    <div className="text-right mt-2">{LIVE ? <span className="badge badge-dgreen">Live</span> :
                         <span className="badge badge-dred">Offline</span>
                     }</div>
-                    <div className="list-job-id text-right">{`${employee?.firstName} ${employee?.lastName}`}</div>
+                    <div className="text-right mt-2">{STATUS === 'COMPLETED' ? <span className="badge badge-dgreen">Completed</span> :
+                        STATUS === 'ON_GOING' ? <span className="badge badge-dpurple">On Going</span> :
+                            <span className="badge badge-dyellow">Not Started</span>
+                    }</div>
+                    <div className="list-job-id text-right mt-2">{`${employee?.firstName} ${employee?.lastName}`}</div>
                     <div className="list-job-id text-right">{employee?.email}</div>
 
                 </div>
