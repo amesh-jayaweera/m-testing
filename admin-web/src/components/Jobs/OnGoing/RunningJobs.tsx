@@ -5,8 +5,11 @@ import {getRunningJobs} from "../../../store/actions/tablesActions";
 import {IJobRunning} from "../../../type";
 import Skeleton from "react-loading-skeleton";
 
-function RunningJob({title, shiftOn, shiftOff, employee} : {title : string,jobID : string, shiftOn : string, shiftOff : string , address : string
-    employee : any}) {
+function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE} : {title : string,jobID : string, shiftOn : string,
+    shiftOff : string , address : string
+    employee : any,
+    ON : string, OFF : string, STATUS : string, LIVE : boolean
+}) {
     return (
         <li>
             <div className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
@@ -14,13 +17,15 @@ function RunningJob({title, shiftOn, shiftOff, employee} : {title : string,jobID
                     <div className="list-job-details">
                         <p className="p-0 m-0 list-job-topic">{title}</p>
                         <div className="p-0 m-0 list-job-details">Shift : {shiftOn} - {shiftOff}</div>
-                        <div className="p-0 m-0 list-job-details">Shift On : 08:05 am</div>
-                        <div className="p-0 m-0 list-job-details">Shift Off : 17.05 pm</div>
+                        <div className="p-0 m-0 list-job-details">Shift On : {ON}</div>
+                        <div className="p-0 m-0 list-job-details">Shift Off : {OFF || "_"}</div>
                     </div>
                 </div>
 
                 <div>
-                    <div className="text-right"><span className="badge badge-dgreen">On</span></div>
+                    <div className="text-right">{LIVE ? <span className="badge badge-dgreen">Live</span> :
+                        <span className="badge badge-dred">Offline</span>
+                    }</div>
                     <div className="list-job-id text-right">{`${employee?.firstName} ${employee?.lastName}`}</div>
                     <div className="list-job-id text-right">{employee?.email}</div>
 
@@ -54,7 +59,10 @@ export function RunningJobs() {
                                     return (
                                         <RunningJob title={job.title} address={job.address} jobID={job.jobId}
                                                       shiftOff={job.shiftOn}
-                                                     shiftOn={job.shiftOff} key={`${job.jobId}-${job.datetime}`} employee={job.employee}/>
+                                                     shiftOn={job.shiftOff} key={`${job.jobId}-${job.datetime}`} employee={job.employee}
+                                                    ON={job.status?.onTime || "_"} OFF={job.status?.offTime || "_"}
+                                                    STATUS={job.status.status} LIVE={job.status?.live || false}
+                                        />
                                     )
                                 })
                             }
