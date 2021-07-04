@@ -74,6 +74,7 @@ export interface IEmployee {
     policeReport? : string;
     createdDateTime? : Date;
     suspend? : boolean;
+    url?: string;
 }
 
 type EmployeeRegisterAction = {
