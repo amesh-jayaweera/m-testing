@@ -63,9 +63,6 @@ export const scheduleJob = (jobForm : IJobForm , user : LoggedUser, isEdit : boo
         }
     };
 
-    console.log("Job Form => ", jobForm);
-    console.log("Job  => ", job);
-
     const db = firebase.firestore();
 
     return async dispatch => {

@@ -10,3 +10,8 @@ export function validateTime(time : string) {
     const re = /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
     return re.test(String(time).toLowerCase());
 }
+
+export function validateDateFormat(date : string) {
+    const re = /^\d{4}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])$/;
+    return re.test(String(date).toLowerCase());
+}
