@@ -22,6 +22,8 @@ import {NotFoundDashboard} from "../Error/NotFound/NotFoundDashboard";
 import {locations, locationsStartWith} from "../constants";
 import {JobView} from "../Jobs/JobView";
 import {RunningJobView} from "../Jobs/RunningJobView";
+// @ts-ignore
+import { Offline, Online } from 'react-detect-offline';
 
 export function HomePage() {
 
@@ -49,6 +51,7 @@ export function HomePage() {
           <SideBar/>
           <div className="mobile-menu-overlay"/>
           <div className="main-container">
+              <Online>
               {
                   (location.hash === '#dashboard' || location.hash === '#' || location.hash === '') &&
                   <Dashboard/>
@@ -163,6 +166,10 @@ export function HomePage() {
                   (!locations.includes(location.hash) && !startWith()) &&
                   <NotFoundDashboard/>
               }
+              </Online>
+              <Offline>
+                  <h1>Offline</h1>
+              </Offline>
           </div>
           <ToastContainer/>
       </>
