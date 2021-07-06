@@ -5,7 +5,7 @@ import {Feedback, IJobRunning, Timeline} from "../../type";
 import {fire} from "../../index";
 import Skeleton from "react-loading-skeleton";
 
-export function RunningJobView() {
+export function RunningJobView({isHistory} : {isHistory : boolean}) {
 
     const location = useLocation();
     const history = useHistory();
@@ -15,7 +15,8 @@ export function RunningJobView() {
     const [date, setDate] = useState<Date>();
 
     useEffect(()=> {
-        const docID = location.hash.split('#jobs/running/job/view?id=');
+        const docID = !isHistory ? location.hash.split('#jobs/running/job/view?id=')
+            : location.hash.split('#jobs/running/history/job/view?id=');
         if(docID.length >= 2) {
             fire.firestore().collection("running_jobs").doc(docID[1].trim()).get().then((doc) => {
                 if(doc.exists) {
