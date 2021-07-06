@@ -9,7 +9,8 @@ const todayJobPath = "today_jobs";
 const runningJobPath = "running_jobs";
 
 exports.scheduleJobs = functions.pubsub
-    .schedule("40 22 * * *")
+    .schedule("30 23 * * *")
+    .timeZone("Asia/Colombo")
     .onRun(() => {
       const today = new Date();
       const tomorrow = new Date();
@@ -128,6 +129,6 @@ exports.scheduleJobs = functions.pubsub
             console.log("Error ------- ", error);
           });
 
-      return console.log("Successfully Updated .....");
+      console.log("Successfully Updated .....");
     }
     );
