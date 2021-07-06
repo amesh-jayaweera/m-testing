@@ -29,7 +29,7 @@ export function Header() {
             </div>
             <div className="header-right">
 
-                <Notifications/>
+                {/*<Notifications/>*/}
 
                 <div className="user-info-dropdown mr-3">
                     <div className="dropdown">
