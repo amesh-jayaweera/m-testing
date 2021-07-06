@@ -172,7 +172,33 @@ export function HomePage() {
               }
               </Online>
               <Offline>
-                  <h1>Something Went Wrong!, Please, check you internet connection.</h1>
+                  <div className="pd-ltr-20">
+                      <div className="row">
+                          <div className="col-xl-12 mb-30">
+                              <div className="card-box height-100-p pd-20">
+                                  <div
+                                      className="error-page d-flex align-items-center flex-wrap justify-content-center pd-20">
+                                      <div className="pd-10">
+                                          <div className="error-page-wrap text-center">
+                                              <h1>Ooops!</h1>
+                                              <h3>Error: No internet Found</h3>
+                                              <p>
+                                                  No internet connection found
+                                                  <br />
+                                                  Check your connection.
+                                              </p>
+                                              <div className="pt-20 mx-auto max-width-200">
+                                                  <a href={"/"} className="btn btn-primary btn-lg"
+                                                  >Try Again</a >
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
               </Offline>
           </div>
           <ToastContainer/>

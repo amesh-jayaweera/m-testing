@@ -9,7 +9,7 @@ const todayJobPath = "today_jobs";
 const runningJobPath = "running_jobs";
 
 exports.scheduleJobs = functions.pubsub
-    .schedule("* * * * *")
+    .schedule("40 22 * * *")
     .onRun(() => {
       const today = new Date();
       const tomorrow = new Date();
