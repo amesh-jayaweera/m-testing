@@ -20,7 +20,8 @@ function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, 
             <div className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="list-job-details">
-                        <p className="p-0 m-0 list-job-topic">{title}</p>
+                        <p className="p-0 m-0 list-job-topic">{`${employee?.firstName} ${employee?.lastName}`}</p>
+                        <p className="p-0 m-0 list-job-topic-title">{title}</p>
                         <div className="p-0 m-0 list-job-details">Shift : {shiftOn} - {shiftOff}</div>
                         <div className="p-0 m-0 list-job-details">Shift On : {ON}</div>
                         <div className="p-0 m-0 list-job-details">Shift Off : {OFF || "_"}</div>
@@ -35,7 +36,6 @@ function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, 
                         STATUS === 'ON_GOING' ? <span className="badge badge-dpurple">On Going</span> :
                             <span className="badge badge-dyellow">Not Started</span>
                     }</div>
-                    <div className="list-job-id text-right mt-2">{`${employee?.firstName} ${employee?.lastName}`}</div>
                     <div className="list-job-id text-right running-job-email">{employee?.email}</div>
 
                 </div>
