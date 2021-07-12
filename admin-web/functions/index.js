@@ -32,7 +32,7 @@ exports.scheduleJobs = functions.pubsub
       const jobRef = database.collection(jobPath);
       jobRef
           .where("active", "==", true)
-          .where("days", "array-contains-any", [todayDay])
+          .where("days", "array-contains-any", [tomorrowDay])
           .get()
           .then(function(snapshot) {
             snapshot.forEach((doc) => {
