@@ -211,7 +211,8 @@ export const getRunningJobHistory = () : ThunkAction<void, RootState, null, Tabl
             data : []
         });
         db.collection("running_jobs")
-            .where("date","!=",todayStr)
+            .orderBy("datetime", "desc")
+            .where("datetime","!=",todayStr)
             .get()
             .then((querySnapshot) => {
                 let jobs : IJobRunning[] = [];
