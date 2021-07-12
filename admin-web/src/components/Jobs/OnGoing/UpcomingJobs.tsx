@@ -57,8 +57,8 @@ export function UpcomingJobs() {
                                     !loading && data && data.map((job : IJobRecurrence) => {
                                         return (
                                             <UpComingJob title={job.title} address={job.address} jobID={job.jobId}
-                                                          numberOfEmployees={job.employeeCount} shiftOff={job.shiftOn}
-                                                          shiftOn={job.shiftOff} key={`${job.jobId}-${job.datetime}`}/>
+                                                          numberOfEmployees={job.employeeCount} shiftOff={job.shiftOff}
+                                                          shiftOn={job.shiftOn} key={`${job.jobId}-${job.datetime}`}/>
                                         )
                                     })
                                 }

@@ -67,8 +67,8 @@ export function RunningJobs() {
                                 !loading && data && data.map((job : IJobRunning) => {
                                     return (
                                         <RunningJob title={job.title} address={job.address} jobID={job.jobId}
-                                                      shiftOff={job.shiftOn}
-                                                     shiftOn={job.shiftOff} key={`${job.jobId}-${job.datetime}`} employee={job.employee}
+                                                      shiftOff={job.shiftOff}
+                                                     shiftOn={job.shiftOn} key={`${job.jobId}-${job.datetime}`} employee={job.employee}
                                                     ON={job.status?.onTime || "_"} OFF={job.status?.offTime || "_"}
                                                     STATUS={job.status.status} LIVE={job.status?.live || false}
                                                     action={job.action}
