@@ -61,7 +61,7 @@ export function Admins() {
     ];
 
     const dispatch = useDispatch();
-    const { loading, data } = useSelector((state: RootState) => state.adminTable);
+    const {loading, data } = useSelector((state: RootState) => state.adminTable);
 
     useEffect(() => {
         dispatch(getAdmins());

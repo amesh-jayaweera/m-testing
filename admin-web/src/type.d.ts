@@ -86,6 +86,7 @@ type EmployeeRegisterAction = {
 type TableActions = {
     type : string;
     data : any[];
+    unsubscribed? : any;
 }
 
 type EmployeeEmailsAction = {
@@ -102,13 +103,15 @@ export interface EmployeeRegistrationState {
 }
 
 export interface AdminListTableState  {
-    loading : boolean,
+    loading : boolean;
     data : any[];
+    unsubscribed? : any;
 }
 
 export interface EmployeeListTableState  {
-    loading : boolean,
+    loading : boolean;
     data : any[];
+    unsubscribed? : any;
 }
 
 export interface EmployeeEmailsState {
@@ -116,8 +119,9 @@ export interface EmployeeEmailsState {
 }
 
 export interface ScheduledTableState {
-    loading : boolean,
+    loading : boolean;
     data : any[];
+    unsubscribed? : any;
 }
 
 export interface IEmployeeValidation {
@@ -287,8 +291,9 @@ export interface IUpdatedAdmin {
 }
 
 export interface JobState  {
-     loading : boolean,
-     data : IJobRecurrence[] | IJobRunning[];
+    loading : boolean;
+    data : IJobRecurrence[] | IJobRunning[];
+    unsubscribed? : any;
 }
 
 type MenuAction = {

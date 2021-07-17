@@ -140,7 +140,7 @@ export function JobView() {
                                     !loading && job?.assignedEmployees &&
                                     job.assignedEmployees.map((employee: any) => {
                                         return (
-                                            <div className="added-seller border p-1 m-2 rounded d-flex ">
+                                            <div className="added-seller border p-1 m-2 rounded d-flex" key={employee['value']}>
                                                 <p className="my-auto pl-1 ">{employee['value']}</p>
                                             </div>
                                         )

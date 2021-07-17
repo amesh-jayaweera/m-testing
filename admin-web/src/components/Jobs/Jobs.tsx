@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import MUIDataTable from "mui-datatables";
 import {useDispatch, useSelector} from "react-redux";
-import {getScheduledJobs} from "../../store/actions/tablesActions";
+import {getScheduledJobs, unsubscribedGetScheduledJobs} from "../../store/actions/tablesActions";
 import {RootState} from "../../store/reducers/rootReducer";
 import {TableLoading} from "../Common/Other/TableLoading";
 
@@ -124,10 +124,14 @@ export function Jobs() {
     ];
 
     const dispatch = useDispatch();
-    const { loading, data } = useSelector((state: RootState) => state.scheduleJobTable);
+    const {loading, data } = useSelector((state: RootState) => state.scheduleJobTable);
 
     useEffect(() => {
         dispatch(getScheduledJobs());
+
+        return () => {
+            unsubscribedGetScheduledJobs();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 

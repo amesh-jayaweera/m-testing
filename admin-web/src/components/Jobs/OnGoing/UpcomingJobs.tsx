@@ -2,14 +2,17 @@ import React, {useEffect} from "react";
 import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/reducers/rootReducer";
-import {getTodayJobs} from "../../../store/actions/tablesActions";
 import {IJobRecurrence} from "../../../type";
 import Skeleton from "react-loading-skeleton";
+import {
+    getTodayJobs,
+    unsubscribedGetTodayJobs
+} from "../../../store/actions/tablesActions";
 
-function UpComingJob({title, shiftOn, shiftOff, address, numberOfEmployees} : {title : string,jobID : string, shiftOn : string, shiftOff : string , address : string
+function UpComingJob({title, shiftOn, shiftOff, address, numberOfEmployees, jobID} : {title : string , jobID : string, shiftOn : string, shiftOff : string , address : string
 numberOfEmployees : number}) {
     return (
-        <li>
+        <li key={jobID}>
             <div
                 className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
                 <div className="d-flex justify-content-center align-items-center">
@@ -33,12 +36,18 @@ numberOfEmployees : number}) {
 export function UpcomingJobs() {
 
     const dispatch = useDispatch();
-    const { loading, data } = useSelector((state: RootState) => state.recurrenceJobs);
 
     useEffect(() => {
+
         dispatch(getTodayJobs());
+
+        return () => {
+            unsubscribedGetTodayJobs();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    const { loading, data } = useSelector((state: RootState) => state.recurrenceJobs);
 
     const history = useHistory();
 
@@ -54,6 +63,7 @@ export function UpcomingJobs() {
                         <hr className="custom-hr"/>
                             <ul className="running-jobs">
                                 {
+                                    // @ts-ignore
                                     !loading && data && data.map((job : IJobRecurrence) => {
                                         return (
                                             <UpComingJob title={job.title} address={job.address} jobID={job.jobId}

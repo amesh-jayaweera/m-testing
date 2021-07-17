@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/reducers/rootReducer";
-import {getRunningJobs} from "../../../store/actions/tablesActions";
 import {IJobRunning} from "../../../type";
 import Skeleton from "react-loading-skeleton";
 import {useHistory} from "react-router";
+import {getRunningJobs, unsubscribedGetRunningJobs} from "../../../store/actions/tablesActions";
 
-function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, action} : {title : string,jobID : string, shiftOn : string,
+function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, action, jobID} : {title : string,jobID : string, shiftOn : string,
     shiftOff : string , address : string
     employee : any,
     ON : string, OFF : string, STATUS : string, LIVE : boolean,
@@ -16,7 +16,7 @@ function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, 
     const history = useHistory();
 
     return (
-        <li onClick={() => {history.push(action)}} className={"running-cursor"}>
+        <li onClick={() => {history.push(action)}} className={"running-cursor"} key={jobID}>
             <div className="list-item-dash pt-1 px-2 d-flex justify-content-between align-items-center">
                 <div className="d-flex justify-content-center align-items-center">
                     <div className="list-job-details">
@@ -48,12 +48,19 @@ function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, 
 export function RunningJobs() {
 
     const dispatch = useDispatch();
-    const { loading,data } = useSelector((state: RootState) => state.runningJobs);
 
     useEffect(() => {
+
         dispatch(getRunningJobs());
+
+        return () => {
+            unsubscribedGetRunningJobs();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    // @ts-ignore
+    const { loading,data } = useSelector((state: RootState) => state.runningJobs);
 
     return (
             <div className="card-box height-100-p pd-20 ">
@@ -64,6 +71,7 @@ export function RunningJobs() {
                     <hr className="custom-hr"/>
                         <ul className="running-jobs">
                             {
+                                // @ts-ignore
                                 !loading && data && data.map((job : IJobRunning) => {
                                     return (
                                         <RunningJob title={job.title} address={job.address} jobID={job.jobId}

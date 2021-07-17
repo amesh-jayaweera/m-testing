@@ -48,11 +48,10 @@ export const getAdmins = () : ThunkAction<void, RootState, null, TableActions> =
     }
 };
 
-export const getEmployees = () : ThunkAction<void, RootState, null, TableActions> => {
+export const getEmployees = () : ThunkAction<void, RootState, null, TableActions> => dispatch  => {
 
-    const db = fire.firestore();
+        const db = fire.firestore();
 
-    return async dispatch => {
         dispatch({
             type : LOADING,
             data : []
@@ -74,7 +73,6 @@ export const getEmployees = () : ThunkAction<void, RootState, null, TableActions
                 data : employees
             })
         });
-    }
 };
 
 const RenderNoOfWorkedEmployees = (num : number) => {
@@ -97,6 +95,13 @@ const RenderEditAction = (id : string) => {
     )
 };
 
+let unsubscribedScheduledJobs : Function;
+
+export function unsubscribedGetScheduledJobs()  {
+    if(!!unsubscribedScheduledJobs)
+        unsubscribedScheduledJobs();
+}
+
 export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableActions> => {
 
     const db = fire.firestore();
@@ -108,7 +113,7 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
         });
         let jobs : JobListTable[] = [];
 
-        db.collection("jobs").get().then((querySnapshot) => {
+        unsubscribedScheduledJobs = db.collection("jobs").onSnapshot((querySnapshot) => {
             let count = 0;
             querySnapshot.forEach((doc) => {
                 let job : IJob  = doc.data() as IJob;
@@ -137,6 +142,13 @@ export const getScheduledJobs = () : ThunkAction<void, RootState, null, TableAct
     }
 };
 
+let unsubscribedTodayJobs : Function;
+
+export function unsubscribedGetTodayJobs()  {
+    if(!!unsubscribedTodayJobs)
+        unsubscribedTodayJobs();
+}
+
 export const getTodayJobs = () : ThunkAction<void, RootState, null, TableActions> => {
 
     const db = fire.firestore();
@@ -150,7 +162,7 @@ export const getTodayJobs = () : ThunkAction<void, RootState, null, TableActions
             type : LOADING,
             data : []
         });
-        db.collection("today_jobs")
+        unsubscribedTodayJobs = db.collection("today_jobs")
             .where("date","==",todayStr)
             .onSnapshot((querySnapshot) => {
                 let jobs : IJobRecurrence[] = [];
@@ -166,6 +178,13 @@ export const getTodayJobs = () : ThunkAction<void, RootState, null, TableActions
     }
 };
 
+let unsubscribedRunningJobs : Function;
+
+export function unsubscribedGetRunningJobs()  {
+    if(!!unsubscribedRunningJobs)
+        unsubscribedRunningJobs();
+}
+
 export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActions> => {
 
     const db = fire.firestore();
@@ -179,7 +198,7 @@ export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActio
             type : LOADING,
             data : []
         });
-        db.collection("running_jobs")
+        unsubscribedRunningJobs = db.collection("running_jobs")
             .where("date","==",todayStr)
             .onSnapshot((querySnapshot) => {
                 let jobs : IJobRunning[] = [];

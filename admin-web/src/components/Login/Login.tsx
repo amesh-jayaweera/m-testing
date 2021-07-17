@@ -60,7 +60,7 @@ export function Login() {
                                             <div className="input-group">
                                                 <input type="email" className="form-control"
                                                        onChange={(e) => setEmail(e.target.value)}
-                                                       placeholder="Your email address"/>
+                                                       placeholder="Your email address" />
                                             </div>
 
                                             <div className="input-group mt-3">

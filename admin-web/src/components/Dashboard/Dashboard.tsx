@@ -7,7 +7,9 @@ import {UpcomingJobs} from "../Jobs/OnGoing/UpcomingJobs";
 import {RunningJobs} from "../Jobs/OnGoing/RunningJobs";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/rootReducer";
-import {getEmployees, getRunningJobs, getScheduledJobs} from "../../store/actions/tablesActions";
+import {
+    getEmployees, getScheduledJobs, unsubscribedGetScheduledJobs
+} from "../../store/actions/tablesActions";
 import Skeleton from "react-loading-skeleton";
 import {IJobRunning} from "../../type";
 
@@ -16,6 +18,10 @@ const ScheduledJobCard = () => {
     const dispatch = useDispatch();
     useEffect(()=> {
         dispatch(getScheduledJobs());
+
+        return () => {
+            unsubscribedGetScheduledJobs();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
@@ -52,11 +58,6 @@ const EmployeeJobCard = () => {
 
 const RunningJobCard = () => {
 
-    const dispatch = useDispatch();
-    useEffect(()=> {
-        dispatch(getRunningJobs());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
     const { loading, data } = useSelector((state: RootState) => state.runningJobs);
 
   return (

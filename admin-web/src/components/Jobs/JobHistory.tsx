@@ -12,6 +12,7 @@ export function JobHistory() {
     let date_to = new Date();
     date_to.setDate(date_to.getDate()-7);
     const dispatch = useDispatch();
+    // @ts-ignore
     const { loading, data } = useSelector((state: RootState) => state.jobHistory);
     const [from, setFrom] = useState<string>(date_from.toISOString().split('T')[0]);
     const [to, setTo] = useState<string>(date_to.toISOString().split('T')[0]);

@@ -181,7 +181,7 @@ export function RunningJobView({isHistory} : {isHistory : boolean}) {
                                         job.status.timline &&
                                         job.status.timline.map((time : Timeline) => {
                                             return (
-                                                <tr>
+                                                <tr key={time.time}>
                                                     <td>{(time.time as any).toDate().toLocaleTimeString()}</td>
                                                     <td>{time.lat}</td>
                                                     <td>{time.lon}</td>
