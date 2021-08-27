@@ -12,7 +12,7 @@ export function RunningJobView({isHistory} : {isHistory : boolean}) {
     const [loading, setLoading] = useState<boolean>(true);
     const [jobId, setJobId] = useState<string>();
     const [job, setJob] = useState<IJobRunning>();
-    const [date, setDate] = useState<Date>();
+    const [date, setDate] = useState<any>();
 
     useEffect(()=> {
         const docID = !isHistory ? location.hash.split('#jobs/running/job/view?id=')
@@ -23,7 +23,8 @@ export function RunningJobView({isHistory} : {isHistory : boolean}) {
                     let data : IJobRunning = doc.data() as IJobRunning;
                     setJob(data);
                     setJobId(data.jobId);
-                    setDate((data.datetime as any).toDate().toLocaleDateString());
+                    setDate(data.date);
+                   // setDate((data.datetime as any).toDate().toLocaleDateString());
                     setLoading(false);
                 } else {
                     // not found

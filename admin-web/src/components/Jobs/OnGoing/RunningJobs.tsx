@@ -6,7 +6,8 @@ import Skeleton from "react-loading-skeleton";
 import {useHistory} from "react-router";
 import {getRunningJobs, unsubscribedGetRunningJobs} from "../../../store/actions/tablesActions";
 
-function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, action, jobID} : {title : string,jobID : string, shiftOn : string,
+function RunningJob({title, shiftOn, shiftOff, employee, ON, OFF, LIVE, STATUS, action, jobID} :
+                        {title : string,jobID : string, shiftOn : string,
     shiftOff : string , address : string
     employee : any,
     ON : string, OFF : string, STATUS : string, LIVE : boolean,
@@ -71,12 +72,12 @@ export function RunningJobs() {
                     <hr className="custom-hr"/>
                         <ul className="running-jobs">
                             {
-                                // @ts-ignore
+                                // // @ts-ignore
                                 !loading && data && data.map((job : IJobRunning) => {
                                     return (
                                         <RunningJob title={job.title} address={job.address} jobID={job.jobId}
                                                       shiftOff={job.shiftOff}
-                                                     shiftOn={job.shiftOn} key={`${job.jobId}-${job.datetime}`} employee={job.employee}
+                                                     shiftOn={job.shiftOn} key={`${job.jobId}-${job.documentId}`} employee={job.employee}
                                                     ON={job.status?.onTime || "_"} OFF={job.status?.offTime || "_"}
                                                     STATUS={job.status.status} LIVE={job.status?.live || false}
                                                     action={job.action}

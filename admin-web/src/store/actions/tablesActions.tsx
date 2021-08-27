@@ -203,7 +203,8 @@ export const getRunningJobs = () : ThunkAction<void, RootState, null, TableActio
             .onSnapshot((querySnapshot) => {
                 let jobs : IJobRunning[] = [];
                 querySnapshot.forEach((doc) => {
-                    const job : IJobRunning = doc.data() as IJobRunning;
+                    let job : IJobRunning = doc.data() as IJobRunning;
+                    job.datetime = new Date(doc.data()['datetime'].toDate());
                     job.documentId = doc.id;
                     job.action = `#jobs/running/job/view?id=${doc.id}`;
                     jobs.push(job);
