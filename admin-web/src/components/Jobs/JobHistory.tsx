@@ -110,7 +110,8 @@ export function JobHistory() {
             label: 'Employee Details',
             name: 'employeeDetails',
             options : {
-                filter : false
+                filter : false,
+                display: false
             }
         },
         {

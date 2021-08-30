@@ -32,13 +32,17 @@ export function Employees() {
         },
         {
             label: 'Gender',
-            name: 'gender'
+            name: 'gender',
+            options: {
+                display: false
+            }
         },
         {
             label: 'Birthday',
             name: 'birthday',
             options : {
-                filter : false
+                filter : false,
+                display: false
             }
         },
         {
