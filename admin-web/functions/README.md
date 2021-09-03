@@ -9,8 +9,12 @@
     .\node_modules\.bin\eslint --fix . --ext .js <src>
    
 #### Deploy
-
+    firebase deploy --only functions --debug
     firebase deploy
+    
+#### Install The Latest Firebase CLI and the SDK
+    npm install -g firebase-tools
+    npm install -g firebase-tools    
     
 #### Resources
 
