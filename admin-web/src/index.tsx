@@ -12,13 +12,13 @@ import 'firebase/storage';
 // console.log = console.warn = console.error = () => {};
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCEIhkwskJv2cdl1Yffm9UZdmGQVNk1Syg",
-    authDomain: "multi-flex-cleaning-backend.firebaseapp.com",
-    projectId: "multi-flex-cleaning-backend",
-    storageBucket: "multi-flex-cleaning-backend.appspot.com",
-    messagingSenderId: "50317097132",
-    appId: "1:50317097132:web:4b59d5048161ec9a40c709",
-    measurementId: "G-WH6NWTVSQX"
+    apiKey: "AIzaSyAuSo0vOg4a9ELjR7Gl02NWnWxKQEXRPnw",
+    authDomain: "multiflex-backend-853fb.firebaseapp.com",
+    projectId: "multiflex-backend-853fb",
+    storageBucket: "multiflex-backend-853fb.appspot.com",
+    messagingSenderId: "764555404331",
+    appId: "1:764555404331:web:61e371507740bfaf9fb66e",
+    measurementId: "G-4G15JLV32B"
 };
 
 export const fire = firebase.initializeApp(firebaseConfig);

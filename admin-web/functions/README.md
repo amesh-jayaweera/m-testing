@@ -13,7 +13,7 @@
     firebase deploy
     
 #### Install The Latest Firebase CLI and the SDK
-    npm install -g firebase-tools
+    npm install firebase-functions@latest firebase-admin@latest --save
     npm install -g firebase-tools    
     
 #### Resources

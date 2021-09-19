@@ -22,7 +22,6 @@ const scheduling = async () => {
   console.log("Today Day  -------- ", todayDay);
   console.log("Tomorrow Day  -------- ", tomorrowDay);
 
-
   const todayJobRef = database.collection(todayJobPath);
   const runningJobRef = database.collection(runningJobPath);
   const employeesRef = database.collection(employeePath);
@@ -77,8 +76,6 @@ const scheduling = async () => {
                             , employee, " - First Name - ",
                             employeeDocData.firstName, " - Last Name - "
                             , employeeDocData.lastName);
-
-
                         // last employee
                         if (i == len - 1) {
                           // create today jobs
