@@ -128,10 +128,8 @@ exports.scheduleJobs = functions.pubsub
     .schedule("30 23 * * *")
     .timeZone("Asia/Colombo")
     .onRun(() => {
-      setTimeout(() => {
-        scheduling()
+      scheduling()
             .then((r) => console.log("Successfully Updated ....."))
             .catch((error) => console.log(error));
-      }, 540000); // 9 minute delay
     },
     );

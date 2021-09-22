@@ -24,7 +24,7 @@ export const getUserById = (id: string): ThunkAction<void, RootState, null, Auth
                     });
                 }
             }
-        } catch (err) {
+        } catch (err : any) {
             dispatch(setError(err.message));
         }
     }
@@ -46,7 +46,7 @@ export const signIn = (data: SignInData, onError: () => void): ThunkAction<void,
         try {
             await fire.auth().signInWithEmailAndPassword(data.email, data.password);
             return getUserById(data.email);
-        } catch (err) {
+        } catch (err : any) {
             onError();
             dispatch(setError(err.message));
         }
@@ -62,7 +62,7 @@ export const signOut = (): ThunkAction<void, RootState, null, AuthAction> => {
             dispatch({
                 type: SIGN_OUT
             });
-        } catch (err) {
+        } catch (err : any) {
             console.log(err);
             dispatch(setLoading(false));
         }

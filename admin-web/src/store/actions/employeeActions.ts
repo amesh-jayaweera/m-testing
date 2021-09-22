@@ -45,7 +45,7 @@ export const registerEmployee = (employee : IEmployee, passport : any, policeRep
                     });
                     return uploadPassport(passport, policeReport , employee.email, passportStoragePath, policeReportStoragePath , dispatch);
                 })
-                .catch((error) => {
+                .catch((error : any) => {
                     // something went wrong
                     dispatch({
                         type : USER_REGISTRATION_FAILED,

@@ -78,7 +78,7 @@ export const scheduleJob = (jobForm : IJobForm , user : LoggedUser, isEdit : boo
                                     message : "Successfully scheduled the new job"
                                 })
                             })
-                            .catch((error) => {
+                            .catch((error : any) => {
                                 // something went wrong
                                 dispatch({
                                     type : SCHEDULE_JOB_FAILED,
@@ -105,7 +105,7 @@ export const scheduleJob = (jobForm : IJobForm , user : LoggedUser, isEdit : boo
                                     message : "Successfully updated the scheduled job"
                                 });
                             })
-                            .catch((error) => {
+                            .catch((error : any) => {
                                 dispatch({
                                     type : SCHEDULED_JOB_UPDATED_FAILED,
                                     error : error
