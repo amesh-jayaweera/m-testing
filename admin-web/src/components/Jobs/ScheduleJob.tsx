@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import mapIcon from "../../resources/icons/map_icon.svg";
-import MultiSelect from "react-multi-select-component";
+import {MultiSelect} from "react-multi-select-component";
 import {Location} from "./Common/Popup/Location";
 import {useHistory, useLocation} from "react-router";
 import {AddDays} from "./Common/Popup/AddDays";

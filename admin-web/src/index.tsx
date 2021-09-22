@@ -12,13 +12,13 @@ import 'firebase/storage';
 // console.log = console.warn = console.error = () => {};
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAuSo0vOg4a9ELjR7Gl02NWnWxKQEXRPnw",
-    authDomain: "multiflex-backend-853fb.firebaseapp.com",
-    projectId: "multiflex-backend-853fb",
-    storageBucket: "multiflex-backend-853fb.appspot.com",
-    messagingSenderId: "764555404331",
-    appId: "1:764555404331:web:61e371507740bfaf9fb66e",
-    measurementId: "G-4G15JLV32B"
+    apiKey: "AIzaSyCSLEnL3thTKn3CqlU5CB21H6eZ6LSnRIo",
+    authDomain: "multi-flex-198ad.firebaseapp.com",
+    projectId: "multi-flex-198ad",
+    storageBucket: "multi-flex-198ad.appspot.com",
+    messagingSenderId: "415470155918",
+    appId: "1:415470155918:web:3625d3b096165d257db1df",
+    measurementId: "G-360P2NDMWD"
 };
 
 export const fire = firebase.initializeApp(firebaseConfig);
@@ -26,16 +26,6 @@ export const fire = firebase.initializeApp(firebaseConfig);
 const store  = configureStore();
 
 function Root() {
-
-    // const firebaseConfig = {
-    //     apiKey: "AIzaSyAIPr6UJyzeSvojwPL6z7ugDCoX4ai8gL4",
-    //     authDomain: "multiflex-backend.firebaseapp.com",
-    //     projectId: "multiflex-backend",
-    //     storageBucket: "multiflex-backend.appspot.com",
-    //     messagingSenderId: "62729891915",
-    //     appId: "1:62729891915:web:a160eee2c40ba014675dce",
-    //     measurementId: "G-MMFNQ5JL8H"
-    // };
 
     return (
         <Provider store={store}>
