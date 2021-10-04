@@ -8,6 +8,113 @@ const employeePath = "employees";
 const todayJobPath = "today_jobs";
 const runningJobPath = "running_jobs";
 
+const schedulingHelper3 = async (todayJobRef, docId, tomorrowStr,
+    tomorrowDay, selectedEmployees, data) => {
+  // create today jobs
+  await todayJobRef.doc().set({
+    jobId: docId,
+    date: tomorrowStr,
+    title: data.title,
+    address: data.address,
+    category: data.category,
+    shiftOn: data.shiftOn,
+    shiftOff: data.shiftOff,
+    day: tomorrowDay,
+    locations: data.locations,
+    datetime: new Date(),
+    employees: selectedEmployees,
+    employeeCount: selectedEmployees.length,
+  })
+      .then(() => {
+        console.log("Created today job");
+      })
+      .catch((todayJobError)=> {
+        console.log("Today Job Error ----- "
+            , todayJobError);
+      });
+};
+
+const schedulingHelper2 = async (runningJobRef, docId, tomorrowStr,
+    tomorrowDay, employeeDocData, employee,
+    todayJobRef,
+    len, selectedEmployees, i, data) => {
+  runningJobRef.doc().set({
+    jobId: docId,
+    date: tomorrowStr,
+    title: data.title,
+    address: data.address,
+    category: data.category,
+    shiftOn: data.shiftOn,
+    shiftOff: data.shiftOff,
+    day: tomorrowDay,
+    locations: data.locations,
+    datetime: new Date(),
+    employee: {
+      email: employeeDocData.email,
+      firstName: employeeDocData.firstName,
+      lastName: employeeDocData.lastName,
+      position: employeeDocData.position,
+    },
+    status: {
+      status: "NOT_STARTED",
+    },
+  }).then(() => {
+    console.log("Created running job for --- Email - "
+        , employee, " - First Name - ",
+        employeeDocData.firstName, " - Last Name - "
+        , employeeDocData.lastName);
+    // last employee
+    if (i === len - 1) {
+      schedulingHelper3(todayJobRef, docId, tomorrowStr, tomorrowDay,
+          selectedEmployees, data)
+          .then(() => {
+            console.log("scheduling_helper_3 executed ...");
+          })
+          .catch((error) => {
+            console.log("scheduling_helper_3 ", error);
+          });
+    }
+  }).catch((error) => {
+    console.log("Running Job Error ----- "
+        , error);
+  });
+};
+
+const schedulingHelper1 = async (employeeRef, selectedEmployees,
+    employee, docId,
+    tomorrowStr, tomorrowDay, len, i, data) => {
+  const todayJobRef = database.collection(todayJobPath);
+  const runningJobRef = database.collection(runningJobPath);
+  await employeeRef
+      .get()
+      .then(function(doc) {
+        // check whether the employee exists
+        if (doc.exists) {
+          const employeeDocData = doc.data();
+          if (!employeeDocData.suspend) {
+            selectedEmployees.push(employee);
+            schedulingHelper2(runningJobRef, docId, tomorrowStr, tomorrowDay,
+                employeeDocData, employee, todayJobRef
+                , len, selectedEmployees, i, data)
+                .then(() => {
+                  console.log("Helper function 2 executed...");
+                })
+                .catch((error) => {
+                  console.log("Error from helper function - 2 ", error);
+                });
+          } else {
+            console.log("Suspended Employee ---- ", employee);
+          }
+        } else {
+          console.log("Employee Not Exists ---- ", employee);
+        }
+      })
+      .catch(function(error) {
+        console.log("Employee Getting Error ---- ",
+            error);
+      });
+};
+
 const scheduling = async () => {
   const today = new Date();
   const tomorrow = new Date();
@@ -22,8 +129,6 @@ const scheduling = async () => {
   console.log("Today Day  -------- ", todayDay);
   console.log("Tomorrow Day  -------- ", tomorrowDay);
 
-  const todayJobRef = database.collection(todayJobPath);
-  const runningJobRef = database.collection(runningJobPath);
   const employeesRef = database.collection(employeePath);
   const jobRef = database.collection(jobPath);
   await jobRef
@@ -43,80 +148,16 @@ const scheduling = async () => {
             const employee = employees[i]["value"];
             console.log(docId, " - Employee - ", employee);
             const employeeRef = employeesRef.doc(employee.trim());
-            employeeRef
-                .get()
-                .then(function(doc) {
-                  // check whether the employee exists
-                  if (doc.exists) {
-                    const employeeDocData = doc.data();
-                    if (!employeeDocData.suspend) {
-                      selectedEmployees.push(employee);
-                      runningJobRef.doc().set({
-                        jobId: docId,
-                        date: tomorrowStr,
-                        title: data.title,
-                        address: data.address,
-                        category: data.category,
-                        shiftOn: data.shiftOn,
-                        shiftOff: data.shiftOff,
-                        day: tomorrowDay,
-                        locations: data.locations,
-                        datetime: new Date(),
-                        employee: {
-                          email: employeeDocData.email,
-                          firstName: employeeDocData.firstName,
-                          lastName: employeeDocData.lastName,
-                          position: employeeDocData.position,
-                        },
-                        status: {
-                          status: "NOT_STARTED",
-                        },
-                      }).then(() => {
-                        console.log("Created running job for --- Email - "
-                            , employee, " - First Name - ",
-                            employeeDocData.firstName, " - Last Name - "
-                            , employeeDocData.lastName);
-                        // last employee
-                        if (i == len - 1) {
-                          // create today jobs
-                          todayJobRef.doc().set({
-                            jobId: docId,
-                            date: tomorrowStr,
-                            title: data.title,
-                            address: data.address,
-                            category: data.category,
-                            shiftOn: data.shiftOn,
-                            shiftOff: data.shiftOff,
-                            day: tomorrowDay,
-                            locations: data.locations,
-                            datetime: new Date(),
-                            employees: selectedEmployees,
-                            employeeCount: selectedEmployees.length,
-                          })
-                              .then(() => {
-                                console.log("Created today job");
-                              })
-                              .catch((todayJobError)=> {
-                                console.log("Today Job Error ----- "
-                                    , todayJobError);
-                              });
-                        }
-                      }).catch((error) => {
-                        console.log("Running Job Error ----- "
-                            , error);
-                      });
-                    } else {
-                      console.log("Suspended Employee ---- ", employee);
-                    }
-                  } else {
-                    console.log("Employee Not Exists ---- ", employee);
-                  }
+            schedulingHelper1(employeeRef, selectedEmployees, employee,
+                docId, tomorrowStr, tomorrowDay, len, i, data)
+                .then(() => {
+                  console.log("helper function - 1 is executed ...");
                 })
-                .catch(function(error) {
-                  console.log("Employee Getting Error ---- ",
-                      error);
+                .catch((error) => {
+                  console.log("Error from helper function : 1", error);
                 });
           }
+          // end jobs
         });
       })
       .catch(function(error) {
@@ -125,11 +166,11 @@ const scheduling = async () => {
 };
 
 exports.scheduleJobs = functions.pubsub
-    .schedule("30 23 * * *")
+    .schedule("15 * * * *")
     .timeZone("Asia/Colombo")
     .onRun(() => {
       scheduling()
-            .then((r) => console.log("Successfully Updated ....."))
-            .catch((error) => console.log(error));
+          .then(() => console.log("Completed Job Scheduling Process....."))
+          .catch((error) => console.log(error));
     },
     );
