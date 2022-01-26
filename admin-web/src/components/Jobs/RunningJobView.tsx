@@ -179,8 +179,8 @@ export function RunningJobView({isHistory} : {isHistory : boolean}) {
                                 </thead>
                                 <tbody className="pd-20">
                                 {!loading && job &&
-                                        job.status.timline &&
-                                        job.status.timline.map((time : Timeline) => {
+                                        job.status.timeline &&
+                                        job.status.timeline.map((time : Timeline) => {
                                             return (
                                                 <tr key={time.time}>
                                                     <td>{(time.time as any).toDate().toLocaleTimeString()}</td>

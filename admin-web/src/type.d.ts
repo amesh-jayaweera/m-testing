@@ -245,7 +245,7 @@ export interface IJobRunning {
         offTime? : string;
         onTime? : string;
         feedback? : Feedback[]; // feedback
-        timline? : Timeline[];
+        timeline? : Timeline[];
     }
 }
 
