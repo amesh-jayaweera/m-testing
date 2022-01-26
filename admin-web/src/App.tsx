@@ -17,7 +17,7 @@ import {NotAvailable} from "./components/Error/NotAvailable/NotAvailable";
 import appLogo57x57 from "./resources/images/app-logo-57x57.png";
 import appLogo512x512 from "./resources/images/app-logo-512x512.png";
 // @ts-ignore
-import pdf from "./resources/app/app.pdf";
+import app from "./resources/app/multiflexv1.ipa";
 
 const history = createBrowserHistory();
 
@@ -70,7 +70,7 @@ function DownloadMultiFlexEmployeeApp() {
             <p>{message}</p>
             {
                 message === "Authentication Success!" &&
-                <a href={pdf} download="app.pdf"> Download MultiFlex Employee App</a>
+                <a href={app} download="multiflexv1.ipa"> Download MultiFlex Employee App</a>
             }
         </>
     )
