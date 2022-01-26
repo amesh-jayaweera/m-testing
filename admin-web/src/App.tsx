@@ -14,8 +14,22 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import {NotFound} from "./components/Error/NotFound/NotFound";
 import {ForgotPassword} from "./components/ForgotPassword/ForgotPassword";
 import {NotAvailable} from "./components/Error/NotAvailable/NotAvailable";
+import appLogo57x57 from "./resources/images/app-logo-57x57.png";
+import appLogo512x512 from "./resources/images/app-logo-512x512.png";
 
 const history = createBrowserHistory();
+
+function AppIcon57x57() {
+    return (
+        <img src={appLogo57x57} alt={"MultiFlex Employee App"} className="center"/>
+    )
+}
+
+function AppIcon512x512() {
+    return (
+        <img src={appLogo512x512} alt={"MultiFlex Employee App"} className="center"/>
+    )
+}
 
 function App() {
 
@@ -45,6 +59,8 @@ function App() {
     return (
           <Router history={history}>
               <Switch>
+                  <PublicRoute path="/app-logo-57x57.png" component={AppIcon57x57} exact />
+                  <PublicRoute path="/app-logo-512x512.png" component={AppIcon512x512} exact />
                   <PrivateRoute path="/" component={HomePage} exact/>
                   <PublicRoute path="/login" component={Login} exact />
                   <PrivateRoute path="/loading" component={Login} exact />
