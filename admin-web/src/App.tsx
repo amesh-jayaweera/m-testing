@@ -34,9 +34,8 @@ function AppIcon512x512() {
 function DownloadMultiFlexEmployeeApp() {
     return (
         <>
-            <a href="itms-services://?action=download-manifest&url=https://firebasestorage.googleapis.com/v0/b/multi-flex-198ad.appspot.com/o/employee-app%2Fmanifest.plist?alt=media&token=6645e2a3-d164-49cf-93ca-b3fede90d449"
-                className="btn-app-download center"
-            >
+            <a href="itms-services://?action=download-manifest&url=https://multiflex-employee-app-server.herokuapp.com/manifest/manifest.plist"
+                className="btn-app-download center">
                 Download & Install MultiFlex Employee App</a>
         </>
     )
