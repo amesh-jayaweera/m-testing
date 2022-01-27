@@ -55,18 +55,33 @@ export const signIn = (data: SignInData, onError: () => void): ThunkAction<void,
 
 // Log out
 export const signOut = (): ThunkAction<void, RootState, null, AuthAction> => {
-    return async dispatch => {
-        try {
+    // return async dispatch => {
+    //     try {
+    //         dispatch(setLoading(true));
+    //         // fire.firestore().clearPersistence()
+    //         await fire.auth().signOut();
+    //         dispatch({
+    //             type: SIGN_OUT
+    //         });
+    //     } catch (err : any) {
+    //         dispatch(setLoading(false));
+    //     }
+    // }
+
+    return (dispatch) => {
+        return new Promise(() => {
             dispatch(setLoading(true));
-            await fire.auth().signOut();
-            dispatch({
-                type: SIGN_OUT
-            });
-        } catch (err : any) {
-            console.log(err);
-            dispatch(setLoading(false));
-        }
-    }
+            fire
+                .auth()
+                .signOut()
+                .then(() => {
+                    dispatch({
+                        type: SIGN_OUT
+                    });
+                })
+                .catch(() => {dispatch(setLoading(false));});
+        });
+    };
 };
 
 // Set error
