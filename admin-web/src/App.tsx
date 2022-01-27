@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {HomePage} from "./components/HomePage/HomePage";
 import {createBrowserHistory} from "history";
@@ -32,45 +32,12 @@ function AppIcon512x512() {
 }
 
 function DownloadMultiFlexEmployeeApp() {
-
-    const [message, setMessage] = useState<string>("");
-
-    const checkUserAccess = async (username : string) => {
-        const user = await fire.firestore().collection('employees').doc(username).get();
-        const userExists : boolean = user.exists;
-        return userExists;
-    };
-
-    useEffect(()=> {
-        const username = window.prompt("Employee Email");
-        if(username !== null) {
-            checkUserAccess(username)
-                .then((userExists) => {
-                    if(userExists) {
-                        setMessage("Authentication Success!");
-                    } else {
-                        setMessage("Authentication Failed!");
-                    }
-                })
-                .catch(() => {
-                    setMessage("Authentication Failed!");
-                });
-        } else {
-            setMessage("Username and password required!")
-        }
-        return () => {
-            //
-        }
-    },[]);
-
     return (
         <>
-            <p>{message}</p>
-            {
-                message === "Authentication Success!" &&
-                <a href="itms-services://?action=download-manifest&url=https://firebasestorage.googleapis.com/v0/b/multi-flex-198ad.appspot.com/o/employee-app%2Fmanifest.plist?alt=media&token=6645e2a3-d164-49cf-93ca-b3fede90d449">
-                    Download & Install MultiFlex Employee App</a>
-            }
+            <a href="itms-services://?action=download-manifest&url=https://firebasestorage.googleapis.com/v0/b/multi-flex-198ad.appspot.com/o/employee-app%2Fmanifest.plist?alt=media&token=6645e2a3-d164-49cf-93ca-b3fede90d449"
+                className="btn-app-download center"
+            >
+                Download & Install MultiFlex Employee App</a>
         </>
     )
 }
