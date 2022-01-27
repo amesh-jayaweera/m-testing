@@ -66,7 +66,7 @@ export function Login() {
                                             <div className="input-group mt-3">
                                                 <input type="password" className="form-control"
                                                        onChange={(e) => setPassword(e.target.value)}
-                                                       placeholder="Password"/>
+                                                       placeholder="Password" autoComplete="on"/>
                                             </div>
 
                                             <div className="input-group text-center mt-4">
