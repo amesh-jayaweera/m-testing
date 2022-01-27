@@ -9,7 +9,11 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-// console.log = console.warn = console.error = () => {};
+if (process.env.NODE_ENV === 'production') {
+    console.log = () => {}
+    console.error = () => {}
+    console.debug = () => {}
+}
 
 const firebaseConfig = {
     apiKey: "AIzaSyCSLEnL3thTKn3CqlU5CB21H6eZ6LSnRIo",
