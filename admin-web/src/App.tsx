@@ -16,7 +16,7 @@ import {ForgotPassword} from "./components/ForgotPassword/ForgotPassword";
 import {NotAvailable} from "./components/Error/NotAvailable/NotAvailable";
 import appLogo57x57 from "./resources/images/app-logo-57x57.png";
 import appLogo512x512 from "./resources/images/app-logo-512x512.png";
-import qrCode from "./resources/qr/QR Code for Download & Install Employee App.png";
+import {EmployeeAppDownloadPage} from "./EmployeeAppDownloadPage";
 
 const history = createBrowserHistory();
 
@@ -32,18 +32,18 @@ function AppIcon512x512() {
     )
 }
 
-function DownloadMultiFlexEmployeeApp() {
-    return (
-        <>
-            <div className="multiflex-employee-app-download">
-                <img src={qrCode} alt="QR Code for Download & Install Employee App.png" className="center"/>
-                <a href="itms-services://?action=download-manifest&url=https://multiflex-employee-app-server.herokuapp.com/manifest/manifest.plist"
-                    className="btn-app-download center">
-                    Download & Install MultiFlex Employee App</a>
-            </div>
-        </>
-    )
-}
+// function DownloadMultiFlexEmployeeApp() {
+//     return (
+//         <>
+//             <div className="multiflex-employee-app-download">
+//                 <img src={qrCode} alt="QR Code for Download & Install Employee App.png" className="center"/>
+//                 <a href="itms-services://?action=download-manifest&url=https://multiflex-employee-app-server.herokuapp.com/manifest/manifest.plist"
+//                     className="btn-app-download center">
+//                     Download & Install MultiFlex Employee App</a>
+//             </div>
+//         </>
+//     )
+// }
 
 function App() {
 
@@ -73,7 +73,7 @@ function App() {
     return (
           <Router history={history}>
               <Switch>
-                  <PublicRoute path="/multiflex-employee-app-download" component={DownloadMultiFlexEmployeeApp} exact />
+                  <PublicRoute path="/multiflex-employee-app-download" component={EmployeeAppDownloadPage} exact />
                   <PublicRoute path="/app-logo-57x57.png" component={AppIcon57x57} exact />
                   <PublicRoute path="/app-logo-512x512.png" component={AppIcon512x512} exact />
                   <PrivateRoute path="/" component={HomePage} exact/>
